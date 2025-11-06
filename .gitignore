@@ -11,3 +11,5 @@ out/
 
 *.log
 hs_err_pid*
+
+db/*.trace.db
