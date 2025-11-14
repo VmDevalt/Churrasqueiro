@@ -1,6 +1,7 @@
 .classpath
 .project
 .settings/
+.vscode/
 
 .idea/
 *.iml
@@ -12,4 +13,9 @@ out/
 *.log
 hs_err_pid*
 
-db/*.trace.db
+/database/ 
+/db/ 
+
+*.trace.db
+
+**/*.class
