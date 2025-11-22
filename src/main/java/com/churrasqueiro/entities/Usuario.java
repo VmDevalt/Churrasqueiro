@@ -13,6 +13,18 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 	
+	//		Construtor sem atributos
+	public Usuario() {
+		
+	}
+
+	//		Construtor sem atributo ID
+	public Usuario(String login, String senhaHash, String tipo) {
+		this.login = login;
+		this.senhaHash = senhaHash;
+		this.tipo = tipo;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -43,6 +55,17 @@ public class Usuario {
 	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	//		Método toString
+	@Override
+	public String toString() {
+		return  "Usuario { " +
+	            "id=" + id +
+	            ", login='" + login + '\'' +
+	            ", senhaHash='" + senhaHash + '\'' +
+	            ", tipo='" + tipo + '\'' +
+	            " }";
 	}
 }
 
