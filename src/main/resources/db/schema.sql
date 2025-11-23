@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
     login VARCHAR(100) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    tipo VARCHAR(20) NOT NULL
+    tipo VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL
 );
 
 RUNSCRIPT FROM 'classpath:db/data.sql';
