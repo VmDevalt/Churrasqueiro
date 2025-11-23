@@ -5,12 +5,14 @@ public class Usuario {
 	private String login;
 	private String senhaHash;
 	private String tipo;
+	private String email;
 	
-	public Usuario(int id, String login, String senhaHash, String tipo) {
+	public Usuario(int id, String login, String senhaHash, String tipo, String email) {
 		this.id = id;
 		this.login = login;
 		this.senhaHash = senhaHash;
 		this.tipo = tipo;
+		this.email = email;
 	}
 	
 	//		Construtor sem atributos
@@ -23,6 +25,7 @@ public class Usuario {
 		this.login = login;
 		this.senhaHash = senhaHash;
 		this.tipo = tipo;
+		this.email = email;
 	}
 	
 	public int getId() {
@@ -57,6 +60,14 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	//		Método toString
 	@Override
 	public String toString() {
@@ -65,6 +76,7 @@ public class Usuario {
 	            ", login='" + login + '\'' +
 	            ", senhaHash='" + senhaHash + '\'' +
 	            ", tipo='" + tipo + '\'' +
+	            ", email='" + email + '\'' +
 	            " }";
 	}
 }

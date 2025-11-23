@@ -3,6 +3,12 @@ package com.churrasqueiro.ui;
 import java.awt.EventQueue;
 
 import javax.swing.border.LineBorder;
+
+import com.churrasqueiro.business.LoginController;
+import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,16 +22,57 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class TelaLogin extends JFrame {
-
+	
+	private static final LoginController loginController = new LoginController();
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
     private JTextField campoLogin;
-    private JTextField campoSenha;
+    private JPasswordField campoSenha;
+    private JButton botaoLogar;
+
+    public String getLogin() {
+		return campoLogin.getText().trim();
+	}
+
+	public String getSenha() {
+		String senha = new String(campoSenha.getPassword());
+		campoSenha.setText("");
+		return senha;
+	}
+	
+
+	public void autenticar() {
+		String login = getLogin();
+		String senha = getSenha();
+		
+		try {
+			Usuario usuarioAutenticado = loginController.autenticar(login, senha);
+			JOptionPane.showMessageDialog(this, 
+	                "Login bem-sucedido! Tipo: " + usuarioAutenticado.getTipo(), 
+	                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			
+		} catch (ControllerException ex) {
+			 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro de Login",
+			 JOptionPane.WARNING_MESSAGE);
+            
+        } catch (DatabaseException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado", ex.getMessage(), 
+            JOptionPane.ERROR_MESSAGE);
+			ex.printStackTrace();
+		}
+      }
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,7 +141,7 @@ public class TelaLogin extends JFrame {
 		campoLogin.setBorder(new LineBorder(new Color(191, 63, 63), 2, true));
 
 		
-		campoSenha = new JTextField();
+		campoSenha = new JPasswordField();
 		campoSenha.setToolTipText("Digite seu texto");
 		campoSenha.setText("Digite sua senha...");
 		campoSenha.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -135,6 +182,11 @@ public class TelaLogin extends JFrame {
 		panel.add(labelSenha);
 		
 		JButton botaoLogar = new JButton("ENTRAR");
+		botaoLogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				autenticar();
+			}
+		});
 		botaoLogar.setForeground(new Color(255, 255, 255));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(321, 400, 173, 31);

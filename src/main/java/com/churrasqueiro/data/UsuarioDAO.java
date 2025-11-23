@@ -1,6 +1,7 @@
 package com.churrasqueiro.data;
 
 import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -11,8 +12,8 @@ import java.util.Optional;
 
 public class UsuarioDAO {
 
-    public Optional<Usuario> buscarPorLogin(String login) throws SQLException {
-        String sql = "SELECT id, login, senha, tipo FROM usuario WHERE login = ?";
+    public Optional<Usuario> buscarPorLogin(String login) throws DatabaseException {
+        String sql = "SELECT id, login, senha, tipo, email FROM usuario WHERE login = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -25,14 +26,15 @@ public class UsuarioDAO {
                         rs.getInt("id"),
                         rs.getString("login"),
                         rs.getString("senha"),
-                        rs.getString("tipo")
+                        rs.getString("tipo"),
+                        rs.getString("email")
                     );
                     return Optional.of(usuario);
                 }
             }
         } catch (SQLException e) {
             System.err.println("Erro ao fazer busca de usuário por login: " + e.getMessage());
-            throw e;
+            throw new DatabaseException("Falha ao consultar usuário no banco de dados.");
         }
         return Optional.empty();
     }
