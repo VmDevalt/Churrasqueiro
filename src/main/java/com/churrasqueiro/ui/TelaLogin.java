@@ -58,14 +58,14 @@ public class TelaLogin extends JFrame {
         }
 
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(255, 0, 0));
+        contentPane.setBackground(new Color(179, 13, 36));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(238, 232, 170));
-		panel.setBounds(39, 62, 1163, 563);
+		panel.setBackground(new Color(227, 202, 187));
+		panel.setBounds(91, 89, 1098, 505);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -76,7 +76,7 @@ public class TelaLogin extends JFrame {
 				JOptionPane.showMessageDialog(botaoRevelarSenha, "Teste");
 			}
 		});
-		botaoRevelarSenha.setBounds(735, 365, 29, 20);
+		botaoRevelarSenha.setBounds(728, 316, 47, 31);
 		panel.add(botaoRevelarSenha);
 		botaoRevelarSenha.setBorder(null);
 		botaoRevelarSenha.setContentAreaFilled(false);
@@ -87,11 +87,11 @@ public class TelaLogin extends JFrame {
 		campoLogin.setFont(new Font("Calibri", Font.PLAIN, 18));
 		campoLogin.setText("Digite seu e-mail...");
 		campoLogin.setToolTipText("Digite seu texto");
-		campoLogin.setBounds(316, 266, 454, 31);
+		campoLogin.setBounds(321, 221, 454, 31);
 		panel.add(campoLogin);
 		campoLogin.setColumns(10);
-		campoLogin.setBackground(new Color(238, 232, 170));
-		campoLogin.setBorder(new LineBorder(Color.RED, 2, true));
+		campoLogin.setBackground(new Color(227, 202, 187));
+		campoLogin.setBorder(new LineBorder(new Color(191, 63, 63), 2, true));
 
 		
 		campoSenha = new JTextField();
@@ -99,37 +99,51 @@ public class TelaLogin extends JFrame {
 		campoSenha.setText("Digite sua senha...");
 		campoSenha.setFont(new Font("Calibri", Font.PLAIN, 18));
 		campoSenha.setColumns(10);
-		campoSenha.setBounds(316, 361, 454, 31);
-		campoSenha.setBackground(new Color(238, 232, 170));
-		campoSenha.setBorder(new LineBorder(Color.RED, 2));
+		campoSenha.setBounds(321, 316, 454, 31);
+		campoSenha.setBackground(new Color(227, 202, 187));
+		campoSenha.setBorder(new LineBorder(new Color(191, 63, 63), 2));
 
 		panel.add(campoSenha);
-		
-		JLabel labelLogo = new JLabel("");
-		labelLogo.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/logo.png")));
-		labelLogo.setBounds(442, 37, 202, 183);
-		panel.add(labelLogo);
-		
-		JLabel labelLogin = new JLabel("LOGIN");
+
+        int larguraLogo = 150;
+        int alturaLogo = 132;
+        JLabel labelLogo = new JLabel("");
+        labelLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/assets/imagens/logo.png")));
+        labelLogo.setBounds(463, 33, 150, 132);
+        panel.add(labelLogo);
+        java.net.URL urlLogo = getClass().getResource("/assets/imagens/logo.png");
+        if (urlLogo != null) {
+            java.awt.Image originalImage = java.awt.Toolkit.getDefaultToolkit().getImage(urlLogo);
+            java.awt.Image resizedImage = originalImage.getScaledInstance(
+                    larguraLogo,
+                    alturaLogo,
+                    java.awt.Image.SCALE_SMOOTH
+            );
+            labelLogo.setIcon(new ImageIcon(resizedImage));
+        }
+
+
+
+        JLabel labelLogin = new JLabel("LOGIN");
 		labelLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
-		labelLogin.setBounds(505, 244, 71, 12);
+		labelLogin.setBounds(510, 188, 71, 23);
 		panel.add(labelLogin);
 		
 		JLabel labelSenha = new JLabel("SENHA");
 		labelSenha.setFont(new Font("Tahoma", Font.BOLD, 16));
-		labelSenha.setBounds(505, 339, 71, 12);
+		labelSenha.setBounds(510, 286, 71, 20);
 		panel.add(labelSenha);
 		
 		JButton botaoLogar = new JButton("ENTRAR");
 		botaoLogar.setForeground(new Color(255, 255, 255));
-		botaoLogar.setBackground(new Color(255, 0, 0));
-		botaoLogar.setBounds(316, 445, 173, 31);
+		botaoLogar.setBackground(new Color(179, 13, 36));
+		botaoLogar.setBounds(321, 400, 173, 31);
 		panel.add(botaoLogar);
 		
 		JButton botaoEsqueciSenha = new JButton("ESQUECEU A SENHA?");
 		botaoEsqueciSenha.setForeground(new Color(255, 255, 255));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
-		botaoEsqueciSenha.setBounds(597, 445, 173, 31);
+		botaoEsqueciSenha.setBounds(602, 400, 173, 31);
 		panel.add(botaoEsqueciSenha);
 	}
 }
