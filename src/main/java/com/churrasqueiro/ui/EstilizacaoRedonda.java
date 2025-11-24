@@ -115,21 +115,13 @@ public class EstilizacaoRedonda {
             setOpaque(false);
             setBackground(fundo);
             setBorder(BorderFactory.createEmptyBorder(5, raioArredondado, 5, raioArredondado));
-
+            
             addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
                     if (getText().equals(espacoTexto)) {
                         setText("");
                         setForeground(Color.BLACK);
-                    }
-                }
-
-                @Override
-                public void focusLost(FocusEvent e) {
-                    if (getText().isEmpty()) {
-                        setText(CaixaTextoRedonda.this.espacoTexto);
-                        setForeground(CaixaTextoRedonda.this.espacoCor);
                     }
                 }
             });
@@ -191,13 +183,6 @@ public class EstilizacaoRedonda {
                     if (getText().equals(espacoTextoSenha)) {
                         setText("");
                         setForeground(Color.BLACK);
-                    }
-                }
-                @Override
-                public void focusLost(FocusEvent e) {
-                    if (getText().isEmpty()) {
-                        setText(CaixaSenhaRedonda.this.espacoTextoSenha);
-                        setForeground(CaixaSenhaRedonda.this.espacoCorSenha);
                     }
                 }
             });

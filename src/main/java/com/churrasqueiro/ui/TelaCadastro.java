@@ -1,3 +1,5 @@
+package com.churrasqueiro.ui;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
