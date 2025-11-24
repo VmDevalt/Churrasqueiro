@@ -173,15 +173,15 @@ public class TelaLogin extends JFrame {
             labelLogo.setIcon(new ImageIcon(resizedImage));
         }
 
-        JLabel labelLogin = new JLabel("LOGIN");
+        JLabel labelLogin = new JLabel("Login");
         labelLogin.setForeground(corPaletaPreto);
-		labelLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
+		labelLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
 		labelLogin.setBounds(510, 191, 58, 32);
 		panel.add(labelLogin);
 		
-		JLabel labelSenha = new JLabel("SENHA");
+		JLabel labelSenha = new JLabel("Senha");
         labelSenha.setForeground(corPaletaPreto);
-		labelSenha.setFont(new Font("Tahoma", Font.BOLD, 16));
+		labelSenha.setFont(new Font("Tahoma", Font.BOLD, 17));
 		labelSenha.setBounds(510, 276, 71, 32);
 		panel.add(labelSenha);
 
