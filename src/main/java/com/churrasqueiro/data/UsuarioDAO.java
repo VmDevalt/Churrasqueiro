@@ -67,4 +67,6 @@ public class UsuarioDAO {
 		}
 		throw new DatabaseException("Falha desconhecida ao inserir usuário.");
     }
+    
+    //TODO: CRIAÇÃO DO MÉTODO QUE PROCURA UM EMAIL NO BD
 }

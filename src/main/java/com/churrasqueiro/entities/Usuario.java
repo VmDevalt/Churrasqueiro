@@ -15,13 +15,13 @@ public class Usuario {
 		this.email = email;
 	}
 	
-	//		Construtor sem atributos
+	//Construtor sem atributos
 	public Usuario() {
 		
 	}
 
-	//		Construtor sem atributo ID
-	public Usuario(String login, String senhaHash, String tipo) {
+	//Construtor sem atributo ID
+	public Usuario(String login, String senhaHash, String tipo, String email) {
 		this.login = login;
 		this.senhaHash = senhaHash;
 		this.tipo = tipo;
@@ -68,7 +68,7 @@ public class Usuario {
 		this.email = email;
 	}
 	
-	//		Método toString
+	//Método toString
 	@Override
 	public String toString() {
 		return  "Usuario { " +
