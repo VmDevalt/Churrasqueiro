@@ -29,8 +29,10 @@ public class TelaCadastro extends JFrame {
 	private static final int ALTURA = 720;
 	private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
 	private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
-	private EstilizacaoRedonda.CaixaTextoRedonda campoNome;
+	private EstilizacaoRedonda.CaixaSenhaRedonda CampoConfirmarSenha;
+	private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
 	private JButton botaoCriarConta;
+	
 
 	
 	public static void main(String[] args) {
@@ -77,26 +79,33 @@ public class TelaCadastro extends JFrame {
 		panelVermelho.add(panelBranco);
 		panelBranco.setLayout(null);
 		
-		this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu nome completo...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoNome.setFont(new Font("Calibri", Font.PLAIN, 14));
-		campoNome.setToolTipText("Digite seu texto");
-		campoNome.setBounds(250, 189, 597, 38);
-		panelBranco.add(campoNome);
-		campoNome.setColumns(10);
+		this.campoEmail = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		campoEmail.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoEmail.setToolTipText("Digite seu texto");
+		campoEmail.setBounds(550, 189, 540, 38);
+		campoEmail.setColumns(10);
+		panelBranco.add(campoEmail);
 		
-		this.campoLogin = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		this.campoLogin = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu login...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoLogin.setFont(new Font("Calibri", Font.PLAIN, 14));
 		campoLogin.setToolTipText("Digite seu texto");
-		campoLogin.setBounds(250, 280, 597, 38);
-		panelBranco.add(campoLogin);
+		campoLogin.setBounds(6, 189, 540, 38);
 		campoLogin.setColumns(10);
+		panelBranco.add(campoLogin);
 		
 		this.campoSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Digite sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoSenha.setToolTipText("Digite seu texto");
 		campoSenha.setFont(new Font("Calibri", Font.PLAIN, 14));
 		campoSenha.setColumns(10);
-		campoSenha.setBounds(250, 367, 597, 38);
+		campoSenha.setBounds(6, 302, 540, 38);
 		panelBranco.add(campoSenha);
+		
+		this.CampoConfirmarSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Confirme sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		CampoConfirmarSenha.setBounds(550, 302, 540, 38);
+		CampoConfirmarSenha.setToolTipText("Digite seu texto");
+		CampoConfirmarSenha.setFont(new Font("Calibri", Font.PLAIN, 14));
+		CampoConfirmarSenha.setColumns(10);
+		panelBranco.add(CampoConfirmarSenha);
 		
 		JLabel labelCadastro = new JLabel("Cadastro de Usuário");
 		labelCadastro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,23 +117,29 @@ public class TelaCadastro extends JFrame {
 		JLabel labelLogin = new JLabel("Login");
 	    labelLogin.setForeground(corPaletaPreto);
 	    labelLogin.setFont(new Font("Calibri", Font.PLAIN, 17));
-	    labelLogin.setBounds(505, 239, 58, 32);
+	    labelLogin.setBounds(220, 145, 50, 32);
 	    panelBranco.add(labelLogin);
+	    
+	    JLabel labelEmail = new JLabel("Email");
+	    labelEmail.setForeground(corPaletaPreto);
+	    labelEmail.setFont(new Font("Calibri", Font.PLAIN, 17));
+	    labelEmail.setBounds(781, 145, 50, 32);
+	    panelBranco.add(labelEmail);
 			
 	    JLabel labelSenha = new JLabel("Senha");
 	    labelSenha.setForeground(corPaletaPreto);
 	    labelSenha.setFont(new Font("Calibri", Font.PLAIN, 17));
-	    labelSenha.setBounds(505, 330, 71, 32);
+	    labelSenha.setBounds(220, 258, 50, 32);
 	    panelBranco.add(labelSenha);
-		
-	    JLabel labelNomeCompleto = new JLabel("Nome Completo");
-	    labelNomeCompleto.setForeground(corPaletaPreto);
-		labelNomeCompleto.setFont(new Font("Calibri", Font.PLAIN, 17));
-		labelNomeCompleto.setBounds(465, 147, 129, 32);
-		panelBranco.add(labelNomeCompleto);
+	    
+	    JLabel labelConfirmarSenha = new JLabel("Confirmar Senha");
+	    labelConfirmarSenha.setForeground(Color.BLACK);
+	    labelConfirmarSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
+	    labelConfirmarSenha.setBounds(746, 258, 136, 32);
+	    panelBranco.add(labelConfirmarSenha);
 		
 		String[] tipoUsuarios = {"Administrador", "Funcionário"};
-		JComboBox cBoxTipoUsuario = new JComboBox(tipoUsuarios);
+		JComboBox<String> cBoxTipoUsuario = new JComboBox<>(tipoUsuarios);
 		cBoxTipoUsuario.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		cBoxTipoUsuario.setForeground(corPaletaPreto);
 		cBoxTipoUsuario.setBackground(corPaletaBege);
