@@ -68,5 +68,27 @@ public class UsuarioDAO {
 		throw new DatabaseException("Falha desconhecida ao inserir usuário.");
     }
     
-    //TODO: CRIAÇÃO DO MÉTODO QUE PROCURA UM EMAIL NO BD
+    public Optional<Usuario> buscarEmail(String email) throws DatabaseException{
+    	String sql = "SELECT id, login, senha, tipo, email FROM usuario WHERE email = ?";
+    	try(Connection conn = DatabaseConnection.getConnection();
+    		PreparedStatement ps = conn.prepareStatement(sql)){
+    			ps.setString(1, email);
+    			try(ResultSet rs = ps.executeQuery()){
+    				if(rs.next()) {
+    					Usuario usuario = new Usuario(
+    							rs.getInt("id"),
+    							rs.getString("login"),
+    							rs.getString("senha"),
+    							rs.getString("tipo"),
+    							rs.getString("email")
+    							);
+    					return Optional.of(usuario);
+    				}
+    			}
+    	} catch (SQLException e) {
+    		System.err.println("Erro ao fazer busca de usuário por login: " + e.getMessage());
+    		throw new DatabaseException("Falha ao consultar usuário no banco de dados.");
+    	}
+    	return Optional.empty();
+    }
 }

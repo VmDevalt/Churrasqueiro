@@ -189,14 +189,14 @@ public class TelaLogin extends JFrame {
 				autenticar();
 			}
 		});
-		botaoLogar.setForeground(new Color(255, 255, 255));
+		botaoLogar.setForeground(new Color(227,202,187));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(275, 393, 268, 38);
         botaoLogar.setFont(new Font("Tahoma", Font.BOLD, 16));
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoEsqueciSenha.setForeground(new Color(255, 255, 255));
+		botaoEsqueciSenha.setForeground(new Color(227,202,187));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
 		botaoEsqueciSenha.setBounds(555, 393, 261, 38);
         botaoEsqueciSenha.setFont(new Font("Tahoma", Font.BOLD, 16));

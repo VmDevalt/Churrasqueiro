@@ -15,11 +15,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import com.churrasqueiro.business.CadastroUsuarioController;
+import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaCadastro extends JFrame {
 
@@ -27,13 +32,63 @@ public class TelaCadastro extends JFrame {
 	private JPanel panelVermelho;
 	private static final int LARGURA = 1280;
 	private static final int ALTURA = 720;
+	private static final CadastroUsuarioController CadastroController = new CadastroUsuarioController();
 	private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
 	private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
 	private EstilizacaoRedonda.CaixaSenhaRedonda CampoConfirmarSenha;
 	private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
+	private JComboBox<String> cBoxTipoUsuario;
 	private JButton botaoCriarConta;
 	
-
+	public String getLogin() {
+		return campoLogin.getText().trim();
+	}
+	
+	public String getEmail() {
+		return campoEmail.getText().trim();
+	}
+	
+	public String getTipo() {
+		Object tipoSelecionado = cBoxTipoUsuario.getSelectedItem();
+		String tipo = String.valueOf(tipoSelecionado);
+		return tipo;
+	}
+	
+	public String getSenha() {
+		String senha = new String(campoSenha.getPassword());
+		return senha;
+	}
+	
+	public String getSenhaConfirmada() {
+		String senhaConfirmada = new String(CampoConfirmarSenha.getPassword());
+		return senhaConfirmada;
+	}
+	
+	public void cadastrar() {
+		String login = getLogin();
+		String tipo = getTipo();
+		String email = getEmail();
+		String senha = getSenha();
+		String senhaConfirmada = getSenhaConfirmada();
+		
+		try {
+			Usuario novoUsuario = CadastroController.cadastrar(login, tipo, email, senha, senhaConfirmada);
+			JOptionPane.showMessageDialog(this,
+					"Cadastro realizado com sucesso! Tipo: " + novoUsuario.getTipo(),
+					"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} catch(ControllerException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
+			JOptionPane.WARNING_MESSAGE);
+		} catch(DatabaseException e) {
+			JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(this, "Erro inesperado", e.getMessage(), 
+            JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -138,8 +193,8 @@ public class TelaCadastro extends JFrame {
 	    labelConfirmarSenha.setBounds(746, 258, 136, 32);
 	    panelBranco.add(labelConfirmarSenha);
 		
-		String[] tipoUsuarios = {"Administrador", "Funcionário"};
-		JComboBox<String> cBoxTipoUsuario = new JComboBox<>(tipoUsuarios);
+		String[] tipoUsuarios = {"ADMIN", "ATENDENTE"};
+		this.cBoxTipoUsuario = new JComboBox<>(tipoUsuarios);
 		cBoxTipoUsuario.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		cBoxTipoUsuario.setForeground(corPaletaPreto);
 		cBoxTipoUsuario.setBackground(corPaletaBege);
@@ -155,11 +210,12 @@ public class TelaCadastro extends JFrame {
 		panelBranco.add(labelTipoUsuario);
 		
 		this.botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo("Criar Conta",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-	//	botaoLogar.addActionListener(new ActionListener() {
-	//		public void actionPerformed(ActionEvent e) {
-	//			cadastrar();
-	//		}
-	//	});
+		botaoCriarConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastrar();
+			}
+		});
+		
 		botaoCriarConta.setForeground(new Color(255, 255, 255));
 		botaoCriarConta.setBackground(new Color(179, 13, 36));
 		botaoCriarConta.setBounds(399, 433, 268, 38);
