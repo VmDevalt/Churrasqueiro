@@ -37,6 +37,7 @@ public class TelaLogin extends JFrame {
     private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
     private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
     private JButton botaoLogar;
+    private boolean visualizacaoSenha = false;																																																																																																													;
 
     public String getLogin() {
 		return campoLogin.getText().trim();
@@ -126,10 +127,19 @@ public class TelaLogin extends JFrame {
 		panel.setLayout(null);
 
 		JButton botaoRevelarSenha = new JButton("");
-		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
 		botaoRevelarSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(botaoRevelarSenha, "Teste");
+				if(visualizacaoSenha == false) {
+					campoSenha.setEchoChar((char)0);
+					visualizacaoSenha = true;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoSenha.setEchoChar('•');
+					visualizacaoSenha = false;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
 			}
 		});
 		botaoRevelarSenha.setBounds(793, 308, 58, 38);
@@ -153,6 +163,7 @@ public class TelaLogin extends JFrame {
 		campoSenha.setColumns(10);
 		campoSenha.setBounds(250, 308, 597, 38);
 		panel.add(campoSenha);
+		campoSenha.setEchoChar('•');
 
         int larguraLogo = 116;
         int alturaLogo = 102;
