@@ -139,6 +139,14 @@ public class TelaGestao extends JFrame {
 		botaoConfiguracoes.setForeground(new Color(227,202,187));
 		botaoConfiguracoes.setBackground(new Color(179, 13, 36));
 		botaoConfiguracoes.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoConfiguracoes.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
+				telaConfiguracoes.setVisible(true);
+			}
+		});
 		
 		this.botaoItens = new EstilizacaoRedonda.BotaoRedondo("Itens",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 		botaoItens.setText("Itens");
@@ -162,6 +170,11 @@ public class TelaGestao extends JFrame {
 		botaoFecharCaixa.setForeground(new Color(227,202,187));
 		botaoFecharCaixa.setBackground(new Color(179, 13, 36));
 		botaoFecharCaixa.setFont(new Font("SansSerif", Font.PLAIN, 17));
+		botaoFecharCaixa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Confirmar fechar o caixa!");
+			}
+		});
         
         JLabel labelLogoBege = new JLabel("");
         labelLogoBege.setBounds(0, 0, 83, 82);

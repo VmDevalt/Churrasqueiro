@@ -84,6 +84,7 @@ public class TelaConfiguracoes extends JFrame {
         contentPane.add(botaoSair);
         botaoSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				TelaGestao telaGestao = new TelaGestao();
 				telaGestao.setVisible(true);
 			}
