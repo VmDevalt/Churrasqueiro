@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-public class MenuPrincipal extends JFrame {
+public class TelaMenuPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -27,7 +27,7 @@ public class MenuPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuPrincipal frame = new MenuPrincipal();
+					TelaMenuPrincipal frame = new TelaMenuPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +44,7 @@ public class MenuPrincipal extends JFrame {
     Color corPaletaPreto = new Color(0,0,0);
     Color corPaletaPretoInteração = new Color(35,35,35);
 
-	public MenuPrincipal() {
+	public TelaMenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
         setSize(LARGURA, ALTURA);
@@ -72,22 +72,44 @@ public class MenuPrincipal extends JFrame {
 		botaoPedidos.setBounds(73, 269, 288, 335);
 		botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
         contentPane.add(botaoPedidos);
+        botaoPedidos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+		        TelaMenuPrincipal.this.dispose();
+				TelaPedidos telaPedidos = new TelaPedidos();
+				telaPedidos.setVisible(true);
+			}
+		});
         
-        final EstilizacaoRedonda.BotaoRedondo botaoGestao = new EstilizacaoRedonda.BotaoRedondo("GESTÃO",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
-        botaoGestao.setText("Dashboard");
-        botaoGestao.setForeground(corPaletaBege);
-        botaoGestao.setBounds(885, 269, 288, 335);
-		botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
-        contentPane.add(botaoGestao);
-        
-        final EstilizacaoRedonda.BotaoRedondo botaoDashboard = new EstilizacaoRedonda.BotaoRedondo("DASHBOARD",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoDashboard = new EstilizacaoRedonda.BotaoRedondo("GESTÃO",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
         botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
-        botaoDashboard.setText("Gestão");
+        botaoDashboard.setText("Dashboard");
         botaoDashboard.setForeground(corPaletaBege);
-        botaoDashboard.setBounds(482, 269, 288, 335);
+        botaoDashboard.setBounds(885, 269, 288, 335);
 		botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
         contentPane.add(botaoDashboard);
+        botaoDashboard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaDashboard telaDashboard = new TelaDashboard();
+				telaDashboard.setVisible(true);
+			}
+		});
+        
+        final EstilizacaoRedonda.BotaoRedondo botaoGestao = new EstilizacaoRedonda.BotaoRedondo("DASHBOARD",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
+        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
+        botaoGestao.setText("Gestão");
+        botaoGestao.setForeground(corPaletaBege);
+        botaoGestao.setBounds(482, 269, 288, 335);
+		botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
+        contentPane.add(botaoGestao);
+        botaoGestao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaGestao telaGestao = new TelaGestao();
+				telaGestao.setVisible(true);
+			}
+		});
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoSair = new EstilizacaoRedonda.BotaoRedondo("Sair",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
 		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));

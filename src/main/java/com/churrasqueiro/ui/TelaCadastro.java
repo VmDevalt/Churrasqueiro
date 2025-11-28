@@ -134,6 +134,20 @@ public class TelaCadastro extends JFrame {
 		panelVermelho.add(panelBranco);
 		panelBranco.setLayout(null);
 		
+		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoVoltar.setForeground(corPaletaVermelho);
+		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.setBounds(1083, 39, 133, 38);
+        panelVermelho.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaGestao telaGestao = new TelaGestao();
+				telaGestao.setVisible(true);
+			}
+		});
+		
 		this.campoEmail = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoEmail.setFont(new Font("Calibri", Font.PLAIN, 14));
 		campoEmail.setToolTipText("Digite seu texto");

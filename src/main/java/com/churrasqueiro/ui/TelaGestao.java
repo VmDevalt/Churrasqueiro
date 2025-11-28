@@ -33,9 +33,6 @@ public class TelaGestao extends JFrame {
 	private JPanel panelVermelho;
 	private static final int LARGURA = 1280;
 	private static final int ALTURA = 720;
-	private JButton botaoPedidos;
-	private JButton botaoGestao;
-	private JButton botaoDashboard;
 	private JButton botaoCriarConta;
 	private JButton botaoRelatorio;
 	private JButton botaoConfiguracoes;
@@ -93,7 +90,7 @@ public class TelaGestao extends JFrame {
 		panelBranco.add(botaoCriarConta);
 		botaoCriarConta.setForeground(new Color(227,202,187));
 		botaoCriarConta.setBackground(new Color(179, 13, 36));
-		botaoCriarConta.setFont(new Font("Calibri", Font.PLAIN, 17));
+		botaoCriarConta.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		botaoCriarConta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
@@ -126,7 +123,14 @@ public class TelaGestao extends JFrame {
 		panelBranco.add(botaoRelatorio);
 		botaoRelatorio.setForeground(new Color(227,202,187));
 		botaoRelatorio.setBackground(new Color(179, 13, 36));
-		botaoRelatorio.setFont(new Font("Calibri", Font.PLAIN, 17));
+		botaoRelatorio.setFont(new Font("SansSerif", Font.PLAIN, 17));
+		botaoRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaRelatorios telaRelatorio = new TelaRelatorios();
+				telaRelatorio.setVisible(true);
+			}
+		});
 	
 		this.botaoConfiguracoes = new EstilizacaoRedonda.BotaoRedondo("Configurações",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 		botaoConfiguracoes.setText("Configurações");
@@ -134,7 +138,7 @@ public class TelaGestao extends JFrame {
 		panelBranco.add(botaoConfiguracoes);
 		botaoConfiguracoes.setForeground(new Color(227,202,187));
 		botaoConfiguracoes.setBackground(new Color(179, 13, 36));
-		botaoConfiguracoes.setFont(new Font("Calibri", Font.PLAIN, 17));
+		botaoConfiguracoes.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		
 		this.botaoItens = new EstilizacaoRedonda.BotaoRedondo("Itens",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 		botaoItens.setText("Itens");
@@ -142,7 +146,14 @@ public class TelaGestao extends JFrame {
 		panelBranco.add(botaoItens);
 		botaoItens.setForeground(new Color(227,202,187));
 		botaoItens.setBackground(new Color(179, 13, 36));
-		botaoItens.setFont(new Font("Calibri", Font.PLAIN, 17));
+		botaoItens.setFont(new Font("SansSerif", Font.PLAIN, 17));
+		botaoItens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaItens telaItens = new TelaItens();
+				telaItens.setVisible(true);
+			}
+		});
 		
 		this.botaoFecharCaixa = new EstilizacaoRedonda.BotaoRedondo("Fechar Caixa",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 		botaoFecharCaixa.setText("Fechar Caixa");
@@ -150,54 +161,65 @@ public class TelaGestao extends JFrame {
 		panelBranco.add(botaoFecharCaixa);
 		botaoFecharCaixa.setForeground(new Color(227,202,187));
 		botaoFecharCaixa.setBackground(new Color(179, 13, 36));
-		botaoFecharCaixa.setFont(new Font("Calibri", Font.PLAIN, 17));
-		
-        this.botaoGestao = new EstilizacaoRedonda.BotaoRedondo("Gestão",corPaletaBege,corPaletaBegeInteracao,corPaletaBegePressionado,35);
-        botaoGestao.setText("Gestão");
-        botaoGestao.setFont(new Font("Calibri", Font.PLAIN, 22));
-        botaoGestao.setForeground(new Color(0,0,0));
-        botaoGestao.setBackground(new Color(227,202,187));
-        botaoGestao.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        	}
-        });
-        botaoGestao.setBounds(478, -11, 283, 107);
-        panelVermelho.add(botaoGestao);
-        	
-        this.botaoDashboard = new EstilizacaoRedonda.BotaoRedondo("Dashboard",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoDashboard.setFont(new Font("Calibri", Font.PLAIN, 22));
-        botaoDashboard.setForeground(new Color(227,202,187));
-        botaoDashboard.setBackground(new Color(179, 13, 36));
-        botaoDashboard.setBounds(754, -13, 283, 97);
-        panelVermelho.add(botaoDashboard);
-        	
-        final EstilizacaoRedonda.BotaoRedondo botaoSair = new EstilizacaoRedonda.BotaoRedondo("Sair",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoSair.setForeground(corPaletaVermelho);
-		botaoSair.setBackground(new Color(0, 0, 0));
-		botaoSair.setBounds(1149, 24, 83, 38);
-        panelVermelho.add(botaoSair);
-        botaoSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				MenuPrincipal menuPrincipal = new MenuPrincipal();
-				menuPrincipal.setVisible(true);
-			}
-		});
+		botaoFecharCaixa.setFont(new Font("SansSerif", Font.PLAIN, 17));
         
         JLabel labelLogoBege = new JLabel("");
         labelLogoBege.setBounds(0, 0, 83, 82);
         panelVermelho.add(labelLogoBege);
         labelLogoBege.setIcon(new ImageIcon("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png"));
-        
-        this.botaoPedidos = new EstilizacaoRedonda.BotaoRedondo("Pedidos",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoPedidos.setBounds(244, -6, 233, 97);
-        panelVermelho.add(botaoPedidos);
-        botaoPedidos.setText("Pedidos");
-        botaoPedidos.setForeground(new Color(227,202,187));
-        botaoPedidos.setBackground(new Color(179, 13, 36));
-        botaoPedidos.setFont(new Font("Calibri", Font.PLAIN, 22));
         java.net.URL urlLogo = getClass().getResource("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens");
         
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.setBounds(1115, 19, 120, 38);
+        panelVermelho.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
+				telaMenuPrincipal.setVisible(true);
+			}
+		});
+        
+        JLabel logoLabel = new JLabel("");
+        logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));     		
+        logoLabel.setBounds(30, 0, 92, 82);
+        panelVermelho.add(logoLabel);
+        
+        JPanel panelSelecionado = new JPanel();
+        panelSelecionado.setBounds(495, 0, 254, 77);
+        panelVermelho.add(panelSelecionado);
+        panelSelecionado.setBackground(corPaletaBege);
+        panelSelecionado.setLayout(null);
+        
+        JLabel gestaoLabel = new JLabel("Gestão");
+        gestaoLabel.setForeground(corPaletaPreto);
+        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gestaoLabel.setBounds(53, 10, 201, 57);
+        panelSelecionado.add(gestaoLabel);
+        
+        JLabel pedidosLabel = new JLabel("Pedidos");
+        pedidosLabel.setBounds(214, 10, 248, 54);
+        panelVermelho.add(pedidosLabel);
+        pedidosLabel.setForeground(new Color(227, 202, 187));
+        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        
+        JLabel dashboardLabel = new JLabel("Dashboard");
+        dashboardLabel.setForeground(new Color(227, 202, 187));
+        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        dashboardLabel.setBounds(864, 10, 241, 54);
+        panelVermelho.add(dashboardLabel);
+        
+        java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
 	}
 }

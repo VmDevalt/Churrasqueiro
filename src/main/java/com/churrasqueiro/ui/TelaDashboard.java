@@ -77,8 +77,8 @@ public class TelaDashboard extends JFrame {
 		contentPane.add(pedidosLabel);
 		
 		JLabel logoLabel = new JLabel("");
-		logoLabel.setBounds(30, 10, 92, 82);
-		logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/logoPequena.png")));
+		logoLabel.setBounds(20, 13, 92, 79);
+		logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
 		contentPane.add(logoLabel);
 		
 		JPanel panel = new JPanel();
@@ -93,6 +93,11 @@ public class TelaDashboard extends JFrame {
 		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
 		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.addActionListener(e -> {
+			dispose();
+			TelaMenuPrincipal principal = new TelaMenuPrincipal();
+			principal.setVisible(true);
+		});
 		
 		JPanel dashboardPanel = new JPanel();
 		dashboardPanel.setBounds(949, 0, 317, 102);

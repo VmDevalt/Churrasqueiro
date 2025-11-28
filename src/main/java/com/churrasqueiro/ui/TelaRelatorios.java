@@ -175,6 +175,14 @@ public class TelaRelatorios extends JFrame {
 		botaoVoltar.setBackground(new Color(0, 0, 0));
 		botaoVoltar.setBounds(1132, 34, 104, 38);
         contentPane.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TelaGestao telaGestao = new TelaGestao();
+				telaGestao.setVisible(true);
+				dispose();
+			}
+		});
         
         JLabel relatoriosLabel = new JLabel("Relatórios");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));

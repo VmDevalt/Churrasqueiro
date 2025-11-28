@@ -56,7 +56,7 @@ public class TelaLogin extends JFrame {
 			Usuario usuarioAutenticado = loginController.autenticar(login, senha);
 			JOptionPane.showMessageDialog(this, "Login bem-sucedido! Bem-vindo, " + usuarioAutenticado.getLogin(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 			this.dispose();
-			MenuPrincipal telaPrincipal = new MenuPrincipal();
+			TelaMenuPrincipal telaPrincipal = new TelaMenuPrincipal();
 			telaPrincipal.setVisible(true);
 			setVisible(false);
 			
@@ -209,13 +209,6 @@ public class TelaLogin extends JFrame {
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-        botaoEsqueciSenha.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-    			TelaCadastro telaCadastro = new TelaCadastro();
-    			telaCadastro.setVisible(true);
-    			setVisible(false);
-        	}
-        });
 		botaoEsqueciSenha.setForeground(new Color(227,202,187));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
 		botaoEsqueciSenha.setBounds(555, 393, 261, 38);

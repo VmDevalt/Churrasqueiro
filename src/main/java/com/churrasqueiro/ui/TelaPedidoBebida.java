@@ -81,6 +81,16 @@ public class TelaPedidoBebida extends JFrame {
 		panelVermelho.add(panelBranco);
 		panelBranco.setLayout(null);
 		
+		java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+		
 		JLabel lblBebidas = new JLabel("Bebidas");
 		lblBebidas.setForeground(Color.BLACK);
 		lblBebidas.setFont(new Font("Dialog", Font.PLAIN, 22));
@@ -97,7 +107,7 @@ public class TelaPedidoBebida extends JFrame {
 		JLabel labelCocaCola2L = new JLabel("");
 		labelCocaCola2L.setBounds(26, 12, 83, 82);
 		panelHamburguer.add(labelCocaCola2L);
-        labelCocaCola2L.setIcon(new ImageIcon("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/coca-cola-2-litros.jpg"));
+        labelCocaCola2L.setIcon(new ImageIcon(TelaItens.class.getResource("/assets/imagens/coca-cola-2-litros.jpg"))); 
         
         JLabel lblCocaCola2L = new JLabel("Coca Cola 2L");
         lblCocaCola2L.setForeground(Color.BLACK);
@@ -110,7 +120,6 @@ public class TelaPedidoBebida extends JFrame {
         lblCocaColaValor.setFont(new Font("Dialog", Font.PLAIN, 20));
         lblCocaColaValor.setBounds(26, 158, 90, 26);
         panelHamburguer.add(lblCocaColaValor);
-        java.net.URL urlCocaCola2L = getClass().getResource("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens");
         
         this.botaoAdicionar = new EstilizacaoRedonda.BotaoRedondo("Adicionar",corPaletaBege,corPaletaBegeInteracao,corPaletaBegePressionado,35);
         botaoAdicionar.setFont(new Font("Calibri", Font.PLAIN, 22));
@@ -122,7 +131,7 @@ public class TelaPedidoBebida extends JFrame {
         JTextArea textCocaCola = new JTextArea();
         textCocaCola.setForeground(new Color(227,202,187));
         textCocaCola.setBackground(new Color(179,13,36));
-        textCocaCola.setFont(new Font("Calibri", Font.PLAIN, 14));
+        textCocaCola.setFont(new Font("SansSerif", Font.PLAIN, 14));
         textCocaCola.setColumns(2);
         textCocaCola.setText("Uma bebida de 2 litros que \ngelada é muito boa!");
         textCocaCola.setBounds(119, 50, 176, 101);
@@ -142,21 +151,13 @@ public class TelaPedidoBebida extends JFrame {
 			}
 		});
         
-        this.botaoNovoPedido = new EstilizacaoRedonda.BotaoRedondo("Novo Pedido",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoNovoPedido.setText("Novo Pedido");
-        botaoNovoPedido.setBounds(519, -13, 233, 97);
-        botaoNovoPedido.setForeground(new Color(227,202,187));
-    	botaoNovoPedido.setBackground(new Color(179, 13, 36));
-    	botaoNovoPedido.setFont(new Font("Calibri", Font.PLAIN, 22));
-        panelVermelho.add(botaoNovoPedido);
-        	
-        final EstilizacaoRedonda.BotaoRedondo botaoSair = new EstilizacaoRedonda.BotaoRedondo("Sair",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoSair.setForeground(corPaletaVermelho);
-		botaoSair.setBackground(new Color(0, 0, 0));
-		botaoSair.setBounds(1149, 24, 83, 38);
-        panelVermelho.add(botaoSair);
-        botaoSair.addActionListener(new ActionListener() {
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.setBounds(1131, 19, 104, 38);
+        panelVermelho.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaPedidoHamburguer telaPedidoHamburguer = new TelaPedidoHamburguer();
@@ -164,11 +165,16 @@ public class TelaPedidoBebida extends JFrame {
 			}
 		});
         
-        JLabel labelLogoBege = new JLabel("");
-        labelLogoBege.setBounds(0, 0, 83, 82);
-        panelVermelho.add(labelLogoBege);
-        labelLogoBege.setIcon(new ImageIcon("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png"));
-        java.net.URL urlLogo = getClass().getResource("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png");
+        JLabel novoPedidoLabel = new JLabel("Novo Pedido");
+        novoPedidoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        novoPedidoLabel.setForeground(corPaletaBege);
+        novoPedidoLabel.setBounds(485, 12, 261, 52);
+        panelVermelho.add(novoPedidoLabel);
+        
+        JLabel logoLabel = new JLabel("");
+        logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));     		
+        logoLabel.setBounds(30, 0, 92, 82);
+        panelVermelho.add(logoLabel);
         
 	}
 }

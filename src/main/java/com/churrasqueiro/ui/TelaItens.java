@@ -83,6 +83,13 @@ public class TelaItens extends JFrame {
 		botaoCriarItem.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoCriarItem.setForeground(new Color(255, 255, 255));
 		botaoCriarItem.setBackground(new Color(0, 0, 0));
+		botaoCriarItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaCriarItem telaCriarItem = new TelaCriarItem();
+				telaCriarItem.setVisible(true);
+			}
+		});
         
         final EstilizacaoRedonda.BotaoRedondo botaoCriarGrupo = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
         botaoCriarGrupo.setText("Criar Grupo");
@@ -91,6 +98,13 @@ public class TelaItens extends JFrame {
         botaoCriarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoCriarGrupo.setForeground(new Color(255, 255, 255));
         botaoCriarGrupo.setBackground(new Color(0, 0, 0));
+        botaoCriarGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaCriarGrupo telaCriarGrupo = new TelaCriarGrupo();
+				telaCriarGrupo.setVisible(true);
+			}
+		});
         
         final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
         botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -98,6 +112,13 @@ public class TelaItens extends JFrame {
         botaoVoltar.setBackground(new Color(0, 0, 0));
         botaoVoltar.setBounds(1132, 34, 104, 38);
         contentPane.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaGestao telaGestao = new TelaGestao();
+				telaGestao.setVisible(true);
+				dispose();
+			}
+		});
         
         JLabel relatoriosLabel = new JLabel("Itens");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
