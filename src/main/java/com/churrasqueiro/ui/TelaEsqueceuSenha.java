@@ -2,8 +2,12 @@ package com.churrasqueiro.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class TelaEsqueceuSenha extends JFrame {
@@ -46,5 +50,36 @@ public class TelaEsqueceuSenha extends JFrame {
         panelVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(panelVermelho);
         panelVermelho.setLayout(null);
+        
+        final EstilizacaoRedonda.PainelRedondo panelBranco = new EstilizacaoRedonda.PainelRedondo(null, 60, 4, corPaletaBege, null);
+        panelBranco.setFocusable(true);
+        panelBranco.requestFocusInWindow();
+        panelBranco.setBounds(90, 85, 1098, 505);
+        panelVermelho.add(panelBranco);
+        panelBranco.setLayout(null);
+        
+        JLabel labelTitulo = new JLabel("Esqueceu a senha?");
+        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo.setForeground(corPaletaPreto);
+        labelTitulo.setFont(new Font("Calibre", Font.PLAIN, 17));
+        labelTitulo.setBounds(349, 50, 400, 32);
+        panelBranco.add(labelTitulo);
+        
+        JLabel labelInstrucoes = new JLabel("<html><div style='text-align: center;'>Digite seu email para troca a senha. Você irá receber um código<br>no seu email onde deverá colocar na página seguinte.</div><html>");
+        labelInstrucoes.setHorizontalAlignment(SwingConstants.CENTER);
+        labelInstrucoes.setForeground(corPaletaPreto);
+        labelInstrucoes.setFont(new Font("Calibri", Font.PLAIN, 17));
+        labelInstrucoes.setBounds(349, 100, 600, 60);
+        panelBranco.add(labelInstrucoes);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 }
