@@ -2,21 +2,23 @@ package com.churrasqueiro.ui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.churrasqueiro.business.CategoriaController;
+import com.churrasqueiro.business.ItemCardapioController;
+import com.churrasqueiro.entities.Categoria;
+import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.ui.EstilizacaoRedonda;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 
 public class TelaCriarItem extends JFrame {
 
@@ -36,8 +38,35 @@ public class TelaCriarItem extends JFrame {
     private JLabel NewLabelPrecoVariavel;
     private JLabel NewLabelPreco;
     private JComboBox<String> comboBoxGrupos;
+    private final ItemCardapioController itemCardapioController = new ItemCardapioController();
+    private final CategoriaController categoriaController = new CategoriaController();
+    private Map<String, Integer> listaCategorias = new HashMap<>();
 
-	public static void main(String[] args) {
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoNome() {
+        return campoNome;
+    }
+
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoDescricao() {
+        return campoDescricao;
+    }
+
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoPreco() {
+        return campoPreco;
+    }
+
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoFoto() {
+        return campoFoto;
+    }
+
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoPrecoVariavel() {
+        return campoPrecoVariavel;
+    }
+
+    public JComboBox<String> getComboBoxGrupos() {
+        return comboBoxGrupos;
+    }
+
+    public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,8 +88,7 @@ public class TelaCriarItem extends JFrame {
         Color corPaletaPreto = new Color(0,0,0);
         Color corPaletaPretoInteração = new Color(35,35,35);
         Color corPaletaCinza = new Color(140,127,127);
-        
-        
+           
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(LARGURA, ALTURA);
 		setResizable(false);
@@ -90,19 +118,22 @@ public class TelaCriarItem extends JFrame {
 		botaoAdicionarItem.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoAdicionarItem.setForeground(new Color(255, 255, 255));
 		botaoAdicionarItem.setBackground(new Color(0, 0, 0));
-		
-		
-		
-		String[] tiposGrupos = {"Bebida", "combos", "Porções", "Promoções", "Hambúrgueres Gourmet", "Hambúrgueres Especiais", "Hambúrgueres Supremos"};
-		this.comboBoxGrupos = new JComboBox<>(tiposGrupos);
+        botaoAdicionarItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		this.comboBoxGrupos = new JComboBox<>();
 		comboBoxGrupos.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		comboBoxGrupos.setForeground(corPaletaPreto);
 		comboBoxGrupos.setBackground(corPaletaBege);
 		comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		comboBoxGrupos.setMaximumRowCount(2);
 		comboBoxGrupos.setBounds(100, 269, 486, 38);
-		panelClaro.add(comboBoxGrupos);
+		panelClaro.add(comboBoxGrupos);		
 		
+		carregarCategoriasNoComboBox();
 		
 		this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -204,5 +235,27 @@ public class TelaCriarItem extends JFrame {
             }
         }
 		
+	}
+
+	private void carregarCategoriasNoComboBox() {
+		comboBoxGrupos.removeAllItems();
+		listaCategorias.clear();
+		try {
+			List<Categoria> categoriasRetornadas = categoriaController.listarTodas();
+			for (Categoria cat : categoriasRetornadas) {
+
+			    String nome = cat.getNome();
+			    int id = cat.getId();
+
+			    comboBoxGrupos.addItem(nome);
+
+			    listaCategorias.put(nome, id);
+			}
+		} catch (DatabaseException e) {
+    JOptionPane.showMessageDialog(this,
+        "Erro ao carregar categorias do banco.",
+        "Erro",
+        JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
