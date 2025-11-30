@@ -2,16 +2,23 @@ package com.churrasqueiro.ui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.churrasqueiro.business.CategoriaController;
+import com.churrasqueiro.business.ItemCardapioController;
+import com.churrasqueiro.entities.Categoria;
+import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.ui.EstilizacaoRedonda;
-import javax.swing.JComboBox;
 
 public class TelaCriarItem extends JFrame {
 
@@ -31,14 +38,35 @@ public class TelaCriarItem extends JFrame {
     private JLabel NewLabelPrecoVariavel;
     private JLabel NewLabelPreco;
     private JComboBox<String> comboBoxGrupos;
+    private final ItemCardapioController itemCardapioController = new ItemCardapioController();
+    private final CategoriaController categoriaController = new CategoriaController();
+    private Map<String, Integer> listaCategorias = new HashMap<>();
 
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoNome() {
+        return campoNome;
+    }
 
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoDescricao() {
+        return campoDescricao;
+    }
 
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoPreco() {
+        return campoPreco;
+    }
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoFoto() {
+        return campoFoto;
+    }
+
+    public EstilizacaoRedonda.CaixaTextoRedonda getCampoPrecoVariavel() {
+        return campoPrecoVariavel;
+    }
+
+    public JComboBox<String> getComboBoxGrupos() {
+        return comboBoxGrupos;
+    }
+
+    public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,9 +79,6 @@ public class TelaCriarItem extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaCriarItem() {
 
         Color corPaletaVermelho = new Color(179,13,36);
@@ -63,10 +88,11 @@ public class TelaCriarItem extends JFrame {
         Color corPaletaPreto = new Color(0,0,0);
         Color corPaletaPretoInteração = new Color(35,35,35);
         Color corPaletaCinza = new Color(140,127,127);
-        
-        
+           
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(LARGURA, ALTURA);
+		setResizable(false);
+		setTitle("Criar Item - Churrasqueiro");
 		contentPaneVermelho = new JPanel();
 		contentPaneVermelho.setBackground(new Color(179, 13, 36));
 		contentPaneVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,50 +118,53 @@ public class TelaCriarItem extends JFrame {
 		botaoAdicionarItem.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoAdicionarItem.setForeground(new Color(255, 255, 255));
 		botaoAdicionarItem.setBackground(new Color(0, 0, 0));
-		
-		
-		
-		String[] tiposGrupos = {"Bebida", "combos", "Porções", "Promoções", "Hambúrgueres Gourmet", "Hambúrgueres Especiais", "Hambúrgueres Supremos"};
-		this.comboBoxGrupos = new JComboBox<>(tiposGrupos);
+        botaoAdicionarItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		this.comboBoxGrupos = new JComboBox<>();
 		comboBoxGrupos.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		comboBoxGrupos.setForeground(corPaletaPreto);
 		comboBoxGrupos.setBackground(corPaletaBege);
-		comboBoxGrupos.setFont(new Font("Calibri", Font.PLAIN, 17));
+		comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		comboBoxGrupos.setMaximumRowCount(2);
 		comboBoxGrupos.setBounds(100, 269, 486, 38);
-		panelClaro.add(comboBoxGrupos);
+		panelClaro.add(comboBoxGrupos);		
 		
+		carregarCategoriasNoComboBox();
 		
 		this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoNome.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoNome.setToolTipText("Digite seu texto");
 		campoNome.setBounds(90, 88, 1088, 38);
 		panelClaro.add(campoNome);
 		campoNome.setColumns(10);
 		
 		this.campoDescricao = new EstilizacaoRedonda.CaixaTextoRedonda("Digite a descrição...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoDescricao.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoDescricao.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoDescricao.setToolTipText("Digite seu texto");
 		campoDescricao.setBounds(90, 182, 1088, 38);
 		panelClaro.add(campoDescricao);
 		campoDescricao.setColumns(10);
 		
 		this.campoPreco = new EstilizacaoRedonda.CaixaTextoRedonda("R$.",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoPreco.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoPreco.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoPreco.setToolTipText("Digite seu texto");
 		campoPreco.setBounds(90, 366, 496, 38);
 		panelClaro.add(campoPreco);
 		campoPreco.setColumns(10);
 		
 		this.campoFoto = new EstilizacaoRedonda.CaixaTextoRedonda("Adicione uma foto...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoFoto.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoFoto.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoFoto.setToolTipText("Digite seu texto");
 		campoFoto.setBounds(658, 269, 520, 38);
 		panelClaro.add(campoFoto);
 		campoFoto.setColumns(10);
 		
 		this.campoPrecoVariavel = new EstilizacaoRedonda.CaixaTextoRedonda("R$.",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoPrecoVariavel.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoPrecoVariavel.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoPrecoVariavel.setToolTipText("Digite seu texto");
 		campoPrecoVariavel.setBounds(658, 366, 520, 38);
 		panelClaro.add(campoPrecoVariavel);
@@ -171,6 +200,10 @@ public class TelaCriarItem extends JFrame {
 		NewLabelPreco.setBounds(114, 341, 72, 14);
 		panelClaro.add(NewLabelPreco);
 
+		JLabel logoLabel = new JLabel("");
+        logoLabel.setBounds(61, 0, 92, 82);
+        logoLabel.setIcon(new ImageIcon(TelaCriarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
+        contentPaneVermelho.add(logoLabel);
 		
 		JLabel labelItem = new JLabel("Itens");
 		labelItem.setFont(new Font("SansSerif", Font.BOLD, 25));
@@ -184,6 +217,45 @@ public class TelaCriarItem extends JFrame {
 		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoSair.setForeground(new Color(255, 255, 255));
 		botaoSair.setBackground(new Color(0, 0, 0));
+		botaoSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaItens telaItens = new TelaItens();
+				telaItens.setVisible(true);
+			}
+		});
 		
+		java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+		
+	}
+
+	private void carregarCategoriasNoComboBox() {
+		comboBoxGrupos.removeAllItems();
+		listaCategorias.clear();
+		try {
+			List<Categoria> categoriasRetornadas = categoriaController.listarTodas();
+			for (Categoria cat : categoriasRetornadas) {
+
+			    String nome = cat.getNome();
+			    int id = cat.getId();
+
+			    comboBoxGrupos.addItem(nome);
+
+			    listaCategorias.put(nome, id);
+			}
+		} catch (DatabaseException e) {
+    JOptionPane.showMessageDialog(this,
+        "Erro ao carregar categorias do banco.",
+        "Erro",
+        JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

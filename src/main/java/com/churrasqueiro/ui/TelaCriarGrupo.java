@@ -3,6 +3,8 @@ package com.churrasqueiro.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -45,6 +47,7 @@ public class TelaCriarGrupo extends JFrame {
 	public TelaCriarGrupo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(LARGURA, ALTURA);
+		setTitle("Criar Grupo - Churrasqueiro");
 		setResizable(false);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -126,5 +129,12 @@ public class TelaCriarGrupo extends JFrame {
 		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
 		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaItens telaItens = new TelaItens();
+				telaItens.setVisible(true);
+			}
+		});
 	}
 }

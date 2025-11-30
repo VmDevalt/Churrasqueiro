@@ -33,7 +33,6 @@ public class TelaNovoPedido extends JFrame {
 	private JPanel panelVermelho;
 	private static final int LARGURA = 1280;
 	private static final int ALTURA = 720;
-	private JButton botaoNovoPedido;
 	private JComboBox<String> cBoxMesas;
 	private JComboBox<String> cBoxFormaPagamento;
 	private JLabel lblMesas;
@@ -94,12 +93,22 @@ public class TelaNovoPedido extends JFrame {
 		lblinicioPedido.setBounds(558, 12, 168, 26);
 		panelBranco.add(lblinicioPedido);
 		
+		java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+		
 		String[] mesas = {"01", "02", "03"};
 		this.cBoxMesas = new JComboBox<>(mesas);
 		cBoxMesas.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		cBoxMesas.setForeground(corPaletaPreto);
 		cBoxMesas.setBackground(corPaletaBege);
-		cBoxMesas.setFont(new Font("Calibri", Font.PLAIN, 17));
+		cBoxMesas.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		cBoxMesas.setMaximumRowCount(2);
 		cBoxMesas.setBounds(500, 99, 56, 23);
 		panelBranco.add(cBoxMesas);
@@ -109,7 +118,7 @@ public class TelaNovoPedido extends JFrame {
 		cBoxFormaPagamento.setBorder(new LineBorder(new Color(179, 13, 36), 1));
 		cBoxFormaPagamento.setForeground(corPaletaPreto);
 		cBoxFormaPagamento.setBackground(corPaletaBege);
-		cBoxFormaPagamento.setFont(new Font("Calibri", Font.PLAIN, 17));
+		cBoxFormaPagamento.setFont(new Font("SansSerif", Font.PLAIN, 17));
 		cBoxFormaPagamento.setMaximumRowCount(2);
 		cBoxFormaPagamento.setBounds(643, 340, 168, 23);
 		panelBranco.add(cBoxFormaPagamento);
@@ -127,7 +136,7 @@ public class TelaNovoPedido extends JFrame {
 		panelBranco.add(lblNome);
 		
 		this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoNome.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoNome.setBounds(699, 93, 360, 38);
 		campoNome.setColumns(10);
 		panelBranco.add(campoNome);
@@ -139,7 +148,7 @@ public class TelaNovoPedido extends JFrame {
 		panelBranco.add(lblAcrescimo);
 		
 		this.campoAcrescimo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Acréscimo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoAcrescimo.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoAcrescimo.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoAcrescimo.setBounds(520, 207, 360, 38);
 		campoAcrescimo.setColumns(10);
 		panelBranco.add(campoAcrescimo);
@@ -151,7 +160,7 @@ public class TelaNovoPedido extends JFrame {
 		panelBranco.add(lblDesconto);
 		
 		this.campoDesconto = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Desconto",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoDesconto.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoDesconto.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoDesconto.setBounds(520, 275, 360, 38);
 		campoDesconto.setColumns(10);
 		panelBranco.add(campoDesconto);
@@ -169,7 +178,7 @@ public class TelaNovoPedido extends JFrame {
 		panelBranco.add(lblObservacoes);
 		
 		this.campoObservacoes = new EstilizacaoRedonda.CaixaTextoRedonda("Digite as Observações",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoObservacoes.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoObservacoes.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		campoObservacoes.setBounds(535, 418, 360, 38);
 		campoObservacoes.setColumns(10);
 		panelBranco.add(campoObservacoes);
@@ -187,22 +196,14 @@ public class TelaNovoPedido extends JFrame {
 				telaPedidoHamburguer.setVisible(true);
 			}
 		});
-        
-        this.botaoNovoPedido = new EstilizacaoRedonda.BotaoRedondo("Novo Pedido",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoNovoPedido.setText("Novo Pedido");
-        botaoNovoPedido.setBounds(519, -13, 233, 97);
-        botaoNovoPedido.setForeground(new Color(227,202,187));
-    	botaoNovoPedido.setBackground(new Color(179, 13, 36));
-    	botaoNovoPedido.setFont(new Font("Calibri", Font.PLAIN, 22));
-        panelVermelho.add(botaoNovoPedido);
         	
-        final EstilizacaoRedonda.BotaoRedondo botaoSair = new EstilizacaoRedonda.BotaoRedondo("Sair",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoSair.setForeground(corPaletaVermelho);
-		botaoSair.setBackground(new Color(0, 0, 0));
-		botaoSair.setBounds(1149, 24, 83, 38);
-        panelVermelho.add(botaoSair);
-        botaoSair.addActionListener(new ActionListener() {
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setBackground(new Color(0, 0, 0));
+		botaoVoltar.setBounds(1131, 19, 104, 38);
+        panelVermelho.add(botaoVoltar);
+        botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				TelaPedidos telaPedidos = new TelaPedidos();
@@ -210,11 +211,16 @@ public class TelaNovoPedido extends JFrame {
 			}
 		});
         
-        JLabel labelLogoBege = new JLabel("");
-        labelLogoBege.setBounds(0, 0, 83, 82);
-        panelVermelho.add(labelLogoBege);
-        labelLogoBege.setIcon(new ImageIcon("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png"));
-        java.net.URL urlLogo = getClass().getResource("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png");
+        JLabel relatoriosLabel = new JLabel("Novo Pedido");
+        relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        relatoriosLabel.setForeground(corPaletaBege);
+        relatoriosLabel.setBounds(485, 12, 261, 52);
+        panelVermelho.add(relatoriosLabel);
+        
+        JLabel logoLabel = new JLabel("");
+        logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));     		
+        logoLabel.setBounds(30, 0, 92, 82);
+        panelVermelho.add(logoLabel);
         
 	}
 }
