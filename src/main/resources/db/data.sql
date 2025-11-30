@@ -19,4 +19,4 @@ VALUES (
     'atendente@churrasqueiro.com'
 );
 
-ALTER TABLE usuario ALTER COLUMN id RESTART WITH 3;
+ALTER TABLE usuario ALTER COLUMN id RESTART WITH 10;
