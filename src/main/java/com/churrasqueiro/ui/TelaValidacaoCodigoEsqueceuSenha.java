@@ -141,7 +141,70 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         labelEmailInfo.setBounds(349, 150, 400, 20);
         panelBranco.add(labelEmailInfo);
         
+        JSeparator separador = new JSeparator();
+        separador.setForeground(corPaletaVermelho);
+        separador.setBackground(corPaletaVermelho);
+        separador.setBounds(349, 190, 400, 2);
+        panelBranco.add(separador);
         
+        JLabel labelCodigo = new JLabel("Código de Verificação");
+        labelCodigo.setForeground(corPaletaPreto);
+        labelCodigo.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelCodigo.setBounds(469, 220, 180, 32);
+        panelBranco.add(labelCodigo);
+        
+        this.campoCodigo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o código...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
+        campoCodigo.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
+        campoCodigo.setToolTipText("Digite o código de 6 dígitos");
+        campoCodigo.setBounds(449, 260, 180, 38);
+        campoCodigo.setColumns(10);
+        panelBranco.add(labelCodigo);
+        
+        JButton botaoVerificar = new EstilizacaoRedonda.BotaoRedondo("Verificar Código", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+        botaoVerificar.setForeground(corPaletaBege);
+        botaoVerificar.setBackground(corPaletaVermelho);
+        botaoVerificar.setBounds(449, 320, 180, 38);
+        botaoVerificar.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        botaoVerificar.addActionListener(e -> verificarCodigo());
+        panelBranco.add(botaoVerificar);
+        
+        JButton botaoReenviar = new EstilizacaoRedonda.BotaoRedondo("Reenviar Código", corPaletaPreto, corPaletaCinza, corPaletaVermelhoPressionado, 25);
+        botaoReenviar.setForeground(corPaletaBege);
+        botaoReenviar.setBackground(corPaletaPreto);
+        botaoReenviar.setBorderPainted(false);
+        botaoReenviar.setFocusPainted(false);
+        botaoReenviar.setFont(FontsConstants.MONTSERRAT_BOLD_13);
+        botaoReenviar.setBounds(469, 370, 140, 25);
+        botaoReenviar.addActionListener(e -> reenviarCodigo());
+        panelBranco.add(botaoReenviar);
+        
+        JLabel labelLogo = new JLabel("");
+        labelLogo.setIcon(new ImageIcon("src/main/resources/assets/imagens/logoPequena.png"));
+        labelLogo.setBounds(996, 394, 90, 99);
+        panelBranco.add(labelLogo);
+        
+        JButton botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+        botaoVoltar.setForeground(corPaletaVermelho);
+        botaoVoltar.setBackground(corPaletaBege);
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setFocusPainted(false);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_13);
+        botaoVoltar.setBounds(30, 20, 120, 35);
+        botaoVoltar.addActionListener(e -> {
+            dispose();
+            
+            new TelaEsqueceuSenha().setVisible(true);
+        });
+        panelVermelho.add(botaoVoltar);
 	}
+	
+	private void reenviarCodigo() {
+    	this.codigoGerado = gerarCodigo();
+    	enviarCodigoPorEmail();
+    	JOptionPane.showMessageDialog(this,
+    			"Novo código enviado para: " + emailUsuario,
+    			"Código Reenviado",
+    			JOptionPane.INFORMATION_MESSAGE);
+    }
 
 }
