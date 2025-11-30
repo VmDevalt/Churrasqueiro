@@ -5,7 +5,9 @@ import com.churrasqueiro.utils.FontsConstants;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,6 +19,25 @@ public class TelaEsqueceuSenha extends JFrame {
     private static final int ALTURA = 720;
     private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
     private JButton botaoEnviarCodigo;
+
+    public String getEmail() {
+        return campoEmail.getText().trim();
+    }
+
+    public void enviarCodigo() {
+        String email = getEmail();
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, digite seu email.",
+                    "Campo Vazio",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Código enviado para: " + email,
+                "Código Enviado",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -93,13 +114,30 @@ public class TelaEsqueceuSenha extends JFrame {
         botaoEnviarCodigo.setBounds(509, 451, 261, 36);
         botaoEnviarCodigo.setFont(FontsConstants.MONTSERRAT_EXTRABOLD_50);
         panelBranco.add(botaoEnviarCodigo);
+        botaoEnviarCodigo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                enviarCodigo();
+            }
+        });
 
         JLabel labelLogo = new JLabel("");
         labelLogo.setIcon(new ImageIcon("src/main/resources/assets/imagens/logoPequena.png"));
         labelLogo.setBounds(1145, 587, 60, 58);
         panelBranco.add(labelLogo);
         
-        
+        JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setForeground(corPaletaBege);
+        botaoVoltar.setBackground(corPaletaVermelho);
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setFocusPainted(false);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        botaoVoltar.setBounds(20, 20, 150, 25);
+        botaoVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        panelVermelho.add(botaoVoltar);
         
         
         
