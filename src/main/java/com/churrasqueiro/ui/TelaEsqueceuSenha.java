@@ -55,7 +55,6 @@ public class TelaEsqueceuSenha extends JFrame {
     }
 
     public TelaEsqueceuSenha() {
-
         Color corPaletaVermelho = new Color(179,13,36);
         Color corPaletaBege = new Color(227,202,187);
         Color corPaletaVermelhoInteracao = new Color(200,50,50);
