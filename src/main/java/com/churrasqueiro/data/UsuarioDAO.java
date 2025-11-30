@@ -86,9 +86,35 @@ public class UsuarioDAO {
     				}
     			}
     	} catch (SQLException e) {
-    		System.err.println("Erro ao fazer busca de usuário por login: " + e.getMessage());
+    		System.err.println("Erro ao fazer busca de usuário por email: " + e.getMessage());
     		throw new DatabaseException("Falha ao consultar usuário no banco de dados.");
     	}
     	return Optional.empty();
     }
+    
+    //TODO: METODO PARA BUSCAR O NOME E O TIPO_FUNCIONARIO DE UM USUARIO
+    public Optional<Usuario> buscarNomeETipo(String login) throws DatabaseException{
+    	String sql = "SELECT login, tipo FROM usuario WHERE login = ?";
+    	try(Connection conn = DatabaseConnection.getConnection();
+    		PreparedStatement ps = conn.prepareStatement(sql)){
+    			ps.setString(1, login);
+    			try(ResultSet rs = ps.executeQuery()){
+    				if(rs.next()) {
+    					Usuario usuario = new Usuario(
+    							rs.getInt("id"),
+    							rs.getString("login"),
+    							rs.getString("senha"),
+    							rs.getString("tipo"),
+    							rs.getString("email")
+    							);
+    					return Optional.of(usuario);
+    				}
+    			}
+    	} catch (SQLException e) {
+    		System.err.println("Erro ao fazer a busca de usuário por login: " + e.getMessage());
+    		throw new DatabaseException("Falha ao consultar usuário no banco de dado.");
+    	}
+    	return Optional.empty();
+    }
+    
 }

@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
+import com.churrasqueiro.data.UsuarioDAO;
+import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.ui.TelaLogin;
+import java.util.Optional;
 
 public class TelaConfiguracoes extends JFrame {
 
@@ -19,10 +24,15 @@ public class TelaConfiguracoes extends JFrame {
 	private JPanel contentPane;
 	private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
+    
+    public String getLogin() {
+    	return "Roberto"; //PLACEHOLDER
+    }
+    
+    public String getTipo() {
+    	return "Robertário"; //PLACEHOLDER
+    }
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -36,9 +46,6 @@ public class TelaConfiguracoes extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	Color corPaletaBege = new Color(227,202,187);
 	Color corPaletaVermelho = new Color(179,13,36);
 	Color corPaletaVermelhoInteracao = new Color(200,50,50);
@@ -48,7 +55,9 @@ public class TelaConfiguracoes extends JFrame {
     Color corPaletaPretoInteração = new Color(35,35,35);
     Color corPaletaCinza = new Color(140,127,127);
 	
-	public TelaConfiguracoes() {
+	public TelaConfiguracoes(){
+		Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(LARGURA, ALTURA);
 		contentPane = new JPanel();
@@ -96,29 +105,29 @@ public class TelaConfiguracoes extends JFrame {
         contaLabel.setForeground(corPaletaPreto);
         panel.add(contaLabel);
         
-        JLabel nomeTituloLabel = new JLabel("Nome");
-        nomeTituloLabel.setForeground(corPaletaVermelho);
-        nomeTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        nomeTituloLabel.setBounds(66, 163, 109, 44);
-        panel.add(nomeTituloLabel);
+        JLabel loginTituloLabel = new JLabel("Login");
+        loginTituloLabel.setForeground(corPaletaVermelho);
+        loginTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        loginTituloLabel.setBounds(66, 163, 109, 44);
+        panel.add(loginTituloLabel);
         
-        JLabel nomeTextoLabel = new JLabel("Ingrid Vitória");
-        nomeTextoLabel.setForeground(corPaletaPreto);
-        nomeTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        nomeTextoLabel.setBounds(66, 199, 206, 35);
-        panel.add(nomeTextoLabel);
+        JLabel loginTextoLabel = new JLabel(usuarioLogado.getLogin());
+        loginTextoLabel.setForeground(corPaletaPreto);
+        loginTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        loginTextoLabel.setBounds(66, 199, 292, 35);
+        panel.add(loginTextoLabel);
         
-        JLabel cpfTextoLabel = new JLabel("000.000.000-00");
-        cpfTextoLabel.setForeground(Color.BLACK);
-        cpfTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel.setBounds(66, 302, 206, 35);
-        panel.add(cpfTextoLabel);
+        JLabel tipoContaTextoLabel = new JLabel(usuarioLogado.getTipo());
+        tipoContaTextoLabel.setForeground(Color.BLACK);
+        tipoContaTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        tipoContaTextoLabel.setBounds(66, 302, 206, 35);
+        panel.add(tipoContaTextoLabel);
         
-        JLabel cpfTituloLabel = new JLabel("CPF");
-        cpfTituloLabel.setForeground(new Color(179, 13, 36));
-        cpfTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        cpfTituloLabel.setBounds(66, 267, 109, 44);
-        panel.add(cpfTituloLabel);
+        JLabel tipoContaTituloLabel = new JLabel("Tipo da conta");
+        tipoContaTituloLabel.setForeground(new Color(179, 13, 36));
+        tipoContaTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        tipoContaTituloLabel.setBounds(66, 267, 231, 44);
+        panel.add(tipoContaTituloLabel);
         
         JLabel emailTituloLabel = new JLabel("E-mail");
         emailTituloLabel.setForeground(new Color(179, 13, 36));
@@ -126,7 +135,7 @@ public class TelaConfiguracoes extends JFrame {
         emailTituloLabel.setBounds(826, 147, 109, 44);
         panel.add(emailTituloLabel);
         
-        JLabel lblIngridvitriachurrasqueirocom = new JLabel("ingridvitoria@churrasqueiro.com");
+        JLabel lblIngridvitriachurrasqueirocom = new JLabel(usuarioLogado.getEmail());
         lblIngridvitriachurrasqueirocom.setForeground(Color.BLACK);
         lblIngridvitriachurrasqueirocom.setFont(new Font("SansSerif", Font.BOLD, 22));
         lblIngridvitriachurrasqueirocom.setBounds(826, 183, 378, 35);

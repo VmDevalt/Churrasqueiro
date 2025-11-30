@@ -9,6 +9,7 @@ import com.churrasqueiro.business.LoginController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.data.UsuarioDAO;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,18 +27,25 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.util.Optional;
 
 public class TelaLogin extends JFrame {
 	
 	private static final LoginController loginController = new LoginController();
+	private static final UsuarioDAO usuarioDAO = new UsuarioDAO();
+	private static Usuario usuarioLogado = new Usuario();
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
-    private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
-    private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
+    private static EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
+    private static EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
     private JButton botaoLogar;
-    private boolean visualizacaoSenha = false;																																																																																																													;
+    private boolean visualizacaoSenha = false;
+
+	public static Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
     public String getLogin() {
 		return campoLogin.getText().trim();
@@ -90,7 +98,6 @@ public class TelaLogin extends JFrame {
 	}
 
 	public TelaLogin() {
-
         Color corPaletaVermelho = new Color(179,13,36);
         Color corPaletaBege = new Color(227,202,187);
         Color corPaletaVermelhoInteracao = new Color(200,50,50);
@@ -197,8 +204,15 @@ public class TelaLogin extends JFrame {
 		panel.add(labelSenha);
 
         this.botaoLogar = new EstilizacaoRedonda.BotaoRedondo("Entrar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoLogar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		botaoLogar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Optional<Usuario> usuarioOPT;
+				try {
+					usuarioOPT = usuarioDAO.buscarPorLogin(getLogin());
+					usuarioLogado = usuarioOPT.get();
+				} catch (DatabaseException e1) {
+					e1.printStackTrace();
+				}
 				autenticar();
 			}
 		});
