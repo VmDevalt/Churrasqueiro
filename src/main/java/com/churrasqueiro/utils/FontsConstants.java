@@ -40,8 +40,8 @@ public class FontsConstants {
         MONTSERRAT_BOLD_50 = fontManager.getMontserratBold(50);
         MONTSERRAT_BOLD_60 = fontManager.getMontserratBold(60);
 
-        MONTSERRAT_EXTRABOLD_40 = fontManager.getMontserratBold(40);
-        MONTSERRAT_EXTRABOLD_50 = fontManager.getMontserratBold(50);
+        MONTSERRAT_EXTRABOLD_40 = fontManager.getMontserratExtraBold(40);
+        MONTSERRAT_EXTRABOLD_50 = fontManager.getMontserratExtraBold(50);
     }
 
     public static void inicioalizarFontes() {
