@@ -10,6 +10,7 @@ public class FontsConstants {
     public static Font MONTSERRAT_BOLD_11;
     public static Font MONTSERRAT_BOLD_13;
     public static Font MONTSERRAT_BOLD_15;
+    public static Font MONTSERRAT_BOLD_17;
     public static Font MONTSERRAT_BOLD_19;
     public static Font MONTSERRAT_BOLD_20;
     public static Font MONTSERRAT_BOLD_22;
@@ -33,6 +34,7 @@ public class FontsConstants {
         MONTSERRAT_BOLD_11 = fontManager.getMontserratBold(11);
         MONTSERRAT_BOLD_13 = fontManager.getMontserratBold(13);
         MONTSERRAT_BOLD_15 = fontManager.getMontserratBold(15);
+        MONTSERRAT_BOLD_17 = fontManager.getMontserratBold(17);
         MONTSERRAT_BOLD_19 = fontManager.getMontserratBold(19);
         MONTSERRAT_BOLD_20 = fontManager.getMontserratBold(20);
         MONTSERRAT_BOLD_22 = fontManager.getMontserratBold(22);

@@ -1,18 +1,12 @@
 package com.churrasqueiro.ui;
 
-import com.churrasqueiro.utils.FontManager;
 import com.churrasqueiro.utils.FontsConstants;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import javax.swing.JFrame;
 
 public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -73,8 +67,8 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaValidacaoCodigoEsqueceuSenha window = new TelaValidacaoCodigoEsqueceuSenha();
-					window.frame.setVisible(true);
+					TelaValidacaoCodigoEsqueceuSenha frame = new TelaValidacaoCodigoEsqueceuSenha("usuario@exemplo.com");
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,48 +117,37 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         JLabel labelTitulo = new JLabel("Código Enviado");
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         labelTitulo.setForeground(corPaletaPreto);
-        labelTitulo.setFont(FontsConstants.MONTSERRAT_BOLD_25);
-        labelTitulo.setBounds(449, 50, 200, 32);
+        labelTitulo.setFont(FontsConstants.MONTSERRAT_EXTRABOLD_50);
+        labelTitulo.setBounds(295, 115, 508, 55);
         panelBranco.add(labelTitulo);
         
-        JLabel labelInstrucoes = new JLabel("<html><div style='text align: center;'>Acabamos de enviar o código. Confira na sua caixa de entrada<br>e digite ele aqui embaixo.</div></html>");
+        JLabel labelInstrucoes = new JLabel("<html><div style='text-align: center;'>Acabamos de enviar o código. Confira na sua caixa de entrada<br>e digite ele aqui embaixo.</div></html>");
         labelInstrucoes.setHorizontalAlignment(SwingConstants.CENTER);
         labelInstrucoes.setForeground(corPaletaPreto);
         labelInstrucoes.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
-        labelInstrucoes.setBounds(349, 120, 400, 60);
+        labelInstrucoes.setBounds(321, 170, 460, 42);
         panelBranco.add(labelInstrucoes);
         
         JLabel labelEmailInfo = new JLabel("Email: " + emailUsuario);
         labelEmailInfo.setHorizontalAlignment(SwingConstants.CENTER);
         labelEmailInfo.setForeground(corPaletaCinza);
         labelEmailInfo.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
-        labelEmailInfo.setBounds(349, 150, 400, 20);
+        labelEmailInfo.setBounds(349, 215, 400, 20);
         panelBranco.add(labelEmailInfo);
         
-        JSeparator separador = new JSeparator();
-        separador.setForeground(corPaletaVermelho);
-        separador.setBackground(corPaletaVermelho);
-        separador.setBounds(349, 190, 400, 2);
-        panelBranco.add(separador);
-        
-        JLabel labelCodigo = new JLabel("Código de Verificação");
-        labelCodigo.setForeground(corPaletaPreto);
-        labelCodigo.setFont(FontsConstants.MONTSERRAT_BOLD_15);
-        labelCodigo.setBounds(469, 220, 180, 32);
-        panelBranco.add(labelCodigo);
-        
-        this.campoCodigo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o código...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoCodigo.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
-        campoCodigo.setToolTipText("Digite o código de 6 dígitos");
-        campoCodigo.setBounds(449, 260, 180, 38);
+        this.campoCodigo = new EstilizacaoRedonda.CaixaTextoRedonda(null, corPaletaVermelho, corPaletaBege, corPaletaPreto, 2, 35);
+        campoCodigo.setHorizontalAlignment(SwingConstants.CENTER);
+        campoCodigo.setFont(FontsConstants.MONTSERRAT_EXTRABOLD_50);
+        campoCodigo.setToolTipText("Digite o código");
+        campoCodigo.setBounds(394, 240, 300, 70);
         campoCodigo.setColumns(10);
-        panelBranco.add(labelCodigo);
+        panelBranco.add(campoCodigo);
         
         JButton botaoVerificar = new EstilizacaoRedonda.BotaoRedondo("Verificar Código", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
         botaoVerificar.setForeground(corPaletaBege);
         botaoVerificar.setBackground(corPaletaVermelho);
-        botaoVerificar.setBounds(449, 320, 180, 38);
-        botaoVerificar.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        botaoVerificar.setBounds(445, 320, 200, 38);
+        botaoVerificar.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         botaoVerificar.addActionListener(e -> verificarCodigo());
         panelBranco.add(botaoVerificar);
         
@@ -174,7 +157,7 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         botaoReenviar.setBorderPainted(false);
         botaoReenviar.setFocusPainted(false);
         botaoReenviar.setFont(FontsConstants.MONTSERRAT_BOLD_13);
-        botaoReenviar.setBounds(469, 370, 140, 25);
+        botaoReenviar.setBounds(470, 370, 150, 25);
         botaoReenviar.addActionListener(e -> reenviarCodigo());
         panelBranco.add(botaoReenviar);
         
@@ -188,8 +171,8 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         botaoVoltar.setBackground(corPaletaBege);
         botaoVoltar.setBorderPainted(false);
         botaoVoltar.setFocusPainted(false);
-        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_13);
-        botaoVoltar.setBounds(30, 20, 120, 35);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        botaoVoltar.setBounds(35, 30, 120, 35);
         botaoVoltar.addActionListener(e -> {
             dispose();
             

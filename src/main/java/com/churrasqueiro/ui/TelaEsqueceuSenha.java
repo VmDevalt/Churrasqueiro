@@ -1,4 +1,5 @@
 package com.churrasqueiro.ui;
+import com.churrasqueiro.ui.TelaValidacaoCodigoEsqueceuSenha;
 
 import com.churrasqueiro.utils.FontManager;
 import com.churrasqueiro.utils.FontsConstants;
@@ -29,10 +30,15 @@ public class TelaEsqueceuSenha extends JFrame {
         String email = getEmail();
 
         if (email.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, digite seu email.",
+            JOptionPane.showMessageDialog(this,
+            		"Por favor, digite seu email.",
                     "Campo Vazio",
                     JOptionPane.WARNING_MESSAGE);
             return;
+            
+            TelaValidacaoCodigoEsqueceuSenha telaValidacao = new TelaValidacaoCodigoEsqueceuSenha(email);
+            telaValidacao.setVisible(true);
+            dispose();
         }
 
         JOptionPane.showMessageDialog(this, "Código enviado para: " + email,
