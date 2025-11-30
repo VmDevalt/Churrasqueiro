@@ -4,6 +4,7 @@ import java.awt.Font;
 
 public class FontsConstants {
     public static Font MONTSERRAT_LIGHT_10;
+    public static Font MONTSERRAT_REGULAR_13;
     public static Font MONTSERRAT_REGULAR_15;
     public static Font MONTSERRAT_BOLD_10;
     public static Font MONTSERRAT_BOLD_11;
@@ -25,6 +26,7 @@ public class FontsConstants {
 
         MONTSERRAT_LIGHT_10 = fontManager.getMontserratLight(10);
 
+        MONTSERRAT_REGULAR_13 = fontManager.getMontserratRegular(13);
         MONTSERRAT_REGULAR_15 = fontManager.getMontserratRegular(15);
 
         MONTSERRAT_BOLD_10 = fontManager.getMontserratBold(10);
