@@ -23,7 +23,10 @@ public class CadastroUsuarioController {
 		}
 		
 		validarDados(login, email, senha, senhaConfirmada);
-		//TODO: APLICAR METODO QUE VALIDA O E-MAIL
+		
+		if(!(email.contains("@") && email.contains("."))) {
+			throw new ControllerException("O e-mail deve conter @ e .");
+		}
 		
 		if(!senhaConfirmada.equals(senha)) {
 			throw new ControllerException("As senhas não coincidem.");
@@ -56,5 +59,4 @@ public class CadastroUsuarioController {
 		}
 	}
 	
-	//TODO: METODO DE VALIDAÇÃO DO E-MAIL (SE CONTÉM '@' E '.')
 }

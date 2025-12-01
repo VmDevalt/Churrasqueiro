@@ -223,6 +223,13 @@ public class TelaLogin extends JFrame {
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        botaoEsqueciSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaEsqueceuSenha telaEsqueceuSenha = new TelaEsqueceuSenha();
+				telaEsqueceuSenha.setVisible(true);
+			}
+		});
 		botaoEsqueciSenha.setForeground(new Color(227,202,187));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
 		botaoEsqueciSenha.setBounds(555, 393, 261, 38);

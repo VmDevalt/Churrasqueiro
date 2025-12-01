@@ -50,7 +50,6 @@ public class UsuarioDAO {
 			ps.setString(2, usuario.getSenhaHash());
 			ps.setString(3, usuario.getTipo());
 			ps.setString(4, usuario.getEmail());
-			
 			int linhasAfetadas = ps.executeUpdate();
 			
 			if (linhasAfetadas > 0) {
@@ -92,7 +91,6 @@ public class UsuarioDAO {
     	return Optional.empty();
     }
     
-    //TODO: METODO PARA BUSCAR O NOME E O TIPO_FUNCIONARIO DE UM USUARIO
     public Optional<Usuario> buscarNomeETipo(String login) throws DatabaseException{
     	String sql = "SELECT login, tipo FROM usuario WHERE login = ?";
     	try(Connection conn = DatabaseConnection.getConnection();

@@ -24,14 +24,6 @@ public class TelaConfiguracoes extends JFrame {
 	private JPanel contentPane;
 	private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
-    
-    public String getLogin() {
-    	return "Roberto"; //PLACEHOLDER
-    }
-    
-    public String getTipo() {
-    	return "Robertário"; //PLACEHOLDER
-    }
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -147,45 +139,45 @@ public class TelaConfiguracoes extends JFrame {
         cnpjTituloLabel.setBounds(826, 251, 109, 44);
         panel.add(cnpjTituloLabel);
         
-        JLabel cpfTextoLabel_1 = new JLabel("000.000.000/0001-00");
-        cpfTextoLabel_1.setForeground(Color.BLACK);
-        cpfTextoLabel_1.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel_1.setBounds(826, 286, 284, 35);
-        panel.add(cpfTextoLabel_1);
+        JLabel cpfTextoLabel = new JLabel("000.000.000/0001-00");
+        cpfTextoLabel.setForeground(Color.BLACK);
+        cpfTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        cpfTextoLabel.setBounds(826, 286, 284, 35);
+        panel.add(cpfTextoLabel);
         
-        JLabel formasPagamentoLabel = new JLabel("Formas de Pagamento");
-        formasPagamentoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        formasPagamentoLabel.setForeground(new Color(179, 13, 36));
-        formasPagamentoLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
-        formasPagamentoLabel.setBounds(448, 329, 350, 44);
-        panel.add(formasPagamentoLabel);
+        JLabel formasPagamentoTituloLabel = new JLabel("Formas de Pagamento");
+        formasPagamentoTituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        formasPagamentoTituloLabel.setForeground(new Color(179, 13, 36));
+        formasPagamentoTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        formasPagamentoTituloLabel.setBounds(448, 329, 350, 44);
+        panel.add(formasPagamentoTituloLabel);
         
-        JLabel cpfTextoLabel_1_1 = new JLabel("Pix");
-        cpfTextoLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-        cpfTextoLabel_1_1.setForeground(Color.BLACK);
-        cpfTextoLabel_1_1.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel_1_1.setBounds(484, 370, 284, 35);
-        panel.add(cpfTextoLabel_1_1);
+        JLabel pixLabel = new JLabel("Pix");
+        pixLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        pixLabel.setForeground(Color.BLACK);
+        pixLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        pixLabel.setBounds(484, 370, 284, 35);
+        panel.add(pixLabel);
         
-        JLabel cpfTextoLabel_1_1_1 = new JLabel("Dinheiro");
-        cpfTextoLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-        cpfTextoLabel_1_1_1.setForeground(Color.BLACK);
-        cpfTextoLabel_1_1_1.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel_1_1_1.setBounds(484, 405, 284, 35);
-        panel.add(cpfTextoLabel_1_1_1);
+        JLabel dinheiroLabel = new JLabel("Dinheiro");
+        dinheiroLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        dinheiroLabel.setForeground(Color.BLACK);
+        dinheiroLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        dinheiroLabel.setBounds(484, 405, 284, 35);
+        panel.add(dinheiroLabel);
         
-        JLabel cpfTextoLabel_1_1_2 = new JLabel("Débito");
-        cpfTextoLabel_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-        cpfTextoLabel_1_1_2.setForeground(Color.BLACK);
-        cpfTextoLabel_1_1_2.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel_1_1_2.setBounds(484, 442, 284, 35);
-        panel.add(cpfTextoLabel_1_1_2);
+        JLabel debitoLabel = new JLabel("Débito");
+        debitoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        debitoLabel.setForeground(Color.BLACK);
+        debitoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        debitoLabel.setBounds(484, 442, 284, 35);
+        panel.add(debitoLabel);
         
-        JLabel cpfTextoLabel_1_1_3 = new JLabel("Crédito");
-        cpfTextoLabel_1_1_3.setHorizontalAlignment(SwingConstants.CENTER);
-        cpfTextoLabel_1_1_3.setForeground(Color.BLACK);
-        cpfTextoLabel_1_1_3.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel_1_1_3.setBounds(484, 478, 284, 35);
-        panel.add(cpfTextoLabel_1_1_3);
+        JLabel creditoLabel = new JLabel("Crédito");
+        creditoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        creditoLabel.setForeground(Color.BLACK);
+        creditoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        creditoLabel.setBounds(484, 478, 284, 35);
+        panel.add(creditoLabel);
 	}
 }
