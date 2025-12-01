@@ -8,12 +8,12 @@ public class ItemCardapio {
     private double preco;
     private int categoriaId;
     private String fotoUrl; 
-    private double precoComparacao;
+    private Double precoComparacao;
     
     
     public ItemCardapio() {}
 
-    public ItemCardapio(int id, String nome, String descricao, double preco, int categoriaId, String fotoUrl, double precoComparacao) {
+    public ItemCardapio(int id, String nome, String descricao, double preco, int categoriaId, String fotoUrl, Double precoComparacao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,7 +23,7 @@ public class ItemCardapio {
         this.precoComparacao = precoComparacao;
     }
     
-    public ItemCardapio(String nome, String descricao, double preco, int categoriaId, String fotoUrl, double precoComparacao) {
+    public ItemCardapio(String nome, String descricao, double preco, int categoriaId, String fotoUrl, Double precoComparacao) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
@@ -80,11 +80,11 @@ public class ItemCardapio {
         this.fotoUrl = fotoUrl;
     }
 
-    public double getPrecoComparacao() {
+    public Double getPrecoComparacao() {
         return precoComparacao;
     }
 
-    public void setPrecoComparacao(double precoComparacao) {
+    public void setPrecoComparacao(Double precoComparacao) {
         this.precoComparacao = precoComparacao;
     }
     

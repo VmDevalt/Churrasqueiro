@@ -41,4 +41,14 @@ public class ItemCardapioController {
         return itemCardapioDAO.inserir(item); 
     }
     
+    public ItemCardapio atualizarItem(ItemCardapio item) throws ControllerException, DatabaseException {
+        if (item.getId() == 0) {
+            throw new ControllerException("ID do item é obrigatório para atualização.");
+        }
+
+        validarItem(item);
+        return itemCardapioDAO.atualizar(item);
+    }
+
+    
 }
