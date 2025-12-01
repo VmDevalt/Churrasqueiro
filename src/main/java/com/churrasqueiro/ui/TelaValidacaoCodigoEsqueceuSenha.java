@@ -54,6 +54,8 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 					"Sucesso",
 					JOptionPane.INFORMATION_MESSAGE);
 			
+			TelaNovaSenha telaNovaSenha = new TelaNovaSenha(emailUsuario);
+			telaNovaSenha.setVisible(true);
 			dispose();
 		} else {
 			JOptionPane.showMessageDialog(this,
@@ -76,16 +78,10 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaValidacaoCodigoEsqueceuSenha() {
 		initialize();
 	}
 
-/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		Color corPaletaVermelho = new Color(179,13,36);
         Color corPaletaBege = new Color(227,202,187);
@@ -138,7 +134,6 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         this.campoCodigo = new EstilizacaoRedonda.CaixaTextoRedonda(null, corPaletaVermelho, corPaletaBege, corPaletaPreto, 2, 35);
         campoCodigo.setHorizontalAlignment(SwingConstants.CENTER);
         campoCodigo.setFont(FontsConstants.MONTSERRAT_EXTRABOLD_50);
-        campoCodigo.setToolTipText("Digite o código");
         campoCodigo.setBounds(394, 240, 300, 70);
         campoCodigo.setColumns(10);
         panelBranco.add(campoCodigo);

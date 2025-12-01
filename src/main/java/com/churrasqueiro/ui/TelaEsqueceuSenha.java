@@ -109,7 +109,6 @@ public class TelaEsqueceuSenha extends JFrame {
 
         this.campoEmail = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
         campoEmail.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
-        campoEmail.setToolTipText("Digite seu email");
         campoEmail.setBounds(255, 260, 592, 37);
         campoEmail.setColumns(10);
         panelBranco.add(campoEmail);
