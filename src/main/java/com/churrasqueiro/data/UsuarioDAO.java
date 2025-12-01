@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UsuarioDAO {
 
     public Optional<Usuario> buscarPorLogin(String login) throws DatabaseException {
-        String sql = "SELECT id, login, senha, tipo, email FROM usuario WHERE login = ?";
+        String sql = "SELECT id, login, senhaHash, tipo, email FROM usuario WHERE login = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -26,7 +26,7 @@ public class UsuarioDAO {
                     Usuario usuario = new Usuario(
                         rs.getInt("id"),
                         rs.getString("login"),
-                        rs.getString("senha"),
+                        rs.getString("senhaHash"),
                         rs.getString("tipo"),
                         rs.getString("email")
                     );
@@ -41,7 +41,7 @@ public class UsuarioDAO {
     }
     
     public Usuario cadastrarUsuario(Usuario usuario) throws DatabaseException {
-    	String sql = "INSERT INTO usuario (login, senha, tipo, email) VALUES (?, ?, ?, ?)";
+    	String sql = "INSERT INTO usuario (login, senhaHash, tipo, email) VALUES (?, ?, ?, ?)";
 		
 		try (Connection conn = DatabaseConnection.getConnection();
 			 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -69,7 +69,7 @@ public class UsuarioDAO {
     }
     
     public Optional<Usuario> buscarEmail(String email) throws DatabaseException{
-    	String sql = "SELECT id, login, senha, tipo, email FROM usuario WHERE email = ?";
+    	String sql = "SELECT id, login, senhaHash, tipo, email FROM usuario WHERE email = ?";
     	try(Connection conn = DatabaseConnection.getConnection();
     		PreparedStatement ps = conn.prepareStatement(sql)){
     			ps.setString(1, email);
@@ -78,7 +78,7 @@ public class UsuarioDAO {
     					Usuario usuario = new Usuario(
     							rs.getInt("id"),
     							rs.getString("login"),
-    							rs.getString("senha"),
+    							rs.getString("senhaHash"),
     							rs.getString("tipo"),
     							rs.getString("email")
     							);
@@ -103,7 +103,7 @@ public class UsuarioDAO {
     					Usuario usuario = new Usuario(
     							rs.getInt("id"),
     							rs.getString("login"),
-    							rs.getString("senha"),
+    							rs.getString("senhaHash"),
     							rs.getString("tipo"),
     							rs.getString("email")
     							);
