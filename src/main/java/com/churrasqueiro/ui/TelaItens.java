@@ -163,55 +163,64 @@ public class TelaItens extends JFrame {
     }
 
     private JPanel criarCardProduto(ItemCardapio item) {
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corTextoCategoria = new Color(40, 40, 40);
+    Color corPaletaVermelho = new Color(179, 13, 36);
+    Color corPaletaBege = new Color(227, 202, 187);
+    Color corTextoCategoria = new Color(40, 40, 40);
+    Color corPaletaPreto = new Color(0, 0, 0);
+    Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
-        EstilizacaoRedonda.PainelRedondo panelCard =
-                new EstilizacaoRedonda.PainelRedondo(null, 60, 4, corPaletaVermelho, null);
-        panelCard.setLayout(null);
+    EstilizacaoRedonda.PainelRedondo panelCard =
+            new EstilizacaoRedonda.PainelRedondo(null, 60, 4, corPaletaVermelho, null);
+    panelCard.setLayout(null);
 
-        String nomeCategoria = mapaCategorias.getOrDefault(item.getCategoriaId(), "Não definida");
+    String nomeCategoria = mapaCategorias.getOrDefault(item.getCategoriaId(), "Não definida");
 
-        JLabel burguerLabel = new JLabel();
-        burguerLabel.setBounds(40, 35, 120, 120);
+    JLabel burguerLabel = new JLabel();
+    burguerLabel.setBounds(40, 35, 120, 120);
 
-        if (item.getFotoUrl() != null && !item.getFotoUrl().isBlank()) {
-            try {
-                java.net.URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
-                if (imgUrl != null) {
-                    burguerLabel.setIcon(new ImageIcon(imgUrl));
-                }
-            } catch (Exception e) {
-                System.err.println("Não foi possível carregar imagem: " + item.getFotoUrl());
+    if (item.getFotoUrl() != null && !item.getFotoUrl().isBlank()) {
+        try {
+            java.net.URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
+            if (imgUrl != null) {
+                burguerLabel.setIcon(new ImageIcon(imgUrl));
             }
+        } catch (Exception e) {
+            System.err.println("Não foi possível carregar imagem: " + item.getFotoUrl());
         }
-        panelCard.add(burguerLabel);
-
-        JTextArea nomeLabel = new JTextArea(item.getNome());
-        nomeLabel.setBounds(190, 25, 150, 60);
-        nomeLabel.setLineWrap(true);
-        nomeLabel.setWrapStyleWord(true);
-        nomeLabel.setEditable(false);
-        nomeLabel.setOpaque(false);
-        nomeLabel.setForeground(corPaletaBege);
-        nomeLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-        panelCard.add(nomeLabel);
-
-        JLabel categoriaLabel = new JLabel("Categoria: " + nomeCategoria);
-        categoriaLabel.setBounds(190, 90, 200, 16);
-        categoriaLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        categoriaLabel.setForeground(corTextoCategoria);
-        panelCard.add(categoriaLabel);
-
-        JLabel precoLabel = new JLabel("R$" + String.format("%.2f", item.getPreco()).replace('.', ','));
-        precoLabel.setBounds(190, 115, 150, 30);
-        precoLabel.setForeground(corPaletaBege);
-        precoLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        panelCard.add(precoLabel);
-
-        return panelCard;
     }
+    panelCard.add(burguerLabel);
+
+    JTextArea nomeLabel = new JTextArea(item.getNome());
+    nomeLabel.setBounds(190, 25, 150, 60);
+    nomeLabel.setLineWrap(true);
+    nomeLabel.setWrapStyleWord(true);
+    nomeLabel.setEditable(false);
+    nomeLabel.setOpaque(false);
+    nomeLabel.setForeground(corPaletaBege);
+    nomeLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+    panelCard.add(nomeLabel);
+
+    JLabel precoLabel = new JLabel("R$" + String.format("%.2f", item.getPreco()).replace('.', ','));
+    precoLabel.setBounds(190, 80, 150, 26);
+    precoLabel.setForeground(corPaletaBege);
+    precoLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+    panelCard.add(precoLabel);
+
+    EstilizacaoRedonda.BotaoRedondo botaoEditar =
+            new EstilizacaoRedonda.BotaoRedondo(
+                    "Editar",
+                    corPaletaPreto,
+                    corPaletaPretoInteracao,
+                    corPaletaPreto,
+                    25
+            );
+    botaoEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
+    botaoEditar.setForeground(Color.WHITE);
+    botaoEditar.setBounds(190, 145, 120, 26);
+    panelCard.add(botaoEditar);
+
+    return panelCard;
+}
 
     public TelaItens() {
 
