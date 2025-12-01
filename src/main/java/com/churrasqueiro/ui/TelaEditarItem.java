@@ -1,0 +1,496 @@
+package com.churrasqueiro.ui;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import com.churrasqueiro.business.CategoriaController;
+import com.churrasqueiro.business.ItemCardapioController;
+import com.churrasqueiro.entities.Categoria;
+import com.churrasqueiro.entities.ItemCardapio;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
+
+public class TelaEditarItem extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+    private static final int LARGURA = 1280;
+    private static final int ALTURA = 720;
+
+    private JPanel contentPaneVermelho;
+    private EstilizacaoRedonda.CaixaTextoRedonda campoNome;
+    private EstilizacaoRedonda.CaixaTextoRedonda campoDescricao;
+    private EstilizacaoRedonda.CaixaTextoRedonda campoPreco;
+    private EstilizacaoRedonda.CaixaTextoRedonda campoFoto;
+    private EstilizacaoRedonda.CaixaTextoRedonda campoPrecoVariavel;
+    private JComboBox<String> comboBoxGrupos;
+
+    private final ItemCardapioController itemCardapioController = new ItemCardapioController();
+    private final CategoriaController categoriaController = new CategoriaController();
+    private final Map<String, Integer> listaCategorias = new HashMap<>();
+
+    private final ItemCardapio itemEmEdicao;
+
+    public TelaEditarItem(ItemCardapio item) {
+        this.itemEmEdicao = item;
+
+        Color corPaletaVermelho = new Color(179, 13, 36);
+        Color corPaletaBege = new Color(227, 202, 187);
+        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
+        Color corPaletaPreto = new Color(0, 0, 0);
+        Color corPaletaPretoInteracao = new Color(35, 35, 35);
+        Color corPaletaCinza = new Color(140, 127, 127);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(LARGURA, ALTURA);
+        setResizable(false);
+        setTitle("Editar Item - Churrasqueiro");
+
+        contentPaneVermelho = new JPanel();
+        contentPaneVermelho.setBackground(corPaletaVermelho);
+        contentPaneVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPaneVermelho);
+        contentPaneVermelho.setLayout(null);
+
+        JPanel panelClaro = new JPanel();
+        panelClaro.setBounds(0, 71, 1264, 663);
+        contentPaneVermelho.add(panelClaro);
+        panelClaro.setBackground(corPaletaBege);
+        panelClaro.setLayout(null);
+
+        JLabel labelEditarItem = new JLabel("Editar item");
+        labelEditarItem.setBounds(565, 24, 200, 26);
+        labelEditarItem.setForeground(corPaletaVermelho);
+        labelEditarItem.setFont(new Font("SansSerif", Font.BOLD, 25));
+        panelClaro.add(labelEditarItem);
+
+        EstilizacaoRedonda.BotaoRedondo botaoSalvar =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Salvar alterações",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        35
+                );
+        botaoSalvar.setBounds(542, 474, 220, 38);
+        panelClaro.add(botaoSalvar);
+        botaoSalvar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoSalvar.setForeground(Color.WHITE);
+        botaoSalvar.setBackground(corPaletaPreto);
+        botaoSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarAlteracoes();
+            }
+        });
+
+        comboBoxGrupos = new JComboBox<>();
+        comboBoxGrupos.setBorder(new LineBorder(corPaletaVermelho, 1));
+        comboBoxGrupos.setForeground(corPaletaPreto);
+        comboBoxGrupos.setBackground(corPaletaBege);
+        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        comboBoxGrupos.setMaximumRowCount(4);
+        comboBoxGrupos.setBounds(100, 269, 486, 38);
+        panelClaro.add(comboBoxGrupos);
+
+        campoNome = new EstilizacaoRedonda.CaixaTextoRedonda(
+                "Digite o nome...",
+                corPaletaVermelho,
+                corPaletaBege,
+                corPaletaCinza,
+                2,
+                35
+        );
+        campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoNome.setToolTipText("Nome do item");
+        campoNome.setBounds(90, 88, 1088, 38);
+        panelClaro.add(campoNome);
+        campoNome.setColumns(10);
+
+        campoDescricao = new EstilizacaoRedonda.CaixaTextoRedonda(
+                "Digite a descrição...",
+                corPaletaVermelho,
+                corPaletaBege,
+                corPaletaCinza,
+                2,
+                35
+        );
+        campoDescricao.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoDescricao.setToolTipText("Descrição do item");
+        campoDescricao.setBounds(90, 182, 1088, 38);
+        panelClaro.add(campoDescricao);
+        campoDescricao.setColumns(10);
+
+        campoPreco = new EstilizacaoRedonda.CaixaTextoRedonda(
+                "R$.",
+                corPaletaVermelho,
+                corPaletaBege,
+                corPaletaCinza,
+                2,
+                35
+        );
+        campoPreco.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPreco.setToolTipText("Preço do item");
+        campoPreco.setBounds(90, 366, 496, 38);
+        panelClaro.add(campoPreco);
+        campoPreco.setColumns(10);
+
+        EstilizacaoRedonda.BotaoRedondo botaoSelecionarFoto =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Selecionar",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        35
+                );
+        botaoSelecionarFoto.setFont(new Font("SansSerif", Font.BOLD, 14));
+        botaoSelecionarFoto.setForeground(Color.WHITE);
+        botaoSelecionarFoto.setBounds(1050, 269, 120, 38);
+        panelClaro.add(botaoSelecionarFoto);
+
+        campoFoto = new EstilizacaoRedonda.CaixaTextoRedonda(
+                "Adicione uma foto...",
+                corPaletaVermelho,
+                corPaletaBege,
+                corPaletaCinza,
+                2,
+                35
+        );
+        campoFoto.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoFoto.setToolTipText("Arquivo de imagem");
+        campoFoto.setBounds(658, 269, 520, 38);
+        panelClaro.add(campoFoto);
+        campoFoto.setColumns(10);
+
+        botaoSelecionarFoto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setDialogTitle("Selecionar imagem");
+
+                chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                        "Imagens (*.png, *.jpg, *.jpeg)",
+                        "png", "jpg", "jpeg"
+                ));
+
+                int resultado = chooser.showOpenDialog(null);
+
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        java.io.File arquivo = chooser.getSelectedFile();
+                        String nomeArquivo = arquivo.getName();
+                        campoFoto.setText(nomeArquivo);
+
+                        java.nio.file.Path destino = java.nio.file.Paths.get(
+                                "src/main/resources/assets/imagens/itens/" + nomeArquivo
+                        );
+
+                        java.nio.file.Files.copy(
+                                arquivo.toPath(),
+                                destino,
+                                java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                        );
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Imagem carregada com sucesso!",
+                                "Sucesso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Erro ao copiar a imagem:\n" + ex.getMessage(),
+                                "Erro",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                }
+            }
+        });
+
+        campoPrecoVariavel = new EstilizacaoRedonda.CaixaTextoRedonda(
+                "R$.",
+                corPaletaVermelho,
+                corPaletaBege,
+                corPaletaCinza,
+                2,
+                35
+        );
+        campoPrecoVariavel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPrecoVariavel.setToolTipText("Preço a partir de (opcional)");
+        campoPrecoVariavel.setBounds(658, 366, 520, 38);
+        panelClaro.add(campoPrecoVariavel);
+        campoPrecoVariavel.setColumns(10);
+
+        JLabel labelNome = new JLabel("NOME");
+        labelNome.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelNome.setBounds(114, 63, 100, 14);
+        panelClaro.add(labelNome);
+
+        JLabel labelDescricao = new JLabel("DESCRIÇÃO");
+        labelDescricao.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelDescricao.setBounds(114, 154, 120, 14);
+        panelClaro.add(labelDescricao);
+
+        JLabel labelGrupo = new JLabel("GRUPO");
+        labelGrupo.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelGrupo.setBounds(114, 242, 80, 14);
+        panelClaro.add(labelGrupo);
+
+        JLabel labelFoto = new JLabel("FOTO");
+        labelFoto.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelFoto.setBounds(687, 244, 80, 14);
+        panelClaro.add(labelFoto);
+
+        JLabel labelPrecoVar = new JLabel("PREÇO \"A PARTIR DE:\"");
+        labelPrecoVar.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelPrecoVar.setBounds(687, 341, 220, 14);
+        panelClaro.add(labelPrecoVar);
+
+        JLabel labelPreco = new JLabel("PREÇO");
+        labelPreco.setFont(new Font("SansSerif", Font.BOLD, 15));
+        labelPreco.setBounds(114, 341, 80, 14);
+        panelClaro.add(labelPreco);
+
+        JLabel logoLabel = new JLabel("");
+        logoLabel.setBounds(61, 0, 92, 82);
+        logoLabel.setIcon(new ImageIcon(TelaEditarItem.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
+        contentPaneVermelho.add(logoLabel);
+
+        JLabel labelItemTopo = new JLabel("Itens");
+        labelItemTopo.setFont(new Font("SansSerif", Font.BOLD, 25));
+        labelItemTopo.setForeground(Color.WHITE);
+        labelItemTopo.setBounds(607, 26, 80, 25);
+        contentPaneVermelho.add(labelItemTopo);
+
+        EstilizacaoRedonda.BotaoRedondo botaoVoltar =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Voltar",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        35
+                );
+        botaoVoltar.setBounds(1112, 22, 110, 38);
+        contentPaneVermelho.add(botaoVoltar);
+        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBackground(corPaletaPreto);
+        botaoVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                TelaItens telaItens = new TelaItens();
+                telaItens.setVisible(true);
+            }
+        });
+
+        java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+
+        carregarCategoriasNoComboBox();
+        preencherCamposComItem();
+        setLocationRelativeTo(null);
+    }
+
+    private void carregarCategoriasNoComboBox() {
+        comboBoxGrupos.removeAllItems();
+        listaCategorias.clear();
+        try {
+            List<Categoria> categoriasRetornadas = categoriaController.listarTodas();
+            for (Categoria cat : categoriasRetornadas) {
+                String nome = cat.getNome();
+                int id = cat.getId();
+                comboBoxGrupos.addItem(nome);
+                listaCategorias.put(nome, id);
+            }
+        } catch (DatabaseException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao carregar categorias do banco.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void preencherCamposComItem() {
+        if (itemEmEdicao == null) {
+            return;
+        }
+
+        campoNome.setText(itemEmEdicao.getNome() != null ? itemEmEdicao.getNome() : "");
+        campoDescricao.setText(itemEmEdicao.getDescricao() != null ? itemEmEdicao.getDescricao() : "");
+        campoPreco.setText(String.format("R$ %.2f", itemEmEdicao.getPreco()).replace('.', ','));
+
+        if (itemEmEdicao.getFotoUrl() != null) {
+            campoFoto.setText(itemEmEdicao.getFotoUrl());
+        } else {
+            campoFoto.setText("");
+        }
+
+        if (itemEmEdicao.getPrecoComparacao() != null) {
+            campoPrecoVariavel.setText(
+                    String.format("R$ %.2f", itemEmEdicao.getPrecoComparacao()).replace('.', ',')
+            );
+        } else {
+            campoPrecoVariavel.setText("");
+        }
+
+        int categoriaId = itemEmEdicao.getCategoriaId();
+        for (int i = 0; i < comboBoxGrupos.getItemCount(); i++) {
+            String nomeCat = comboBoxGrupos.getItemAt(i);
+            Integer id = listaCategorias.get(nomeCat);
+            if (id != null && id == categoriaId) {
+                comboBoxGrupos.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
+    private void salvarAlteracoes() {
+        String nome = campoNome.getText().trim();
+        String descricao = campoDescricao.getText().trim();
+        String precoStr = campoPreco.getText().trim();
+        String precoVarStr = campoPrecoVariavel.getText().trim();
+        String foto = campoFoto.getText().trim();
+        String categoriaSelecionada = (String) comboBoxGrupos.getSelectedItem();
+
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o nome do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (descricao.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a descrição do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (categoriaSelecionada == null || categoriaSelecionada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Selecione um grupo/categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (precoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o preço do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        double preco;
+        Double precoVariavel = null;
+
+        try {
+            preco = Double.parseDouble(precoStr.replace("R$", "").replace(" ", "").replace(",", "."));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Preço inválido. Use formato 10,00 ou 10.00.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!precoVarStr.isEmpty() && !precoVarStr.equalsIgnoreCase("R$.")) {
+            try {
+                precoVariavel = Double.parseDouble(precoVarStr.replace("R$", "").replace(" ", "").replace(",", "."));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Preço \"a partir de\" inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        Integer categoriaId = listaCategorias.get(categoriaSelecionada);
+        if (categoriaId == null) {
+            JOptionPane.showMessageDialog(this, "Categoria selecionada inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        itemEmEdicao.setNome(nome);
+        itemEmEdicao.setDescricao(descricao);
+        itemEmEdicao.setPreco(preco);
+        itemEmEdicao.setFotoUrl(foto);
+        itemEmEdicao.setCategoriaId(categoriaId);
+        itemEmEdicao.setPrecoComparacao(precoVariavel);
+
+        try {
+            itemCardapioController.atualizarItem(itemEmEdicao);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Item atualizado com sucesso!",
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            int opcao = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja voltar para a tela de Itens?",
+                    "Item atualizado",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                dispose();
+                TelaItens telaItens = new TelaItens();
+                telaItens.setVisible(true);
+            }
+
+        } catch (ControllerException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao validar o item:\n" + ex.getMessage(),
+                    "Erro de Validação",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } catch (DatabaseException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao salvar o item no banco:\n" + ex.getMessage(),
+                    "Erro de Banco",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ItemCardapio item = new ItemCardapio();
+                    item.setId(1);
+                    item.setNome("Item Exemplo");
+                    item.setDescricao("Descrição exemplo");
+                    item.setPreco(29.90);
+                    item.setCategoriaId(1);
+                    item.setFotoUrl("exemplo.png");
+                    item.setPrecoComparacao(39.90);
+
+                    TelaEditarItem frame = new TelaEditarItem(item);
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+}

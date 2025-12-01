@@ -218,6 +218,17 @@ public class TelaItens extends JFrame {
     botaoEditar.setForeground(Color.WHITE);
     botaoEditar.setBounds(190, 145, 120, 26);
     panelCard.add(botaoEditar);
+    botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+
+            dispose();
+
+            //pulo do gato; passando o item pelo contrutor "itemm"
+            TelaEditarItem telaEditar = new TelaEditarItem(item);
+            telaEditar.setVisible(true);
+        }
+    });
 
     return panelCard;
 }
