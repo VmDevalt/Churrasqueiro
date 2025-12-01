@@ -79,6 +79,7 @@ public class AppInitializer {
                 Console.main(new String[0]);
             } catch (Exception e) {
                 System.err.println("[CONSOLE H2] Erro ao iniciar o Console Web.");
+                e.printStackTrace();
             }
         };
 

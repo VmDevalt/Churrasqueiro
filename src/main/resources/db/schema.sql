@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     senhaHash VARCHAR(255) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    token_recuperacao (VARCHAR 255),
-    token_expiracao (TIMESTAMP)
+    token_recuperacao VARCHAR (255),
+    token_expiracao TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS categorias_cardapio (

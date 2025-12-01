@@ -6,7 +6,10 @@ VALUES (
     'admin', 
     '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 
     'ADMIN', 
-    'admin@churrasqueiro.com'
+    'admin@churrasqueiro.com',
+    '1111',
+    '2025-11-05 10:15:04'
+
 );
 
 MERGE INTO usuario 
@@ -16,7 +19,9 @@ VALUES (
     'funcionario', 
     '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 
     'ATENDENTE', 
-    'atendente@churrasqueiro.com'
+    'atendente@churrasqueiro.com',
+    '2222',
+    '2025-11-05 10:15:04'
 );
 
 MERGE INTO usuario 
@@ -26,7 +31,10 @@ VALUES (
     'funcionario4', 
     '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 
     'ATENDENTE', 
-    'atendente@churrasqueiro.com'
+    'atendente@churrasqueiro.com',
+    '3333',
+    '2025-11-05 10:15:04'
+
 );
 
 MERGE INTO usuario 
@@ -36,7 +44,10 @@ VALUES (
     'funcionario2', 
     '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 
     'ATENDENTE', 
-    'atendente@churrasqueiro.com'
+    'atendente@churrasqueiro.com',
+    '4444',
+    '2025-11-05 10:15:04'
+
 );
 
 INSERT INTO Mesa (numeroMesa)
