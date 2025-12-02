@@ -13,8 +13,10 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class TelaMenuPrincipal extends JFrame {
 
@@ -120,10 +122,18 @@ public class TelaMenuPrincipal extends JFrame {
         contentPane.add(botaoSair);
         botaoSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				TelaLogin telaLogin = new TelaLogin();
-				telaLogin.setVisible(true);
-			}
+				UIManager.put("OptionPane.background", corPaletaBege);
+		        UIManager.put("Panel.background", corPaletaBege);
+		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+		        Object[] opcoes = { "Sair", "Cancelar" };
+		        int escolha = JOptionPane.showOptionDialog(
+		            TelaMenuPrincipal.this,"Deseja realmente sair e voltar ao Login?", "Sair do Menu Principal",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+		        if (escolha == 0) { 
+		            dispose();
+		            TelaLogin telaLogin = new TelaLogin();
+		            telaLogin.setVisible(true);
+		        }
+		    }
 		});
 		
 		JLabel labelSelecioneUmaOpcao = new JLabel("Selecione uma opção");
