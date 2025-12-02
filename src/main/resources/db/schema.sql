@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     senhaHash VARCHAR(255) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    token_recuperacao VARCHAR (255),
+    token_recuperacao VARCHAR (20),
     token_expiracao TIMESTAMP
 );
 
