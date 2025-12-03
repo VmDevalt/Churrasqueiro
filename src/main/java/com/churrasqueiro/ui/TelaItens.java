@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
@@ -28,6 +32,7 @@ import com.churrasqueiro.exceptions.DatabaseException;
 
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import javax.swing.JButton;
 
 public class TelaItens extends JFrame {
 
@@ -346,6 +351,30 @@ public class TelaItens extends JFrame {
                 telaCriarGrupo.setVisible(true);
             }
         });
+        
+        final EstilizacaoRedonda.BotaoRedondo botaoEditarGrupo = new EstilizacaoRedonda.BotaoRedondo("Editar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        botaoEditarGrupo.setBounds(435, 20, 151, 38);
+        botaoEditarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoEditarGrupo.setForeground(Color.WHITE);
+        panel.add(botaoEditarGrupo);
+        botaoEditarGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UIManager.put("OptionPane.background", corPaletaBege);
+		        UIManager.put("Panel.background", corPaletaBege);
+		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+		        String[] itensGrupos = { "Hamburgueres", "Bebidas", "Acompanhamentos" };
+		        JComboBox<String> cBoxItensGrupo = new JComboBox<>(itensGrupos);
+		        Object[] opcoes = { "Avançar", "Cancelar" };
+		        int escolha = JOptionPane.showOptionDialog(
+		            TelaItens.this,"Selecione qual Grupo deseja editar", "Editar Grupo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+		        if (escolha == 0) { 
+		            dispose();
+		            TelaEditarGrupo telaEditarGrupo = new TelaEditarGrupo();
+		            telaEditarGrupo.setVisible(true);
+		        }
+		    }
+		});
+       
 
         this.campoPesquisa = new EstilizacaoRedonda.CaixaTextoRedonda(
                 "Digite...",
