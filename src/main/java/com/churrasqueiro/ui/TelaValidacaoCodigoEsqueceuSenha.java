@@ -19,11 +19,12 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 
 	public TelaValidacaoCodigoEsqueceuSenha(String email) {
 		this.emailUsuario = email;
-		this.codigoGerado = gerarCodigo();
+		this.codigoGerado = TelaEsqueceuSenha.getToken();
 		enviarCodigoPorEmail();
 		initialize();
 	}
 	
+	//TODO: ANÁLISE E POSSÍVEL EDIÇÃO DOS MÉTÓDOS DE VALIDALÇÃO A SEGUIR
 	private String gerarCodigo() {
 		int codigo = (int) (Math.random() * 900000) + 100000;
 		return String.valueOf(codigo);
@@ -176,6 +177,7 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         panelVermelho.add(botaoVoltar);
 	}
 	
+	//TODO: VERIFICAR E CONFIGURAR APROPRIADAMENTE O REENVIO DE CÓDIGO
 	private void reenviarCodigo() {
     	this.codigoGerado = gerarCodigo();
     	enviarCodigoPorEmail();
