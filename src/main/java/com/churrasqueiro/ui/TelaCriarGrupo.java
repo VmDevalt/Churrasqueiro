@@ -9,8 +9,15 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.churrasqueiro.business.CategoriaController;
+import com.churrasqueiro.entities.Categoria;
+import com.churrasqueiro.entities.ItemCardapio;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaCriarGrupo extends JFrame {
 
@@ -20,6 +27,7 @@ public class TelaCriarGrupo extends JFrame {
     private static final int ALTURA = 720;
     private EstilizacaoRedonda.CaixaTextoRedonda campoNomeGrupo;
     private EstilizacaoRedonda.CaixaTextoRedonda campoDescricaoGrupo;
+    private final CategoriaController categoriaController = new CategoriaController();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -95,19 +103,19 @@ public class TelaCriarGrupo extends JFrame {
         nomeLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         nomeLabel.setForeground(corPaletaPreto);
         
-        this.campoNomeGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoNomeGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
-		campoNomeGrupo.setToolTipText("Digite o nome do Grupo");
-		campoNomeGrupo.setBounds(65, 280, 1135, 38);
-		panel.add(campoNomeGrupo);
-		campoNomeGrupo.setColumns(10);
-		
-		this.campoDescricaoGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoDescricaoGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
-		campoDescricaoGrupo.setToolTipText("Digite a descrição do Grupo");
-		campoDescricaoGrupo.setBounds(65, 179, 1135, 38);
+        this.campoDescricaoGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+        campoDescricaoGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+        campoDescricaoGrupo.setToolTipText("Digite o nome do Grupo");
+        campoDescricaoGrupo.setBounds(65, 280, 1135, 38);
 		panel.add(campoDescricaoGrupo);
 		campoDescricaoGrupo.setColumns(10);
+		
+		this.campoNomeGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		campoNomeGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		campoNomeGrupo.setToolTipText("Digite a descrição do Grupo");
+		campoNomeGrupo.setBounds(65, 179, 1135, 38);
+		panel.add(campoNomeGrupo);
+		campoNomeGrupo.setColumns(10);
 		
 		JLabel descricaoLabel = new JLabel("Descrição");
 		descricaoLabel.setForeground(Color.BLACK);
@@ -122,6 +130,11 @@ public class TelaCriarGrupo extends JFrame {
 		botaoAdicionarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
 		botaoAdicionarGrupo.setForeground(corPaletaBege);
 		botaoAdicionarGrupo.setBackground(new Color(0, 0, 0));
+		botaoAdicionarGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarCategoria();
+			}
+		});
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
 		botaoVoltar.setBounds(1128, 41, 104, 38);
@@ -137,4 +150,72 @@ public class TelaCriarGrupo extends JFrame {
 			}
 		});
 	}
+	
+	
+	 private void limparCampos() {
+	        campoNomeGrupo.setText("");
+	        campoDescricaoGrupo.setText("");
+	    }
+	
+
+	private void adicionarCategoria() {
+		String nome = campoNomeGrupo.getText().trim();
+        String descricao = campoDescricaoGrupo.getText().trim();
+
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o nome do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (descricao.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a descrição do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Categoria categoria = new Categoria();
+        categoria.setNome(nome);
+        categoria.setDescricao(descricao);
+        
+        try {
+        	Categoria categoriaCriada = categoriaController.inserir(categoria);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Categoria criada com sucesso!\nID: " + categoria.getId(),
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            int opcao = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja voltar para a tela de Itens?",
+                    "Categoria criada",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                dispose();
+                TelaItens telaItens = new TelaItens();
+                telaItens.setVisible(true);
+            } else {
+                limparCampos();
+            }
+
+        } catch (ControllerException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao validar a categoria:\n" + ex.getMessage(),
+                    "Erro de Validação",
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+        } catch (DatabaseException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao salvar a categoria no banco:\n" + ex.getMessage(),
+                    "Erro de Banco",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 }
