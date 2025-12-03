@@ -9,6 +9,7 @@ import com.churrasqueiro.business.LoginController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.data.UsuarioDAO;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,17 +27,25 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.util.Optional;
 
 public class TelaLogin extends JFrame {
 	
 	private static final LoginController loginController = new LoginController();
+	private static final UsuarioDAO usuarioDAO = new UsuarioDAO();
+	private static Usuario usuarioLogado = new Usuario();
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
-    private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
-    private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
+    private static EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
+    private static EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
     private JButton botaoLogar;
+    private boolean visualizacaoSenha = false;
+
+	public static Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
     public String getLogin() {
 		return campoLogin.getText().trim();
@@ -53,9 +62,11 @@ public class TelaLogin extends JFrame {
 		
 		try {
 			Usuario usuarioAutenticado = loginController.autenticar(login, senha);
-			JOptionPane.showMessageDialog(this, 
-	                "Login bem-sucedido! Tipo: " + usuarioAutenticado.getTipo(), 
-	                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Login bem-sucedido! Bem-vindo, " + usuarioAutenticado.getLogin(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			this.dispose();
+			TelaMenuPrincipal telaPrincipal = new TelaMenuPrincipal();
+			telaPrincipal.setVisible(true);
+			setVisible(false);
 			
 		} catch (ControllerException ex) {
 			 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro de Login",
@@ -87,7 +98,6 @@ public class TelaLogin extends JFrame {
 	}
 
 	public TelaLogin() {
-
         Color corPaletaVermelho = new Color(179,13,36);
         Color corPaletaBege = new Color(227,202,187);
         Color corPaletaVermelhoInteracao = new Color(200,50,50);
@@ -126,10 +136,19 @@ public class TelaLogin extends JFrame {
 		panel.setLayout(null);
 
 		JButton botaoRevelarSenha = new JButton("");
-		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
 		botaoRevelarSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(botaoRevelarSenha, "Teste");
+				if(visualizacaoSenha == false) {
+					campoSenha.setEchoChar((char)0);
+					visualizacaoSenha = true;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoSenha.setEchoChar('•');
+					visualizacaoSenha = false;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
 			}
 		});
 		botaoRevelarSenha.setBounds(793, 308, 58, 38);
@@ -153,6 +172,7 @@ public class TelaLogin extends JFrame {
 		campoSenha.setColumns(10);
 		campoSenha.setBounds(250, 308, 597, 38);
 		panel.add(campoSenha);
+		campoSenha.setEchoChar('•');
 
         int larguraLogo = 116;
         int alturaLogo = 102;
@@ -184,19 +204,33 @@ public class TelaLogin extends JFrame {
 		panel.add(labelSenha);
 
         this.botaoLogar = new EstilizacaoRedonda.BotaoRedondo("Entrar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoLogar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		botaoLogar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Optional<Usuario> usuarioOPT;
+				try {
+					usuarioOPT = usuarioDAO.buscarPorLogin(getLogin());
+					usuarioLogado = usuarioOPT.get();
+				} catch (DatabaseException e1) {
+					e1.printStackTrace();
+				}
 				autenticar();
 			}
 		});
-		botaoLogar.setForeground(new Color(255, 255, 255));
+		botaoLogar.setForeground(new Color(227,202,187));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(275, 393, 268, 38);
         botaoLogar.setFont(new Font("Tahoma", Font.BOLD, 16));
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoEsqueciSenha.setForeground(new Color(255, 255, 255));
+        botaoEsqueciSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaEsqueceuSenha telaEsqueceuSenha = new TelaEsqueceuSenha();
+				telaEsqueceuSenha.setVisible(true);
+			}
+		});
+		botaoEsqueciSenha.setForeground(new Color(227,202,187));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
 		botaoEsqueciSenha.setBounds(555, 393, 261, 38);
         botaoEsqueciSenha.setFont(new Font("Tahoma", Font.BOLD, 16));

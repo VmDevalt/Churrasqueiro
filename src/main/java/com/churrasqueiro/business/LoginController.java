@@ -20,11 +20,11 @@ public class LoginController {
 		
 		Optional<Usuario> usuarioOpt = usuarioDAO.buscarPorLogin(login);
 		
-		validarDados(login, senha);
-		
 		if (usuarioOpt.isEmpty()) {
 			throw new ControllerException("Credenciais inválidas");
 		}
+		
+		validarDados(login, senha);
 		
 		Usuario usuario = usuarioOpt.get();
 		String senhaHash = HashPasswordUtil.hashPassword(senha);

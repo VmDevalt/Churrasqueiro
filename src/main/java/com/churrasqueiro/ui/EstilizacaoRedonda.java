@@ -232,4 +232,60 @@ public class EstilizacaoRedonda {
             return txt.equals(senhaFantasma) ? new char[0] : super.getPassword();
         }
     }
+    public static class ComboBoxRedondo<E> extends JComboBox<E> {
+
+        private final int raioArredondado;
+        private final Color corFundo;
+        private final Color corContorno;
+        private final int espessuraBorda;
+
+        public ComboBoxRedondo(E[] itens, Color fundo, Color contorno, int espessura, int raio) {
+            super(itens);
+            this.corFundo = fundo;
+            this.corContorno = contorno;
+            this.espessuraBorda = espessura;
+            this.raioArredondado = raio;
+
+            setOpaque(false);
+            setFocusable(false);
+
+            setBackground(fundo);
+            setForeground(Color.BLACK);
+
+            setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+            setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
+                @Override
+                protected JButton createArrowButton() {
+                    JButton botao = new JButton("▼");
+                    botao.setBorder(BorderFactory.createEmptyBorder());
+                    botao.setFocusable(false);
+                    botao.setContentAreaFilled(false);
+                    botao.setForeground(Color.BLACK);
+                    return botao;
+                }
+            });
+        }
+        @Override
+        protected void paintComponent(Graphics graficoBasico) {
+            Graphics2D graficoAvancado = (Graphics2D) graficoBasico.create();
+            graficoAvancado.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            graficoAvancado.setColor(corFundo);
+            graficoAvancado.fillRoundRect(0, 0, getWidth(), getHeight(), raioArredondado, raioArredondado);
+            super.paintComponent(graficoBasico);
+            graficoAvancado.dispose();
+        }
+
+        @Override
+        protected void paintBorder(Graphics graficoBasico) {
+            Graphics2D graficoAvancado = (Graphics2D) graficoBasico.create();
+            graficoAvancado.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            graficoAvancado.setColor(corContorno);
+            graficoAvancado.setStroke(new BasicStroke(espessuraBorda));
+            graficoAvancado.drawRoundRect(espessuraBorda / 2, espessuraBorda / 2,  getWidth() - espessuraBorda, getHeight() - espessuraBorda, raioArredondado, raioArredondado);
+            graficoAvancado.dispose();
+        }
+    }
 }
