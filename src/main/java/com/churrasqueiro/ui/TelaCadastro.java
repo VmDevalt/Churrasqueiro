@@ -206,13 +206,9 @@ public class TelaCadastro extends JFrame {
 	    labelConfirmarSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
 	    labelConfirmarSenha.setBounds(746, 258, 136, 32);
 	    panelBranco.add(labelConfirmarSenha);
-		
-		String[] tipoUsuarios = {"ADMIN", "ATENDENTE"};
-		this.cBoxTipoUsuario = new JComboBox<>(tipoUsuarios);
-		cBoxTipoUsuario.setBorder(new LineBorder(new Color(179, 13, 36), 1));
-		cBoxTipoUsuario.setForeground(corPaletaPreto);
-		cBoxTipoUsuario.setBackground(corPaletaBege);
-		cBoxTipoUsuario.setFont(new Font("Calibri", Font.PLAIN, 17));
+
+        cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
+        cBoxTipoUsuario.setFont(new Font("Calibri", Font.PLAIN, 17));
 		cBoxTipoUsuario.setMaximumRowCount(2);
 		cBoxTipoUsuario.setBounds(424, 102, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
@@ -243,4 +239,5 @@ public class TelaCadastro extends JFrame {
         java.net.URL urlLogo = getClass().getResource("src/main/resources/assets/imagens/logoPequena.png");
 		
 	}
+
 }
