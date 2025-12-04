@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 public class TelaMenuPrincipal extends JFrame {
 
@@ -68,19 +69,21 @@ public class TelaMenuPrincipal extends JFrame {
             }
         }
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoPedidos = new EstilizacaoRedonda.BotaoRedondo("PEDIDOS",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
+		final EstilizacaoRedonda.BotaoRedondo botaoPedidos = new EstilizacaoRedonda.BotaoRedondo("PEDIDOS",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
 		botaoPedidos.setText("Pedidos");
 		botaoPedidos.setForeground(corPaletaBege);
 		botaoPedidos.setBounds(73, 269, 288, 335);
 		botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
         contentPane.add(botaoPedidos);
         botaoPedidos.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-		        TelaMenuPrincipal.this.dispose();
-				TelaPedidos telaPedidos = new TelaPedidos();
-				telaPedidos.setVisible(true);
-			}
+        	public void actionPerformed(ActionEvent e) {
+				UIManager.put("OptionPane.background", corPaletaBege);
+		        UIManager.put("Panel.background", corPaletaBege);
+		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+		        Object[] opcoes = {"Ok"};
+		        int escolha = JOptionPane.showOptionDialog(
+		            TelaMenuPrincipal.this,"Em desenvolvimento, por favor aguarde futuras atualizações!", "Pedidos",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+		    }
 		});
         
         final EstilizacaoRedonda.BotaoRedondo botaoDashboard = new EstilizacaoRedonda.BotaoRedondo("GESTÃO",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
