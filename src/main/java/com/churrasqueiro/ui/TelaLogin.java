@@ -209,7 +209,9 @@ public class TelaLogin extends JFrame {
 				Optional<Usuario> usuarioOPT;
 				try {
 					usuarioOPT = usuarioDAO.buscarPorLogin(getLogin());
-					usuarioLogado = usuarioOPT.get();
+					if(!usuarioOPT.isEmpty()) {
+						usuarioLogado = usuarioOPT.get();
+					}
 				} catch (DatabaseException e1) {
 					e1.printStackTrace();
 				}
