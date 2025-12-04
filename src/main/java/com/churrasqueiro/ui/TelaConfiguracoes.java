@@ -12,11 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
-import com.churrasqueiro.data.UsuarioDAO;
 import com.churrasqueiro.entities.Usuario;
-import com.churrasqueiro.exceptions.DatabaseException;
-import com.churrasqueiro.ui.TelaLogin;
-import java.util.Optional;
 
 public class TelaConfiguracoes extends JFrame {
 
@@ -56,6 +52,7 @@ public class TelaConfiguracoes extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
+        setTitle("Configurações - Churrasqueiro");
 		contentPane.setBackground(corPaletaVermelho);
 		
 		contentPane.setLayout(null);
@@ -139,7 +136,7 @@ public class TelaConfiguracoes extends JFrame {
         cnpjTituloLabel.setBounds(826, 251, 109, 44);
         panel.add(cnpjTituloLabel);
         
-        JLabel cpfTextoLabel = new JLabel("000.000.000/0001-00");
+        JLabel cpfTextoLabel = new JLabel("91.398.041/0001-33"); //pj mockaado gerado no 4devs 
         cpfTextoLabel.setForeground(Color.BLACK);
         cpfTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
         cpfTextoLabel.setBounds(826, 286, 284, 35);
@@ -179,5 +176,15 @@ public class TelaConfiguracoes extends JFrame {
         creditoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
         creditoLabel.setBounds(484, 478, 284, 35);
         panel.add(creditoLabel);
+
+        java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
 	}
 }

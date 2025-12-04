@@ -1,14 +1,11 @@
 package com.churrasqueiro.ui;
 
-import com.churrasqueiro.ui.TelaValidacaoCodigoEsqueceuSenha;
 import com.churrasqueiro.business.EsqueceuSenhaController;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
-import com.churrasqueiro.utils.FontManager;
 import com.churrasqueiro.utils.FontsConstants;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;

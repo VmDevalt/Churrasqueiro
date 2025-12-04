@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.entities.Categoria;
-import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 

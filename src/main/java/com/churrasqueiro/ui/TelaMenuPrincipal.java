@@ -1,6 +1,4 @@
 package com.churrasqueiro.ui;
-import com.churrasqueiro.ui.EstilizacaoRedonda;
-
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -9,7 +7,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,8 +14,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-
 public class TelaMenuPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -53,6 +48,7 @@ public class TelaMenuPrincipal extends JFrame {
         setSize(LARGURA, ALTURA);
         setResizable(false);
         setTitle("Menu Principal - Churrasqueiro");
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(227,202,187));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

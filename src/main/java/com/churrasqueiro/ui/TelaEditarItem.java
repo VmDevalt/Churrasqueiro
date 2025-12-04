@@ -59,6 +59,7 @@ public class TelaEditarItem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Editar Item - Churrasqueiro");
 
         contentPaneVermelho = new JPanel();

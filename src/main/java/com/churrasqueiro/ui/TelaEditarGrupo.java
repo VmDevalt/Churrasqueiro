@@ -5,19 +5,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.churrasqueiro.business.CategoriaController;
-import com.churrasqueiro.entities.Categoria;
-import com.churrasqueiro.entities.ItemCardapio;
-import com.churrasqueiro.exceptions.ControllerException;
-import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaEditarGrupo extends JFrame {
 

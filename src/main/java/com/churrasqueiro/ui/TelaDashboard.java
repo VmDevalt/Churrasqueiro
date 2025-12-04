@@ -54,6 +54,7 @@ public class TelaDashboard extends JFrame {
         setSize(LARGURA, ALTURA);
         setResizable(false);
         setTitle("Dashboard - Churrasqueiro");
+        setLocationRelativeTo(null);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

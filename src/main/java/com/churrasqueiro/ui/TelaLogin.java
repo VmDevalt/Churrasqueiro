@@ -1,34 +1,23 @@
 package com.churrasqueiro.ui;
 
 import java.awt.EventQueue;
-
-import javax.swing.border.LineBorder;
-
-import com.churrasqueiro.ui.EstilizacaoRedonda;
 import com.churrasqueiro.business.LoginController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.data.UsuarioDAO;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 import java.util.Optional;
-
 public class TelaLogin extends JFrame {
 	
 	private static final LoginController loginController = new LoginController();

@@ -6,7 +6,6 @@ import com.churrasqueiro.data.UsuarioDAO;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
-import com.churrasqueiro.ui.TelaLogin;
 import java.util.Optional;
 import java.awt.Color;
 import java.awt.EventQueue;

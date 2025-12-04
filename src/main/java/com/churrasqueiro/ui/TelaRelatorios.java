@@ -65,6 +65,7 @@ public class TelaRelatorios extends JFrame {
         setBounds(100, 100, LARGURA, ALTURA);
         setResizable(false);
         setTitle("Relatórios - Churrasqueiro");
+        setLocationRelativeTo(null);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

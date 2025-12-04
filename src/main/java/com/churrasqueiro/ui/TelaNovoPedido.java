@@ -6,27 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
-import com.churrasqueiro.business.CadastroUsuarioController;
-import com.churrasqueiro.entities.Usuario;
-import com.churrasqueiro.exceptions.ControllerException;
-import com.churrasqueiro.exceptions.DatabaseException;
-import javax.swing.JTextArea;
-
 public class TelaNovoPedido extends JFrame {
 
 	private static final long serialVersionUID = 1L;

@@ -20,8 +20,6 @@ import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.exceptions.ControllerException;
-import com.churrasqueiro.ui.EstilizacaoRedonda;
-
 public class TelaCriarItem extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -94,6 +92,7 @@ public class TelaCriarItem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Criar Item - Churrasqueiro");
         contentPaneVermelho = new JPanel();
         contentPaneVermelho.setBackground(new Color(179, 13, 36));
