@@ -5,7 +5,6 @@ import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.PasswordRedefinerEmail;
 import com.churrasqueiro.data.UsuarioDAO;
 import com.churrasqueiro.entities.Usuario;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -43,8 +42,21 @@ public class EsqueceuSenhaController {
 		String token = gerarToken();
 		UsuarioDAO.atualizarToken(token, EsqueceuSenhaController.getDataHora(), email);
 		PasswordRedefinerEmail.enviarEmail(token, email);
-		return token;
 		
-		//TODO: VERIFICAÇÕES A MAIS
+		return token;
+	}
+	
+	public void validarCodigo(String codigoDigitado, String codigoReal) throws ControllerException {
+		if(codigoDigitado == null || codigoDigitado.isEmpty()) {
+			throw new ControllerException("Digite o código enviado para seu e-mail.");
+		}
+		
+		if(codigoDigitado.length() < 6) {
+			throw new ControllerException("Códigos de verificação possuem 6 caractéres.");
+		}
+		
+		if(!codigoDigitado.equals(codigoReal)) {
+			throw new ControllerException("Os códigos não coincidem.");
+		}
 	}
 }

@@ -2,7 +2,6 @@ package com.churrasqueiro.utils;
 
 import com.churrasqueiro.data.UsuarioDAO;
 import com.churrasqueiro.entities.Usuario;
-import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.mail.*;
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class PasswordRedefinerEmail {
 	private static Dotenv dotenv = Dotenv.load();
 	private static String remetente = dotenv.get("EMAIL");
-	private static String enderecoHost = dotenv.get("EMAIL_ENDERECO_HOST");
+	private static String enderecoHost = dotenv.get("EMAIL_HOST_ADRESS");
 	private static String nomeUsuario = dotenv.get("EMAIL");
 	private static String senhaUsuario = dotenv.get("EMAIL_PASSWORD");
 
@@ -45,7 +44,7 @@ public class PasswordRedefinerEmail {
             		+ "Observação: Esta é uma mensagem automática.");
 
             Transport.send(message);
-            System.out.println("Email Message Sent Successfully!");
+            System.out.println("[DEBUG]: E-mail enviado com sucesso!");
 
         } catch (MessagingException e) {
         	System.err.println("Erro no envio do E-mail: " + e.getMessage());

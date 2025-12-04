@@ -38,7 +38,10 @@ public class TelaEsqueceuSenha extends JFrame {
 	    
 	    try {
 	    	token = EsqueceuSenhaController.enviarToken(email);
-	    	JOptionPane.showMessageDialog(this, "Código enviado para: " + email, "Código Enviado", JOptionPane.INFORMATION_MESSAGE);
+	    	JOptionPane.showMessageDialog(this,
+	    			"Código enviado para: " + email,
+	    			"Código Enviado",
+	    			JOptionPane.INFORMATION_MESSAGE);
 			TelaValidacaoCodigoEsqueceuSenha telaValidacao = new TelaValidacaoCodigoEsqueceuSenha(email);
 			telaValidacao.setVisible(true);
 			dispose();
@@ -52,7 +55,7 @@ public class TelaEsqueceuSenha extends JFrame {
             e.printStackTrace();
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado", e.getMessage(), 
+            JOptionPane.showMessageDialog(this, "Erro inesperado.", e.getMessage(), 
             JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
         }

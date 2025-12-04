@@ -92,7 +92,7 @@ public class UsuarioDAO {
     }
     
     public static Optional<Usuario> buscarLoginViaEmail(String email) throws DatabaseException {
-        String sql = "SELECT id, login, senhaHash, tipo, email FROM usuario WHERE email = ?";
+        String sql = "SELECT id, login, senhaHash, tipo, email, token_recuperacao, token_expiracao FROM usuario WHERE email = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -106,7 +106,9 @@ public class UsuarioDAO {
                         rs.getString("login"),
                         rs.getString("senhaHash"),
                         rs.getString("tipo"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getString("token_recuperacao"),
+                        rs.getTimestamp("token_expiracao")
                     );
                     return Optional.of(usuario);
                 }
@@ -131,6 +133,7 @@ public class UsuarioDAO {
 			ps.setString(1, token);
 			ps.setString(2, dataHora);
 			ps.setString(3, email);
+			ps.executeUpdate();
 			
 			} catch (SQLException e) {
 				System.err.println("Erro atualizar banco de dados: " + e.getMessage());
