@@ -3,17 +3,22 @@ package com.churrasqueiro.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
+import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.business.RelatoriosController;
+import com.churrasqueiro.entities.Caixa;
 import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaRelatorios extends JFrame {
@@ -29,8 +34,12 @@ public class TelaRelatorios extends JFrame {
 
     private JComboBox<String> vendasComboBox;
     private JComboBox<String> maisVendidoComboBox;
+    private JLabel lblCaixaHojeValor;
+    private JLabel lblCaixaComecouValor;
+    private JLabel lblMetaFaturamentoValor;
 
     private final RelatoriosController relController = new RelatoriosController();
+    private final CaixaController caixaController = new CaixaController();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -66,7 +75,7 @@ public class TelaRelatorios extends JFrame {
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
         if (url != null) {
             try {
-                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                Image icon = ImageIO.read(url);
                 setIconImage(icon);
             } catch (java.io.IOException e) {
                 System.err.println("Falha ao carregar ícone da janela.");
@@ -113,7 +122,7 @@ public class TelaRelatorios extends JFrame {
         panel.add(unidadesLabel);
 
         maisVendidoComboBox = new JComboBox<>();
-        maisVendidoComboBox.setBounds(1123, 122, 160, 25);
+        maisVendidoComboBox.setBounds(1076, 120, 160, 25);
         panel.add(maisVendidoComboBox);
 
         String[] opcoes = { "HOJE", "ÚLTIMA SEMANA", "ÚLTIMO MÊS", "ÚLTIMO ANO" };
@@ -122,8 +131,65 @@ public class TelaRelatorios extends JFrame {
             maisVendidoComboBox.addItem(item);
         }
 
+        vendasComboBox.setSelectedItem("ÚLTIMO ANO");
+        maisVendidoComboBox.setSelectedItem("ÚLTIMO ANO");
+
         vendasComboBox.addActionListener(e -> atualizarRelatorios());
         maisVendidoComboBox.addActionListener(e -> atualizarRelatorios());
+
+        JLabel tituloCaixaLabel = new JLabel("Caixa");
+        tituloCaixaLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        tituloCaixaLabel.setForeground(corPaletaPreto);
+        tituloCaixaLabel.setBounds(190, 320, 200, 40);
+        panel.add(tituloCaixaLabel);
+
+        JLabel caixaHojeLabel = new JLabel("Caixa hoje:");
+        caixaHojeLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaHojeLabel.setForeground(corPaletaPreto);
+        caixaHojeLabel.setBounds(90, 370, 150, 25);
+        panel.add(caixaHojeLabel);
+
+        lblCaixaHojeValor = new JLabel("Nenhum caixa aberto");
+        lblCaixaHojeValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaHojeValor.setForeground(corPaletaVermelho);
+        lblCaixaHojeValor.setBounds(41, 400, 350, 40);
+        panel.add(lblCaixaHojeValor);
+
+        JLabel setaLabel = new JLabel("➜");
+        setaLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        setaLabel.setForeground(corPaletaPreto);
+        setaLabel.setBounds(350, 400, 40, 40);
+        panel.add(setaLabel);
+
+        JLabel caixaComecouLabel = new JLabel("Caixa começou:");
+        caixaComecouLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaComecouLabel.setForeground(corPaletaPreto);
+        caixaComecouLabel.setBounds(480, 370, 200, 25);
+        panel.add(caixaComecouLabel);
+
+        lblCaixaComecouValor = new JLabel("Nenhum caixa aberto");
+        lblCaixaComecouValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaComecouValor.setForeground(corPaletaVermelho);
+        lblCaixaComecouValor.setBounds(427, 400, 350, 40);
+        panel.add(lblCaixaComecouValor);
+
+        JLabel metaTituloLabel = new JLabel("Meta de Faturamento");
+        metaTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        metaTituloLabel.setForeground(corPaletaPreto);
+        metaTituloLabel.setBounds(780, 320, 350, 25);
+        panel.add(metaTituloLabel);
+
+        JLabel metaSubLabel = new JLabel("de hoje");
+        metaSubLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        metaSubLabel.setForeground(corPaletaPreto);
+        metaSubLabel.setBounds(1030, 330, 100, 40);
+        panel.add(metaSubLabel);
+
+        lblMetaFaturamentoValor = new JLabel("Nenhum caixa aberto");
+        lblMetaFaturamentoValor.setFont(new Font("SansSerif", Font.BOLD, 32));
+        lblMetaFaturamentoValor.setForeground(corPaletaVermelho);
+        lblMetaFaturamentoValor.setBounds(839, 394, 400, 50);
+        panel.add(lblMetaFaturamentoValor);
 
         JLabel relatoriosLabel = new JLabel("Relatórios");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
@@ -152,7 +218,13 @@ public class TelaRelatorios extends JFrame {
                 dispose();
             }
         });
+
         atualizarRelatorios();
+        atualizarResumoCaixa();
+    }
+
+    private String formatarMoeda(double valor) {
+        return "R$ " + String.format("%.2f", valor).replace('.', ',');
     }
 
     private void atualizarRelatorios() {
@@ -164,12 +236,35 @@ public class TelaRelatorios extends JFrame {
             String item = relController.getItemMaisVendido(periodoMaisVendido);
             int unidades = relController.getUnidadesMaisVendido(periodoMaisVendido);
 
-            labelValorVendas.setText("R$ " + String.format("%.2f", total).replace('.', ','));
+            labelValorVendas.setText(formatarMoeda(total));
             itemMaisVendidoLabel.setText(item);
             unidadesLabel.setText(unidades + " unidades");
 
         } catch (DatabaseException ex) {
             System.err.println("Erro ao atualizar relatórios: " + ex.getMessage());
+        }
+    }
+
+    private void atualizarResumoCaixa() {
+        try {
+            Optional<Caixa> caixaOpt = caixaController.buscarCaixaAberto();
+
+            if (caixaOpt.isPresent()) {
+                Caixa c = caixaOpt.get();
+                lblCaixaHojeValor.setText(formatarMoeda(c.getSaldoAtual()));
+                lblCaixaComecouValor.setText(formatarMoeda(c.getSaldoInicial()));
+                lblMetaFaturamentoValor.setText(formatarMoeda(c.getMetaFaturamento()));
+            } else {
+                lblCaixaHojeValor.setText("Nenhum caixa aberto");
+                lblCaixaComecouValor.setText("Nenhum caixa aberto");
+                lblMetaFaturamentoValor.setText("Nenhum caixa aberto");
+            }
+
+        } catch (DatabaseException ex) {
+            System.err.println("Erro ao atualizar resumo do caixa: " + ex.getMessage());
+            lblCaixaHojeValor.setText("Erro");
+            lblCaixaComecouValor.setText("Erro");
+            lblMetaFaturamentoValor.setText("Erro");
         }
     }
 }

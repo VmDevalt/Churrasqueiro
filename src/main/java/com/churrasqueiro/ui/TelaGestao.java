@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
@@ -105,7 +107,11 @@ public class TelaGestao extends JFrame {
         lblCaixaStatus.setBounds(472, 44, 120, 46);
         panelBranco.add(lblCaixaStatus);
 
-        JLabel lblData = new JLabel("28/11/2025");
+        LocalDate hoje = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataFormatada = hoje.format(formatter);
+
+        JLabel lblData = new JLabel(dataFormatada);
         lblData.setForeground(Color.BLACK);
         lblData.setFont(new Font("Dialog", Font.PLAIN, 28));
         lblData.setBounds(629, 41, 176, 46);

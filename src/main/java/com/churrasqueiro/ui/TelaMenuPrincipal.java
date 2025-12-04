@@ -69,7 +69,7 @@ public class TelaMenuPrincipal extends JFrame {
             }
         }
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoPedidos = new EstilizacaoRedonda.BotaoRedondo("PEDIDOS",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		final EstilizacaoRedonda.BotaoRedondo botaoPedidos = new EstilizacaoRedonda.BotaoRedondo("PEDIDOS",Color.GRAY,Color.GRAY,Color.GRAY,35);
 		botaoPedidos.setText("Pedidos");
 		botaoPedidos.setForeground(corPaletaBege);
 		botaoPedidos.setBounds(73, 269, 288, 335);
