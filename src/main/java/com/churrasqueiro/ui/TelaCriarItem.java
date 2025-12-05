@@ -43,7 +43,6 @@ public class TelaCriarItem extends JFrame {
     private JLabel NewLabelPrecoVariavel;
     private JLabel NewLabelPreco;
     private JComboBox<String> comboBoxGrupos;
-    private JLabel labelFotoVisualiza;
     private final ItemCardapioController itemCardapioController = new ItemCardapioController();
     private final CategoriaController categoriaController = new CategoriaController();
     private Map<String, Integer> listaCategorias = new HashMap<>();
@@ -186,11 +185,6 @@ public class TelaCriarItem extends JFrame {
         campoFoto.setBounds(658, 269, 520, 38);
         panelClaro.add(campoFoto);
         campoFoto.setColumns(10);
-        this.labelFotoVisualiza = new JLabel();
-        this.labelFotoVisualiza.setBounds(850, 410, 82, 82); 
-        this.labelFotoVisualiza.setHorizontalAlignment(SwingConstants.CENTER);
-        this.labelFotoVisualiza.setBorder(new LineBorder(corPaletaPreto, 1));
-        panelClaro.add(this.labelFotoVisualiza);
         botaoSelecionarFoto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -225,7 +219,6 @@ public class TelaCriarItem extends JFrame {
                         redimensionarEsalvar(arquivoOriginal, destino, 82, 82);
                         
                         ImageIcon novoIcone = new ImageIcon(destino.toFile().getAbsolutePath());
-                        labelFotoVisualiza.setIcon(novoIcone);
 
                         JOptionPane.showMessageDialog(null,"Imagem carregada, redimensionada para 82x82px e salva como PNG!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
