@@ -13,6 +13,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.io.IOException;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
@@ -38,6 +43,7 @@ public class TelaCriarItem extends JFrame {
     private JLabel NewLabelPrecoVariavel;
     private JLabel NewLabelPreco;
     private JComboBox<String> comboBoxGrupos;
+    private JLabel labelFotoVisualiza;
     private final ItemCardapioController itemCardapioController = new ItemCardapioController();
     private final CategoriaController categoriaController = new CategoriaController();
     private Map<String, Integer> listaCategorias = new HashMap<>();
@@ -107,7 +113,7 @@ public class TelaCriarItem extends JFrame {
         panelClaro.setLayout(null);
 
         JLabel labelCriarItem = new JLabel("Criar item");
-        labelCriarItem.setBounds(581, 24, 116, 26);
+        labelCriarItem.setBounds(581, 24, 127, 26);
         labelCriarItem.setForeground(new Color(179, 13, 36));
         labelCriarItem.setFont(new Font("SansSerif", Font.BOLD, 25));
         panelClaro.add(labelCriarItem);
@@ -180,6 +186,11 @@ public class TelaCriarItem extends JFrame {
         campoFoto.setBounds(658, 269, 520, 38);
         panelClaro.add(campoFoto);
         campoFoto.setColumns(10);
+        this.labelFotoVisualiza = new JLabel();
+        this.labelFotoVisualiza.setBounds(850, 410, 82, 82); 
+        this.labelFotoVisualiza.setHorizontalAlignment(SwingConstants.CENTER);
+        this.labelFotoVisualiza.setBorder(new LineBorder(corPaletaPreto, 1));
+        panelClaro.add(this.labelFotoVisualiza);
         botaoSelecionarFoto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,8 +208,13 @@ public class TelaCriarItem extends JFrame {
                 if (resultado == JFileChooser.APPROVE_OPTION) {
 
                     try {
-                        java.io.File arquivo = chooser.getSelectedFile();
-                        String nomeArquivo = arquivo.getName();
+                        java.io.File arquivoOriginal = chooser.getSelectedFile();
+                        String nomeArquivo = arquivoOriginal.getName();
+                        String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf('.') + 1).toLowerCase();
+                        if (!extensao.equals("png") && !extensao.equals("jpg") && !extensao.equals("jpeg")) {
+                            nomeArquivo = nomeArquivo.substring(0, nomeArquivo.lastIndexOf('.')) + ".png";
+                            extensao = "png";
+                        }
 
                         campoFoto.setText(nomeArquivo);
 
@@ -206,23 +222,16 @@ public class TelaCriarItem extends JFrame {
                                 "src/main/resources/assets/imagens/itens/" + nomeArquivo
                         );
 
-                        java.nio.file.Files.copy(
-                                arquivo.toPath(),
-                                destino,
-                                java.nio.file.StandardCopyOption.REPLACE_EXISTING
-                        );
+                        redimensionarEsalvar(arquivoOriginal, destino, 82, 82);
+                        
+                        ImageIcon novoIcone = new ImageIcon(destino.toFile().getAbsolutePath());
+                        labelFotoVisualiza.setIcon(novoIcone);
 
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Imagem carregada com sucesso!",
-                                "Sucesso",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
-
+                        JOptionPane.showMessageDialog(null,"Imagem carregada e redimensionada para 82x82px com sucesso!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Erro ao copiar a imagem:\n" + ex.getMessage(),
+                                "Erro ao processar (redimensionar/copiar) a imagem:\n" + ex.getMessage(),
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
@@ -304,6 +313,27 @@ public class TelaCriarItem extends JFrame {
                 System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
             }
         }
+    }
+
+    private void redimensionarEsalvar(java.io.File arquivoOriginal, java.nio.file.Path destino, int finalWidth, int finalHeight) throws IOException {
+
+        BufferedImage originalImage = ImageIO.read(arquivoOriginal);
+
+        if (originalImage == null) {
+            throw new IOException("Não foi possível ler a imagem do caminho: " + arquivoOriginal.getAbsolutePath());
+        }
+
+        Image scaledImage = originalImage.getScaledInstance(finalWidth, finalHeight, Image.SCALE_SMOOTH);
+        BufferedImage resizedBufferedImage = new BufferedImage(finalWidth, finalHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resizedBufferedImage.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+        String formato = destino.toString().substring(destino.toString().lastIndexOf('.') + 1).toLowerCase();
+        if (!formato.equals("png") && !formato.equals("jpg") && !formato.equals("jpeg")) {
+            formato = "png";
+        }
+
+        ImageIO.write(resizedBufferedImage, formato, destino.toFile());
     }
 
     private void carregarCategoriasNoComboBox() {
