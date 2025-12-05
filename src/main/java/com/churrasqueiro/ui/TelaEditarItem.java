@@ -3,12 +3,15 @@ package com.churrasqueiro.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -59,6 +62,7 @@ public class TelaEditarItem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Editar Item - Churrasqueiro");
 
         contentPaneVermelho = new JPanel();
@@ -92,9 +96,9 @@ public class TelaEditarItem extends JFrame {
         botaoSalvar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoSalvar.setForeground(Color.WHITE);
         botaoSalvar.setBackground(corPaletaPreto);
-        botaoSalvar.addActionListener(new ActionListener() {
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
                 salvarAlteracoes();
             }
         });
@@ -149,6 +153,7 @@ public class TelaEditarItem extends JFrame {
         campoPreco.setBounds(90, 366, 496, 38);
         panelClaro.add(campoPreco);
         campoPreco.setColumns(10);
+        aplicarMascaraPreco(campoPreco);
 
         EstilizacaoRedonda.BotaoRedondo botaoSelecionarFoto =
                 new EstilizacaoRedonda.BotaoRedondo(
@@ -176,10 +181,10 @@ public class TelaEditarItem extends JFrame {
         campoFoto.setBounds(658, 269, 520, 38);
         panelClaro.add(campoFoto);
         campoFoto.setColumns(10);
-
-        botaoSelecionarFoto.addActionListener(new ActionListener() {
+        botaoSelecionarFoto.addActionListener(new java.awt.event.ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
                 JFileChooser chooser = new JFileChooser();
                 chooser.setDialogTitle("Selecionar imagem");
 
@@ -191,32 +196,35 @@ public class TelaEditarItem extends JFrame {
                 int resultado = chooser.showOpenDialog(null);
 
                 if (resultado == JFileChooser.APPROVE_OPTION) {
+
                     try {
-                        java.io.File arquivo = chooser.getSelectedFile();
-                        String nomeArquivo = arquivo.getName();
-                        campoFoto.setText(nomeArquivo);
+                        java.io.File arquivoOriginal = chooser.getSelectedFile();
+                        String nomeArquivoOriginal = arquivoOriginal.getName();
+
+                        String nomeBase = nomeArquivoOriginal;
+                        if (nomeArquivoOriginal.lastIndexOf('.') != -1) {
+                            nomeBase = nomeArquivoOriginal.substring(0, nomeArquivoOriginal.lastIndexOf('.'));
+                        }
+                        String nomeArquivoPng = nomeBase + ".png";
+
+                        campoFoto.setText(nomeArquivoPng);
 
                         java.nio.file.Path destino = java.nio.file.Paths.get(
-                                "src/main/resources/assets/imagens/itens/" + nomeArquivo
+                                "src/main/resources/assets/imagens/itens/" + nomeArquivoPng
                         );
 
-                        java.nio.file.Files.copy(
-                                arquivo.toPath(),
-                                destino,
-                                java.nio.file.StandardCopyOption.REPLACE_EXISTING
-                        );
+                        redimensionarEsalvar(arquivoOriginal, destino, 82, 82);
 
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Imagem carregada com sucesso!",
+                                "Imagem carregada, redimensionada para 82x82px e salva como PNG!",
                                 "Sucesso",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
-
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Erro ao copiar a imagem:\n" + ex.getMessage(),
+                                "Erro ao processar (redimensionar/copiar) a imagem:\n" + ex.getMessage(),
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
@@ -238,6 +246,7 @@ public class TelaEditarItem extends JFrame {
         campoPrecoVariavel.setBounds(658, 366, 520, 38);
         panelClaro.add(campoPrecoVariavel);
         campoPrecoVariavel.setColumns(10);
+        aplicarMascaraPreco(campoPrecoVariavel);
 
         JLabel labelNome = new JLabel("NOME");
         labelNome.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -293,9 +302,9 @@ public class TelaEditarItem extends JFrame {
         botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBackground(corPaletaPreto);
-        botaoVoltar.addActionListener(new ActionListener() {
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
                 dispose();
                 TelaItens telaItens = new TelaItens();
                 telaItens.setVisible(true);
@@ -315,6 +324,25 @@ public class TelaEditarItem extends JFrame {
         carregarCategoriasNoComboBox();
         preencherCamposComItem();
         setLocationRelativeTo(null);
+    }
+
+    private void redimensionarEsalvar(java.io.File arquivoOriginal, java.nio.file.Path destino, int finalWidth, int finalHeight) throws IOException {
+
+        BufferedImage originalImage = ImageIO.read(arquivoOriginal);
+
+        if (originalImage == null) {
+            throw new IOException("Não foi possível ler a imagem do caminho: " + arquivoOriginal.getAbsolutePath());
+        }
+
+        destino.getParent().toFile().mkdirs();
+
+        Image scaledImage = originalImage.getScaledInstance(finalWidth, finalHeight, Image.SCALE_SMOOTH);
+        BufferedImage resizedBufferedImage = new BufferedImage(finalWidth, finalHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resizedBufferedImage.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+
+        ImageIO.write(resizedBufferedImage, "png", destino.toFile());
     }
 
     private void carregarCategoriasNoComboBox() {
@@ -372,6 +400,42 @@ public class TelaEditarItem extends JFrame {
         }
     }
 
+    private void aplicarMascaraPreco(javax.swing.JTextField campo) {
+        campo.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                String texto = campo.getText();
+
+                texto = texto.replaceAll("\\D", "");
+
+                if (texto.isEmpty()) {
+                    campo.setText("");
+                    return;
+                }
+
+                try {
+                    long valor = Long.parseLong(texto);
+                    double valorFinal = valor / 100.0;
+                    java.text.NumberFormat nf = java.text.NumberFormat.getCurrencyInstance(new java.util.Locale("pt", "BR"));
+                    campo.setText(nf.format(valorFinal));
+                } catch (Exception ex) {
+                    campo.setText("");
+                }
+            }
+        });
+    }
+
+    private double converterMoedaParaDouble(String texto) {
+        try {
+            return java.text.NumberFormat
+                    .getCurrencyInstance(new java.util.Locale("pt", "BR"))
+                    .parse(texto)
+                    .doubleValue();
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
     private void salvarAlteracoes() {
         String nome = campoNome.getText().trim();
         String descricao = campoDescricao.getText().trim();
@@ -400,23 +464,11 @@ public class TelaEditarItem extends JFrame {
             return;
         }
 
-        double preco;
+        double preco = converterMoedaParaDouble(precoStr);
         Double precoVariavel = null;
 
-        try {
-            preco = Double.parseDouble(precoStr.replace("R$", "").replace(" ", "").replace(",", "."));
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Preço inválido. Use formato 10,00 ou 10.00.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
         if (!precoVarStr.isEmpty() && !precoVarStr.equalsIgnoreCase("R$.")) {
-            try {
-                precoVariavel = Double.parseDouble(precoVarStr.replace("R$", "").replace(" ", "").replace(",", "."));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Preço \"a partir de\" inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            precoVariavel = converterMoedaParaDouble(precoVarStr);
         }
 
         Integer categoriaId = listaCategorias.get(categoriaSelecionada);

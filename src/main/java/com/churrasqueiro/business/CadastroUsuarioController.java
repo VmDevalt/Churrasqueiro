@@ -54,8 +54,6 @@ public class CadastroUsuarioController {
 			throw new ControllerException("Campo de senha vazio.");
 		} else if (senhaConfirmada == null || senhaConfirmada.isEmpty()) {
 			throw new ControllerException("Confirme a senha do usuário.");
-		} else {
-			System.out.println("Campos preenchidos.\n------------------------------------------------------");
 		}
 	}
 	

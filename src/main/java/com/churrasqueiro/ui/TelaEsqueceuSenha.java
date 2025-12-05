@@ -1,15 +1,13 @@
 package com.churrasqueiro.ui;
-import com.churrasqueiro.ui.TelaValidacaoCodigoEsqueceuSenha;
 
-import com.churrasqueiro.utils.FontManager;
+import com.churrasqueiro.business.EsqueceuSenhaController;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.FontsConstants;
-
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -21,29 +19,43 @@ public class TelaEsqueceuSenha extends JFrame {
     private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
     private JButton botaoEnviarCodigo;
     private JButton botaoVoltar;
+    private static final EsqueceuSenhaController EsqueceuSenhaController = new EsqueceuSenhaController();
+    private static String token;
+    
+    public static String getToken() {
+    	return token;
+    }
 
     public String getEmail() {
         return campoEmail.getText().trim();
     }
 
     public void enviarCodigo() {
-        String email = getEmail();
-
-        if (email.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-            		"Por favor, digite seu email.",
-                    "Campo Vazio",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-            
-            TelaValidacaoCodigoEsqueceuSenha telaValidacao = new TelaValidacaoCodigoEsqueceuSenha(email);
-            telaValidacao.setVisible(true);
-            dispose();
+	    String email = getEmail();
+	    
+	    try {
+	    	token = EsqueceuSenhaController.enviarToken(email);
+	    	JOptionPane.showMessageDialog(this,
+	    			"Código enviado para: " + email,
+	    			"Código Enviado",
+	    			JOptionPane.INFORMATION_MESSAGE);
+			TelaValidacaoCodigoEsqueceuSenha telaValidacao = new TelaValidacaoCodigoEsqueceuSenha(email);
+			telaValidacao.setVisible(true);
+			dispose();
+			
+	    } catch (ControllerException e) {
+				 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
+				 JOptionPane.WARNING_MESSAGE);
+	    } catch (DatabaseException e) {
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-
-        JOptionPane.showMessageDialog(this, "Código enviado para: " + email,
-                "Código Enviado",
-                JOptionPane.INFORMATION_MESSAGE);
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado.", e.getMessage(), 
+            JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -140,6 +152,9 @@ public class TelaEsqueceuSenha extends JFrame {
         botaoVoltar.setBounds(30, 20, 120, 35);
         botaoVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	TelaLogin telaLogin = new TelaLogin();
+    			telaLogin.setVisible(true);
+    			setVisible(false);
                 dispose();
             }
         });

@@ -5,21 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import com.churrasqueiro.business.CadastroUsuarioController;
 import com.churrasqueiro.entities.Usuario;
@@ -76,6 +70,7 @@ public class TelaCadastro extends JFrame {
 			JOptionPane.showMessageDialog(this,
 					"Cadastro realizado com sucesso! Tipo: " + novoUsuario.getTipo(),
 					"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			limparCampos();
 		} catch(ControllerException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
 			JOptionPane.WARNING_MESSAGE);
@@ -238,6 +233,13 @@ public class TelaCadastro extends JFrame {
         panelBranco.add(labelLogo);
         java.net.URL urlLogo = getClass().getResource("src/main/resources/assets/imagens/logoPequena.png");
 		
+	}
+	
+	private void limparCampos() {
+		campoLogin.setText("");
+		campoSenha.setText("");
+		CampoConfirmarSenha.setText("");
+		campoEmail.setText("");
 	}
 
 }

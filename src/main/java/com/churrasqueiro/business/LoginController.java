@@ -20,11 +20,11 @@ public class LoginController {
 		
 		Optional<Usuario> usuarioOpt = usuarioDAO.buscarPorLogin(login);
 		
+		validarDados(login, senha);
+		
 		if (usuarioOpt.isEmpty()) {
 			throw new ControllerException("Credenciais inválidas");
 		}
-		
-		validarDados(login, senha);
 		
 		Usuario usuario = usuarioOpt.get();
 		String senhaHash = HashPasswordUtil.hashPassword(senha);
@@ -42,8 +42,6 @@ public class LoginController {
 			throw new ControllerException("Campo de login vazio.");
 		} else if(senha.isEmpty() || senha == null){
 			throw new ControllerException("Campo de senha vazio.");
-		} else {
-			System.out.println("Campos preenchidos.\n------------------------------------------------------");
 		}
 	}
 }

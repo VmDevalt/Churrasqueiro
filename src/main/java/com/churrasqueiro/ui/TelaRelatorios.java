@@ -3,196 +3,269 @@ package com.churrasqueiro.ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
+
+import com.churrasqueiro.business.CaixaController;
+import com.churrasqueiro.business.RelatoriosController;
+import com.churrasqueiro.entities.Caixa;
+import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaRelatorios extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private static final int LARGURA = 1280;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRelatorios frame = new TelaRelatorios();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private JLabel labelValorVendas;
+    private JLabel itemMaisVendidoLabel;
+    private JLabel unidadesLabel;
 
-	public TelaRelatorios() {
-		
-		Color corPaletaVermelho = new Color(179,13,36);
-        Color corPaletaBege = new Color(227,202,187);
-        Color corPaletaVermelhoInteracao = new Color(200,50,50);
-        Color corPaletaVermelhoPressionado = new Color(150,0,0);
-        Color corPaletaPreto = new Color(0,0,0);
-        Color corPaletaPretoInteração = new Color(35,35,35);
-        Color corPaletaCinza = new Color(140,127,127);
-        
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		setTitle("Relatórios - Churrasqueiro");
+    private JComboBox<String> vendasComboBox;
+    private JComboBox<String> maisVendidoComboBox;
+    private JLabel lblCaixaHojeValor;
+    private JLabel lblCaixaComecouValor;
+    private JLabel lblMetaFaturamentoValor;
+
+    private final RelatoriosController relController = new RelatoriosController();
+    private final CaixaController caixaController = new CaixaController();
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    TelaRelatorios frame = new TelaRelatorios();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public TelaRelatorios() {
+
+        Color corPaletaVermelho = new Color(179, 13, 36);
+        Color corPaletaBege = new Color(227, 202, 187);
+        Color corPaletaPreto = new Color(0, 0, 0);
+        Color corPaletaPretoInteracao = new Color(35, 35, 35);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, LARGURA, ALTURA);
         setResizable(false);
-        setSize(LARGURA, ALTURA);
-        
+        setTitle("Relatórios - Churrasqueiro");
+        setLocationRelativeTo(null);
+
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setBackground(corPaletaVermelho);
+        contentPane.setLayout(null);
+
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
         if (url != null) {
             try {
-                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                Image icon = ImageIO.read(url);
                 setIconImage(icon);
             } catch (java.io.IOException e) {
-                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+                System.err.println("Falha ao carregar ícone da janela.");
             }
         }
-        
-        contentPane.setBackground(new Color(179, 13, 36));
-        contentPane.setLayout(null);
-        
+
         JPanel panel = new JPanel();
         panel.setBounds(0, 102, 1266, 581);
-        panel.setBackground(new Color(227,202,187));
-        contentPane.add(panel);
+        panel.setBackground(corPaletaBege);
         panel.setLayout(null);
-        
+        contentPane.add(panel);
+
         JLabel vendasLabel = new JLabel("Vendas");
-        vendasLabel.setForeground(corPaletaPreto);
         vendasLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        vendasLabel.setForeground(corPaletaPreto);
         vendasLabel.setBounds(145, 101, 173, 45);
         panel.add(vendasLabel);
-        
-        JLabel labelValorVendas = new JLabel("R$12.911,34");
-        labelValorVendas.setBounds(97, 145, 277, 51);
-        labelValorVendas.setForeground(corPaletaVermelho);
+
+        labelValorVendas = new JLabel("R$ 0,00");
         labelValorVendas.setFont(new Font("SansSerif", Font.BOLD, 45));
+        labelValorVendas.setForeground(corPaletaVermelho);
+        labelValorVendas.setBounds(97, 145, 350, 51);
         panel.add(labelValorVendas);
-        
-        JComboBox vendasComboBox = new JComboBox();
-        vendasComboBox.setBounds(427, 122, 124, 20);
+
+        vendasComboBox = new JComboBox<>();
+        vendasComboBox.setBounds(427, 122, 160, 25);
         panel.add(vendasComboBox);
-        
+
         JLabel maisVendidosLabel = new JLabel("Mais Vendido");
-        maisVendidosLabel.setForeground(Color.BLACK);
         maisVendidosLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        maisVendidosLabel.setForeground(corPaletaPreto);
         maisVendidosLabel.setBounds(747, 101, 253, 45);
         panel.add(maisVendidosLabel);
-        
-        JLabel itemMaisVendidoLabel = new JLabel("Triple Smash");
-        itemMaisVendidoLabel.setForeground(new Color(179, 13, 36));
-        itemMaisVendidoLabel.setFont(new Font("SansSerif", Font.BOLD, 45));
-        itemMaisVendidoLabel.setBounds(723, 145, 361, 51);
-        panel.add(itemMaisVendidoLabel);
-        
-        JComboBox maisVendidoComboBox = new JComboBox();
-        maisVendidoComboBox.setBounds(1123, 122, 119, 20);
-        panel.add(maisVendidoComboBox);
-        
-        String[] opcoes = {"HOJE", "ÚLTIMA SEMANA", "ÚLTIMO MÊS", "ÚLTIMO ANO"};
 
+        itemMaisVendidoLabel = new JLabel("N/A");
+        itemMaisVendidoLabel.setForeground(corPaletaVermelho);
+        itemMaisVendidoLabel.setFont(new Font("SansSerif", Font.BOLD, 45));
+        itemMaisVendidoLabel.setBounds(723, 145, 500, 51);
+        panel.add(itemMaisVendidoLabel);
+
+        unidadesLabel = new JLabel("0 unidades");
+        unidadesLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        unidadesLabel.setBounds(916, 195, 200, 28);
+        panel.add(unidadesLabel);
+
+        maisVendidoComboBox = new JComboBox<>();
+        maisVendidoComboBox.setBounds(1076, 120, 160, 25);
+        panel.add(maisVendidoComboBox);
+
+        String[] opcoes = { "HOJE", "ÚLTIMA SEMANA", "ÚLTIMO MÊS", "ÚLTIMO ANO" };
         for (String item : opcoes) {
             vendasComboBox.addItem(item);
             maisVendidoComboBox.addItem(item);
         }
-        
-        JLabel unidadesLabel = new JLabel("17 Unidades");
-        unidadesLabel.setBounds(916, 195, 112, 28);
-        panel.add(unidadesLabel);
-        unidadesLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        
-        JLabel caixaLabel = new JLabel("Caixa");
-        caixaLabel.setForeground(Color.BLACK);
-        caixaLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        caixaLabel.setBounds(201, 368, 173, 45);
-        panel.add(caixaLabel);
-        
-        JLabel caixaHojeLabel = new JLabel("Caixa hoje:");
-        caixaHojeLabel.setBounds(85, 439, 124, 28);
-        panel.add(caixaHojeLabel);
-        caixaHojeLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
-        
-        JLabel caixaComecouLabel = new JLabel("Caixa começou:");
-        caixaComecouLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
-        caixaComecouLabel.setBounds(333, 439, 158, 28);
-        panel.add(caixaComecouLabel);
-        
-        JLabel valorCaixaHojeLabel = new JLabel("R$5.555,55");
-        valorCaixaHojeLabel.setForeground(new Color(179, 13, 36));
-        valorCaixaHojeLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-        valorCaixaHojeLabel.setBounds(85, 450, 131, 51);
-        panel.add(valorCaixaHojeLabel);
-        
-        JLabel valorCaixaHojeLabel_1 = new JLabel("5,55");
-        valorCaixaHojeLabel_1.setForeground(new Color(179, 13, 36));
-        valorCaixaHojeLabel_1.setFont(new Font("SansSerif", Font.BOLD, 20));
-        valorCaixaHojeLabel_1.setBounds(343, 450, 131, 51);
-        panel.add(valorCaixaHojeLabel_1);
-        
-        JLabel setaLabel = new JLabel("→");
-        setaLabel.setFont(new Font("SansSerif", Font.BOLD, 45));
-        setaLabel.setForeground(corPaletaVermelho);
-        setaLabel.setBounds(235, 452, 44, 28);
-        panel.add(setaLabel);
-        
-        JLabel metaFaturamentoLabel = new JLabel("Meta de Faturamento");
-        metaFaturamentoLabel.setForeground(Color.BLACK);
-        metaFaturamentoLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        metaFaturamentoLabel.setBounds(747, 368, 383, 45);
-        panel.add(metaFaturamentoLabel);
-        
-        JLabel valorMetaFaturamentoLabel = new JLabel("R$25.000,00");
-        valorMetaFaturamentoLabel.setForeground(new Color(179, 13, 36));
-        valorMetaFaturamentoLabel.setFont(new Font("SansSerif", Font.BOLD, 45));
-        valorMetaFaturamentoLabel.setBounds(782, 429, 277, 51);
-        panel.add(valorMetaFaturamentoLabel);
-        
-        JLabel deHojeLabel = new JLabel("de hoje");
-        deHojeLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        deHojeLabel.setBounds(1044, 404, 75, 28);
-        deHojeLabel.setForeground(corPaletaVermelho);
 
-        panel.add(deHojeLabel);
-        
-        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoVoltar.setForeground(new Color(255, 255, 255));
-		botaoVoltar.setBackground(new Color(0, 0, 0));
-		botaoVoltar.setBounds(1132, 34, 104, 38);
-        contentPane.add(botaoVoltar);
-        botaoVoltar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaGestao telaGestao = new TelaGestao();
-				telaGestao.setVisible(true);
-				dispose();
-			}
-		});
-        
+        vendasComboBox.setSelectedItem("ÚLTIMO ANO");
+        maisVendidoComboBox.setSelectedItem("ÚLTIMO ANO");
+
+        vendasComboBox.addActionListener(e -> atualizarRelatorios());
+        maisVendidoComboBox.addActionListener(e -> atualizarRelatorios());
+
+        JLabel tituloCaixaLabel = new JLabel("Caixa");
+        tituloCaixaLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        tituloCaixaLabel.setForeground(corPaletaPreto);
+        tituloCaixaLabel.setBounds(190, 320, 200, 40);
+        panel.add(tituloCaixaLabel);
+
+        JLabel caixaHojeLabel = new JLabel("Caixa hoje:");
+        caixaHojeLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaHojeLabel.setForeground(corPaletaPreto);
+        caixaHojeLabel.setBounds(90, 370, 150, 25);
+        panel.add(caixaHojeLabel);
+
+        lblCaixaHojeValor = new JLabel("Nenhum caixa aberto");
+        lblCaixaHojeValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaHojeValor.setForeground(corPaletaVermelho);
+        lblCaixaHojeValor.setBounds(41, 400, 350, 40);
+        panel.add(lblCaixaHojeValor);
+
+        JLabel setaLabel = new JLabel("➜");
+        setaLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        setaLabel.setForeground(corPaletaPreto);
+        setaLabel.setBounds(350, 400, 40, 40);
+        panel.add(setaLabel);
+
+        JLabel caixaComecouLabel = new JLabel("Caixa começou:");
+        caixaComecouLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaComecouLabel.setForeground(corPaletaPreto);
+        caixaComecouLabel.setBounds(480, 370, 200, 25);
+        panel.add(caixaComecouLabel);
+
+        lblCaixaComecouValor = new JLabel("Nenhum caixa aberto");
+        lblCaixaComecouValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaComecouValor.setForeground(corPaletaVermelho);
+        lblCaixaComecouValor.setBounds(427, 400, 350, 40);
+        panel.add(lblCaixaComecouValor);
+
+        JLabel metaTituloLabel = new JLabel("Meta de Faturamento");
+        metaTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        metaTituloLabel.setForeground(corPaletaPreto);
+        metaTituloLabel.setBounds(780, 320, 350, 25);
+        panel.add(metaTituloLabel);
+
+        JLabel metaSubLabel = new JLabel("de hoje");
+        metaSubLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        metaSubLabel.setForeground(corPaletaPreto);
+        metaSubLabel.setBounds(1030, 330, 100, 40);
+        panel.add(metaSubLabel);
+
+        lblMetaFaturamentoValor = new JLabel("Nenhum caixa aberto");
+        lblMetaFaturamentoValor.setFont(new Font("SansSerif", Font.BOLD, 32));
+        lblMetaFaturamentoValor.setForeground(corPaletaVermelho);
+        lblMetaFaturamentoValor.setBounds(839, 394, 400, 50);
+        panel.add(lblMetaFaturamentoValor);
+
         JLabel relatoriosLabel = new JLabel("Relatórios");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         relatoriosLabel.setForeground(corPaletaBege);
         relatoriosLabel.setBounds(487, 34, 208, 38);
         contentPane.add(relatoriosLabel);
-        
+
         JLabel logoLabel = new JLabel("");
-        logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));     		
+        logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         logoLabel.setBounds(30, 10, 92, 82);
         contentPane.add(logoLabel);
-	}
+
+        EstilizacaoRedonda.BotaoRedondo botaoVoltar =
+                new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
+
+        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBounds(1132, 34, 104, 38);
+        contentPane.add(botaoVoltar);
+
+        botaoVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaGestao telaGestao = new TelaGestao();
+                telaGestao.setVisible(true);
+                dispose();
+            }
+        });
+
+        atualizarRelatorios();
+        atualizarResumoCaixa();
+    }
+
+    private String formatarMoeda(double valor) {
+        return "R$ " + String.format("%.2f", valor).replace('.', ',');
+    }
+
+    private void atualizarRelatorios() {
+        try {
+            String periodoVendas = vendasComboBox.getSelectedItem().toString();
+            String periodoMaisVendido = maisVendidoComboBox.getSelectedItem().toString();
+
+            double total = relController.getTotalVendas(periodoVendas);
+            String item = relController.getItemMaisVendido(periodoMaisVendido);
+            int unidades = relController.getUnidadesMaisVendido(periodoMaisVendido);
+
+            labelValorVendas.setText(formatarMoeda(total));
+            itemMaisVendidoLabel.setText(item);
+            unidadesLabel.setText(unidades + " unidades");
+
+        } catch (DatabaseException ex) {
+            System.err.println("Erro ao atualizar relatórios: " + ex.getMessage());
+        }
+    }
+
+    private void atualizarResumoCaixa() {
+        try {
+            Optional<Caixa> caixaOpt = caixaController.buscarCaixaAberto();
+
+            if (caixaOpt.isPresent()) {
+                Caixa c = caixaOpt.get();
+                lblCaixaHojeValor.setText(formatarMoeda(c.getSaldoAtual()));
+                lblCaixaComecouValor.setText(formatarMoeda(c.getSaldoInicial()));
+                lblMetaFaturamentoValor.setText(formatarMoeda(c.getMetaFaturamento()));
+            } else {
+                lblCaixaHojeValor.setText("Nenhum caixa aberto");
+                lblCaixaComecouValor.setText("Nenhum caixa aberto");
+                lblMetaFaturamentoValor.setText("Nenhum caixa aberto");
+            }
+
+        } catch (DatabaseException ex) {
+            System.err.println("Erro ao atualizar resumo do caixa: " + ex.getMessage());
+            lblCaixaHojeValor.setText("Erro");
+            lblCaixaComecouValor.setText("Erro");
+            lblMetaFaturamentoValor.setText("Erro");
+        }
+    }
 }
