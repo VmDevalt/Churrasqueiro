@@ -29,6 +29,8 @@ import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import java.awt.Image; 
+import java.net.URL;
 
 public class TelaItens extends JFrame {
 
@@ -176,17 +178,40 @@ public class TelaItens extends JFrame {
 
     String nomeCategoria = mapaCategorias.getOrDefault(item.getCategoriaId(), "Não definida");
 
+    final int ICON_SIZE = 82;
+    
     JLabel burguerLabel = new JLabel();
-    burguerLabel.setBounds(40, 35, 120, 120);
+    burguerLabel.setBounds(40, 49, ICON_SIZE, ICON_SIZE); 
 
     if (item.getFotoUrl() != null && !item.getFotoUrl().isBlank()) {
         try {
-            java.net.URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
+            boolean carregado = false;
+            Image imagemEscalada = null;
+            
+            URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
             if (imgUrl != null) {
-                burguerLabel.setIcon(new ImageIcon(imgUrl));
+                imagemEscalada = new ImageIcon(imgUrl).getImage();
+                carregado = true;
+            } else {
+                String pathRelativo = "src/main/resources/assets/imagens/itens/" + item.getFotoUrl();
+                java.io.File arquivo = new java.io.File(pathRelativo);
+                
+                if (arquivo.exists()) {
+                    imagemEscalada = new ImageIcon(arquivo.getAbsolutePath()).getImage();
+                    carregado = true;
+                }
+            }
+            if (carregado) {
+                imagemEscalada = imagemEscalada.getScaledInstance(
+                    ICON_SIZE, 
+                    ICON_SIZE, 
+                    Image.SCALE_SMOOTH
+                ); 
+                burguerLabel.setIcon(new ImageIcon(imagemEscalada));
+            } else {System.err.println("Imagem não encontrada por Classpath ou caminho absoluto: " + item.getFotoUrl());
             }
         } catch (Exception e) {
-            System.err.println("Não foi possível carregar imagem: " + item.getFotoUrl());
+            System.err.println("Erro ao carregar ou escalar imagem: " + item.getFotoUrl() + " Erro: " + e.getMessage());
         }
     }
     panelCard.add(burguerLabel);
