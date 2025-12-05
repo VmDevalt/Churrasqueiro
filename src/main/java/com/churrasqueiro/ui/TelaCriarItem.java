@@ -209,25 +209,25 @@ public class TelaCriarItem extends JFrame {
 
                     try {
                         java.io.File arquivoOriginal = chooser.getSelectedFile();
-                        String nomeArquivo = arquivoOriginal.getName();
-                        String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf('.') + 1).toLowerCase();
-                        if (!extensao.equals("png") && !extensao.equals("jpg") && !extensao.equals("jpeg")) {
-                            nomeArquivo = nomeArquivo.substring(0, nomeArquivo.lastIndexOf('.')) + ".png";
-                            extensao = "png";
+                        String nomeArquivoOriginal = arquivoOriginal.getName();
+                        
+                        String nomeBase = nomeArquivoOriginal;
+                        if (nomeArquivoOriginal.lastIndexOf('.') != -1) {
+                            nomeBase = nomeArquivoOriginal.substring(0, nomeArquivoOriginal.lastIndexOf('.'));
                         }
-
-                        campoFoto.setText(nomeArquivo);
+                        String nomeArquivoPng = nomeBase + ".png"; 
+                        
+                        campoFoto.setText(nomeArquivoPng);
 
                         java.nio.file.Path destino = java.nio.file.Paths.get(
-                                "src/main/resources/assets/imagens/itens/" + nomeArquivo
+                                "src/main/resources/assets/imagens/itens/" + nomeArquivoPng
                         );
-
                         redimensionarEsalvar(arquivoOriginal, destino, 82, 82);
                         
                         ImageIcon novoIcone = new ImageIcon(destino.toFile().getAbsolutePath());
                         labelFotoVisualiza.setIcon(novoIcone);
 
-                        JOptionPane.showMessageDialog(null,"Imagem carregada e redimensionada para 82x82px com sucesso!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Imagem carregada, redimensionada para 82x82px e salva como PNG!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
@@ -322,18 +322,14 @@ public class TelaCriarItem extends JFrame {
         if (originalImage == null) {
             throw new IOException("Não foi possível ler a imagem do caminho: " + arquivoOriginal.getAbsolutePath());
         }
+        destino.getParent().toFile().mkdirs();
 
         Image scaledImage = originalImage.getScaledInstance(finalWidth, finalHeight, Image.SCALE_SMOOTH);
-        BufferedImage resizedBufferedImage = new BufferedImage(finalWidth, finalHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage resizedBufferedImage = new BufferedImage(finalWidth, finalHeight, BufferedImage.TYPE_INT_ARGB); 
         Graphics2D g2d = resizedBufferedImage.createGraphics();
         g2d.drawImage(scaledImage, 0, 0, null);
         g2d.dispose();
-        String formato = destino.toString().substring(destino.toString().lastIndexOf('.') + 1).toLowerCase();
-        if (!formato.equals("png") && !formato.equals("jpg") && !formato.equals("jpeg")) {
-            formato = "png";
-        }
-
-        ImageIO.write(resizedBufferedImage, formato, destino.toFile());
+        ImageIO.write(resizedBufferedImage, "png", destino.toFile());
     }
 
     private void carregarCategoriasNoComboBox() {
