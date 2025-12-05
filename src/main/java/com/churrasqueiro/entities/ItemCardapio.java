@@ -9,7 +9,7 @@ public class ItemCardapio {
     private int categoriaId;
     private String fotoUrl; 
     private Double precoComparacao;
-    
+    private int quantidade;
     
     public ItemCardapio() {}
 
@@ -87,7 +87,15 @@ public class ItemCardapio {
     public void setPrecoComparacao(Double precoComparacao) {
         this.precoComparacao = precoComparacao;
     }
-    
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     @Override
     public String toString() {
         return "ItemCardapio [id=" + id + ", nome=" + nome + ", preco=" + preco + ", categoriaId=" + categoriaId + "]";

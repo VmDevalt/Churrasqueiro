@@ -1,269 +1,485 @@
 package com.churrasqueiro.ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
+
+import com.churrasqueiro.business.PedidoController;
+import com.churrasqueiro.entities.PedidoResumo;
+import com.churrasqueiro.entities.PedidoEmMontagem;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 
 public class TelaPedidos extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel panelVermelho;
-	private static final int LARGURA = 1280;
-	private static final int ALTURA = 720;
-	private JButton botaoNovoPedido;
-	private JButton botaoEditPedidoAberto;
-	private JButton botaoDeletPedidoAberto;
-	private JButton botaoEditPedidoPreparo;
-	private JButton botaoDeletPedidoPreparo;
-	private JButton botaoEditPedidoPronto;
-	private JButton botaoDeletPedidoPronto;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPedidos frame = new TelaPedidos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private static final long serialVersionUID = 1L;
+    private static final int LARGURA = 1280;
+    private static final int ALTURA = 720;
 
-	
-	public TelaPedidos() {
-		
-		 Color corPaletaVermelho = new Color(179,13,36);
-	     Color corPaletaBege = new Color(227,202,187);
-	     Color corPaletaVermelhoInteracao = new Color(200,50,50);
-	     Color corPaletaVermelhoPressionado = new Color(150,0,0);
-	     Color corPaletaPreto = new Color(0,0,0);
-	     Color corPaletaPretoInteração = new Color(35,35,35);
-	     Color corPaletaCinza = new Color(140,127,127);
-	     Color corPaletaBegeInteracao = new Color(245,225,210);
-	     Color corPaletaBegePressionado = new Color(200,175,160);
-		
-		setTitle("Pedidos - Churrasqueiro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 720);
-		setSize(LARGURA, ALTURA);
-	    setResizable(false);
-	    setLocationRelativeTo(null);
-	        
-	    panelVermelho = new JPanel();
-        panelVermelho.setBackground(new Color(179, 13, 36));
-		panelVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(panelVermelho);
-		panelVermelho.setLayout(null);
-		
-		JPanel panelBranco = new JPanel();
-		panelBranco.setBackground(new Color(227,202,187));
-		panelBranco.setBounds(0, 74, 1280, 609);
-		panelVermelho.add(panelBranco);
-		panelBranco.setLayout(null);
-		
-		JLabel gruposLabel = new JLabel("Grupos");
-        gruposLabel.setBounds(539, 18, 208, 38);
-        gruposLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        gruposLabel.setForeground(corPaletaBege);
-        panelVermelho.add(gruposLabel);
-        
-        JLabel logoLabel = new JLabel("");
-        logoLabel.setBounds(29, -2, 92, 82);
-        logoLabel.setIcon(new ImageIcon(TelaCriarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        panelVermelho.add(logoLabel);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
-        panel.setBackground(corPaletaBege);
-        panelVermelho.add(panel);
-        panel.setLayout(null);
-		
-		java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
-        if (url != null) {
+    private JPanel topoVermelho;
+    private JPanel areaConteudo;
+
+    private final PedidoController pedidoController = new PedidoController();
+    private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
             try {
-                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                TelaPedidos frame = new TelaPedidos();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public TelaPedidos() {
+
+        Color corPaletaVermelho = new Color(179, 13, 36);
+        Color corPaletaBege = new Color(227, 202, 187);
+        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
+        Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
+        Color corPaletaPreto = new Color(0, 0, 0);
+        Color corPaletaPretoInteracao = new Color(35, 35, 35);
+
+        setTitle("Pedidos - Churrasqueiro");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(LARGURA, ALTURA);
+        setResizable(false);
+        setLocationRelativeTo(null);
+
+        topoVermelho = new JPanel();
+        topoVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
+        topoVermelho.setBackground(corPaletaVermelho);
+        topoVermelho.setLayout(null);
+        setContentPane(topoVermelho);
+
+        java.net.URL urlIcone = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (urlIcone != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(urlIcone);
                 setIconImage(icon);
             } catch (java.io.IOException e) {
                 System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
             }
         }
 
-		
-		this.botaoNovoPedido = new EstilizacaoRedonda.BotaoRedondo("Novo Pedido",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoNovoPedido.setBounds(519, 35, 268, 38);
-		panelBranco.add(botaoNovoPedido);
-		botaoNovoPedido.setForeground(new Color(227,202,187));
-		botaoNovoPedido.setBackground(new Color(179, 13, 36));
-		botaoNovoPedido.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		botaoNovoPedido.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-					TelaNovoPedido telaNovoPedido = new TelaNovoPedido();
-					telaNovoPedido.setVisible(true);
-				}
-			});
-		
-		
-		final EstilizacaoRedonda.PainelRedondo panelPedidoAberto = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
-		panelPedidoAberto.setBorder(new LineBorder(new Color(179,13,36), 1, true));
-		panelPedidoAberto.setFocusable(true);
-		panelPedidoAberto.requestFocusInWindow();
-		panelPedidoAberto.setBounds(137, 148, 279, 449);
-		panelBranco.add(panelPedidoAberto);
-		panelPedidoAberto.setLayout(null);
-		
-		JTextArea txtPedidoAberto = new JTextArea();
-		txtPedidoAberto.setForeground(new Color(179, 13, 36));
-		txtPedidoAberto.setBackground(new Color(227,202,187));
-		txtPedidoAberto.setFont(new Font("Dialog", Font.PLAIN, 14));
-		txtPedidoAberto.setColumns(2);
-		txtPedidoAberto.setText("Mesa: 157\nGarçonete: Ingrid Vitória\nData e Hora: 17/11/2025 10:43:31\n\nTotal de itens: \n1x Gourmet (R$ 20,00)\nx Coca Cola 1L (R$ 11,00)\n\nDescontos: R$ 00,00\nAcréscimo: R$ 00,00\nTotal: R$ 31,00\nForma de pagamento: Cartão de Credito\nObservações: ......");
-		txtPedidoAberto.setBounds(6, 12, 267, 259);
-		panelPedidoAberto.add(txtPedidoAberto);
-		
-		this.botaoEditPedidoAberto = new EstilizacaoRedonda.BotaoRedondo("Editar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoEditPedidoAberto.setBounds(90, 270, 98, 24);
-		panelPedidoAberto.add(botaoEditPedidoAberto);
-		botaoEditPedidoAberto.setForeground(new Color(227,202,187));
-		botaoEditPedidoAberto.setBackground(new Color(179, 13, 36));
-		botaoEditPedidoAberto.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		this.botaoDeletPedidoAberto = new EstilizacaoRedonda.BotaoRedondo("Apagar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoDeletPedidoAberto.setBounds(90, 332, 98, 24);
-		panelPedidoAberto.add(botaoDeletPedidoAberto);
-		botaoDeletPedidoAberto.setForeground(new Color(227,202,187));
-		botaoDeletPedidoAberto.setBackground(new Color(179, 13, 36));
-		botaoDeletPedidoAberto.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		final EstilizacaoRedonda.PainelRedondo panelPedidoAndamento = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
-		panelPedidoAndamento.setBorder(new LineBorder(new Color(179,13,36), 1, true));
-		panelPedidoAndamento.setFocusable(true);
-		panelPedidoAndamento.requestFocusInWindow();
-		panelPedidoAndamento.setBounds(519, 148, 279, 449);
-		panelBranco.add(panelPedidoAndamento);
-		panelPedidoAndamento.setLayout(null);
-		
-		JTextArea txtPedidoPreparo = new JTextArea();
-		txtPedidoPreparo.setText("Mesa: 157\nGarçonete: Ingrid Vitória\nData e Hora: 17/11/2025 10:43:31\n\nTotal de itens: \n1x Gourmet (R$ 20,00)\nx Coca Cola 1L (R$ 11,00)\n\nDescontos: R$ 00,00\nAcréscimo: R$ 00,00\nTotal: R$ 31,00\nForma de pagamento: Cartão de Credito\nObservações: ......");
-		txtPedidoPreparo.setForeground(new Color(179, 13, 36));
-		txtPedidoPreparo.setFont(new Font("Dialog", Font.PLAIN, 14));
-		txtPedidoPreparo.setColumns(2);
-		txtPedidoPreparo.setBackground(new Color(227, 202, 187));
-		txtPedidoPreparo.setBounds(6, 12, 267, 230);
-		panelPedidoAndamento.add(txtPedidoPreparo);
-		
-		this.botaoEditPedidoPreparo = new EstilizacaoRedonda.BotaoRedondo("Editar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoEditPedidoPreparo.setBounds(90, 270, 98, 24);
-		panelPedidoAndamento.add(botaoEditPedidoPreparo);
-		botaoEditPedidoPreparo.setForeground(new Color(227,202,187));
-		botaoEditPedidoPreparo.setBackground(new Color(179, 13, 36));
-		botaoEditPedidoPreparo.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		this.botaoDeletPedidoPreparo = new EstilizacaoRedonda.BotaoRedondo("Apagar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoDeletPedidoPreparo.setBounds(90, 332, 98, 24);
-		panelPedidoAndamento.add(botaoDeletPedidoPreparo);
-		botaoDeletPedidoPreparo.setForeground(new Color(227,202,187));
-		botaoDeletPedidoPreparo.setBackground(new Color(179, 13, 36));
-		botaoDeletPedidoPreparo.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		final EstilizacaoRedonda.PainelRedondo panelPedidoPronto = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
-		panelPedidoPronto.setBorder(new LineBorder(new Color(179,13,36), 1, true));
-		panelPedidoPronto.setFocusable(true);
-		panelPedidoPronto.requestFocusInWindow();
-		panelPedidoPronto.setBounds(913, 148, 279, 449);
-		panelBranco.add(panelPedidoPronto);
-		panelPedidoPronto.setLayout(null);
-		
-		JTextArea txtPedidoAberto_2 = new JTextArea();
-		txtPedidoAberto_2.setText("Mesa: 157\nGarçonete: Ingrid Vitória\nData e Hora: 17/11/2025 10:43:31\n\nTotal de itens: \n1x Gourmet (R$ 20,00)\nx Coca Cola 1L (R$ 11,00)\n\nDescontos: R$ 00,00\nAcréscimo: R$ 00,00\nTotal: R$ 31,00\nForma de pagamento: Cartão de Credito\nObservações: ......");
-		txtPedidoAberto_2.setForeground(new Color(179, 13, 36));
-		txtPedidoAberto_2.setFont(new Font("Dialog", Font.PLAIN, 14));
-		txtPedidoAberto_2.setColumns(2);
-		txtPedidoAberto_2.setBackground(new Color(227, 202, 187));
-		txtPedidoAberto_2.setBounds(6, 12, 267, 230);
-		panelPedidoPronto.add(txtPedidoAberto_2);
-		
-		this.botaoEditPedidoPronto = new EstilizacaoRedonda.BotaoRedondo("Editar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoEditPedidoPronto.setBounds(90, 270, 98, 24);
-		panelPedidoPronto.add(botaoEditPedidoPronto);
-		botaoEditPedidoPronto.setForeground(new Color(227,202,187));
-		botaoEditPedidoPronto.setBackground(new Color(179, 13, 36));
-		botaoEditPedidoPronto.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		this.botaoDeletPedidoPronto = new EstilizacaoRedonda.BotaoRedondo("Apagar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-		botaoDeletPedidoPronto.setBounds(90, 332, 98, 24);
-		panelPedidoPronto.add(botaoDeletPedidoPronto);
-		botaoDeletPedidoPronto.setForeground(new Color(227,202,187));
-		botaoDeletPedidoPronto.setBackground(new Color(179, 13, 36));
-		botaoDeletPedidoPronto.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		
-		JLabel lblPedidosAberto = new JLabel("Pedidos em aberto");
-		lblPedidosAberto.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblPedidosAberto.setForeground(corPaletaPreto);
-		lblPedidosAberto.setBounds(204, 121, 144, 14);
-		panelBranco.add(lblPedidosAberto);
-		
-		JLabel lblPedidosPreparo = new JLabel("Pedidos em preparo");
-		lblPedidosPreparo.setForeground(Color.BLACK);
-		lblPedidosPreparo.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblPedidosPreparo.setBounds(587, 122, 144, 14);
-		panelBranco.add(lblPedidosPreparo);
-		
-		JLabel lblPedidosProntos = new JLabel("Pedidos prontos");
-		lblPedidosProntos.setForeground(Color.BLACK);
-		lblPedidosProntos.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblPedidosProntos.setBounds(994, 122, 126, 14);
-		panelBranco.add(lblPedidosProntos);
-        	
-        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoVoltar.setBounds(1127, 19, 104, 38);
-		panelVermelho.add(botaoVoltar);
-		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoVoltar.setForeground(new Color(255, 255, 255));
-		botaoVoltar.setBackground(new Color(0, 0, 0));
-		botaoVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaPedidos.this.dispose();
-				TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
-				telaMenuPrincipal.setVisible(true);
-			}
-		});
         
-        JLabel labelLogoBege = new JLabel("");
-        labelLogoBege.setBounds(0, 0, 83, 82);
-        panelVermelho.add(labelLogoBege);
-        labelLogoBege.setIcon(new ImageIcon("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens/iconeJanelaPequena.png"));
+        JLabel logoLabel = new JLabel();
+        logoLabel.setBounds(20, -2, 92, 82);
+        java.net.URL urlLogoPeq = getClass().getResource("/assets/imagens/iconeJanelaPequena.png");
+        if (urlLogoPeq != null) {
+            logoLabel.setIcon(new ImageIcon(urlLogoPeq));
+        }
+        topoVermelho.add(logoLabel);
+
         
-        JLabel dashboardLabel = new JLabel("Dashboard");
-        dashboardLabel.setForeground(new Color(227, 202, 187));
-        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        dashboardLabel.setBounds(807, 19, 208, 38);
-        panelVermelho.add(dashboardLabel);
-        
-        JPanel panelSelecionado = new JPanel();
-        panelSelecionado.setBounds(173, 0, 254, 77);
-        panelVermelho.add(panelSelecionado);
-        panelSelecionado.setBackground(corPaletaBege);
-        panelSelecionado.setLayout(null);
-        
+        JPanel painelSelecionado = new JPanel();
+        painelSelecionado.setBackground(corPaletaBege);
+        painelSelecionado.setBounds(170, 0, 260, 77);
+        painelSelecionado.setLayout(null);
+        topoVermelho.add(painelSelecionado);
+
         JLabel pedidosLabel = new JLabel("Pedidos");
         pedidosLabel.setForeground(corPaletaPreto);
         pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        pedidosLabel.setBounds(53, 10, 191, 57);
-        panelSelecionado.add(pedidosLabel);
-        java.net.URL urlLogo = getClass().getResource("/home/victorscds/Documentos/GitHub/CampusPay/src/main/resources/assets/imagens");
-	}
+        pedidosLabel.setBounds(55, 10, 200, 57);
+        painelSelecionado.add(pedidosLabel);
+
+        JLabel gestaoLabel = new JLabel("Gestão");
+        gestaoLabel.setForeground(corPaletaBege);
+        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gestaoLabel.setBounds(530, 19, 200, 38);
+        topoVermelho.add(gestaoLabel);
+
+        JLabel dashboardLabel = new JLabel("Dashboard");
+        dashboardLabel.setForeground(corPaletaBege);
+        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        dashboardLabel.setBounds(800, 19, 230, 38);
+        topoVermelho.add(dashboardLabel);
+
+        
+        EstilizacaoRedonda.BotaoRedondo botaoVoltar =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Voltar",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        35
+                );
+        botaoVoltar.setBounds(1125, 19, 110, 38);
+        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setForeground(Color.WHITE);
+        topoVermelho.add(botaoVoltar);
+        botaoVoltar.addActionListener(e -> {
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
+            telaMenuPrincipal.setVisible(true);
+            dispose();
+        });
+
+        
+        areaConteudo = new JPanel();
+        areaConteudo.setBackground(corPaletaBege);
+        areaConteudo.setBounds(0, 74, LARGURA, ALTURA - 74);
+        areaConteudo.setLayout(null);
+        topoVermelho.add(areaConteudo);
+
+        
+        EstilizacaoRedonda.BotaoRedondo botaoNovoPedido =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Novo Pedido",
+                        corPaletaVermelho,
+                        corPaletaVermelhoInteracao,
+                        corPaletaVermelhoPressionado,
+                        35
+                );
+        botaoNovoPedido.setBounds(300, 25, 260, 38);
+        botaoNovoPedido.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoNovoPedido.setForeground(corPaletaBege);
+        areaConteudo.add(botaoNovoPedido);
+
+        
+        botaoNovoPedido.addActionListener(e -> {
+            PedidoEmMontagem pedido = new PedidoEmMontagem();
+            TelaCardapio telaCardapio = new TelaCardapio(pedido);
+            telaCardapio.setVisible(true);
+            dispose();
+        });
+
+        EstilizacaoRedonda.BotaoRedondo botaoCardapio =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Cardápio",
+                        corPaletaVermelho,
+                        corPaletaVermelhoInteracao,
+                        corPaletaVermelhoPressionado,
+                        35
+                );
+        
+        JLabel lblPreparo = new JLabel("Pedidos em Preparo");
+        lblPreparo.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblPreparo.setForeground(corPaletaPreto);
+        lblPreparo.setBounds(320, 90, 200, 22);
+        areaConteudo.add(lblPreparo);
+
+        JLabel lblProntos = new JLabel("Pedidos Prontos");
+        lblProntos.setForeground(corPaletaPreto);
+        lblProntos.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblProntos.setBounds(830, 90, 200, 22);
+        areaConteudo.add(lblProntos);
+
+        
+        JSeparator sep = new JSeparator(JSeparator.VERTICAL);
+        sep.setForeground(corPaletaVermelho);
+        sep.setBounds(640, 120, 2, 500);
+        areaConteudo.add(sep);
+
+        
+        JScrollPane scrollPreparo = new JScrollPane();
+        scrollPreparo.setBounds(200, 120, 320, 450);
+        scrollPreparo.setBorder(null);
+        scrollPreparo.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPreparo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPreparo.getVerticalScrollBar().setUnitIncrement(16);
+        areaConteudo.add(scrollPreparo);
+
+        JPanel conteudoPreparo = new JPanel();
+        conteudoPreparo.setBackground(corPaletaBege);
+        conteudoPreparo.setLayout(null);
+        scrollPreparo.setViewportView(conteudoPreparo);
+
+        
+        JScrollPane scrollPronto = new JScrollPane();
+        scrollPronto.setBounds(720, 120, 320, 450);
+        scrollPronto.setBorder(null);
+        scrollPronto.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPronto.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPronto.getVerticalScrollBar().setUnitIncrement(16);
+        areaConteudo.add(scrollPronto);
+
+        JPanel conteudoPronto = new JPanel();
+        conteudoPronto.setBackground(corPaletaBege);
+        conteudoPronto.setLayout(null);
+        scrollPronto.setViewportView(conteudoPronto);
+
+        
+        carregarPedidosNasColunas(
+                conteudoPreparo,
+                conteudoPronto,
+                corPaletaBege,
+                corPaletaVermelho,
+                corPaletaVermelhoInteracao,
+                corPaletaVermelhoPressionado
+        );
+    }
+
+    private void carregarPedidosNasColunas(
+            JPanel conteudoPreparo,
+            JPanel conteudoPronto,
+            Color corPaletaBege,
+            Color corPaletaVermelho,
+            Color corPaletaVermelhoInteracao,
+            Color corPaletaVermelhoPressionado
+    ) {
+
+        int yPreparo = 10;
+        int yPronto = 10;
+
+        try {
+            List<PedidoResumo> pedidosPreparo =
+                    pedidoController.listarPedidosPorStatus("Em Preparo");
+            List<PedidoResumo> pedidosProntos =
+                    pedidoController.listarPedidosPorStatus("Pronto");
+
+            
+            for (PedidoResumo p : pedidosPreparo) {
+                EstilizacaoRedonda.PainelRedondo cardPreparo =
+                        criarCardPedidoPreparo(
+                                corPaletaBege,
+                                corPaletaVermelho,
+                                corPaletaVermelhoInteracao,
+                                corPaletaVermelhoPressionado,
+                                p
+                        );
+                cardPreparo.setBounds(10, yPreparo, 300, 380);
+                conteudoPreparo.add(cardPreparo);
+                yPreparo += 390;
+            }
+
+            
+            for (PedidoResumo p : pedidosProntos) {
+                EstilizacaoRedonda.PainelRedondo cardPronto =
+                        criarCardPedidoPronto(
+                                corPaletaBege,
+                                corPaletaVermelho,
+                                corPaletaVermelhoInteracao,
+                                corPaletaVermelhoPressionado,
+                                p
+                        );
+                cardPronto.setBounds(10, yPronto, 300, 380);
+                conteudoPronto.add(cardPronto);
+                yPronto += 390;
+            }
+
+        } catch (DatabaseException | ControllerException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao carregar pedidos: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        conteudoPreparo.setPreferredSize(new Dimension(300, Math.max(yPreparo, 10)));
+        conteudoPronto.setPreferredSize(new Dimension(300, Math.max(yPronto, 10)));
+
+        conteudoPreparo.revalidate();
+        conteudoPronto.revalidate();
+    }
+
+    private void recarregarTela() {
+        TelaPedidos nova = new TelaPedidos();
+        nova.setVisible(true);
+        dispose();
+    }
+
+    private EstilizacaoRedonda.PainelRedondo criarCardPedidoPreparo(
+            Color corBege,
+            Color corVermelho,
+            Color corVermelhoInteracao,
+            Color corVermelhoPressionado,
+            PedidoResumo pedido) {
+
+        EstilizacaoRedonda.PainelRedondo card =
+                new EstilizacaoRedonda.PainelRedondo(null, 40, 2, corBege, null);
+        card.setBorder(new LineBorder(corVermelho, 2, true));
+        card.setLayout(null);
+
+        String dataFormatada = pedido.getDataHora() != null
+                ? pedido.getDataHora().format(fmt)
+                : "";
+
+        JTextArea txtInfo = new JTextArea(
+                "Mesa: " + pedido.getNumeroMesa() + "\n" +
+                        "Garçom: " + pedido.getGarconLogin() + "\n" +
+                        "Data e Hora: " + dataFormatada + "\n\n" +
+                        "Desconto: R$" + String.format("%.2f", pedido.getDesconto()).replace('.', ',') + "\n" +
+                        "Acréscimo: R$" + String.format("%.2f", pedido.getAcrescimo()).replace('.', ',') + "\n" +
+                        "Total: R$" + String.format("%.2f", pedido.getTotal()).replace('.', ',') + "\n" +
+                        "Forma de Pagamento: " + pedido.getFormaPagamento() + "\n"
+        );
+        txtInfo.setBounds(20, 15, 260, 150);
+        txtInfo.setForeground(corVermelho);
+        txtInfo.setBackground(corBege);
+        txtInfo.setFont(new Font("Dialog", Font.PLAIN, 14));
+        txtInfo.setEditable(false);
+        card.add(txtInfo);
+
+        EstilizacaoRedonda.PainelRedondo painelItens =
+                new EstilizacaoRedonda.PainelRedondo(null, 40, 2, corVermelho, null);
+        painelItens.setBorder(new LineBorder(corVermelho, 2, true));
+        painelItens.setBounds(20, 190, 260, 110);
+        painelItens.setLayout(null);
+        card.add(painelItens);
+
+        StringBuilder sb = new StringBuilder();
+        if (pedido.getItensDescricao() != null) {
+            for (String linha : pedido.getItensDescricao()) {
+                sb.append(linha).append("\n");
+            }
+        }
+
+        JTextArea txtItens = new JTextArea(sb.toString());
+        txtItens.setBounds(10, 10, 240, 90);
+        txtItens.setForeground(corBege);
+        txtItens.setBackground(corVermelho);
+        txtItens.setFont(new Font("Dialog", Font.PLAIN, 13));
+        txtItens.setEditable(false);
+        painelItens.add(txtItens);
+
+        EstilizacaoRedonda.BotaoRedondo botaoPronto =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Pedido Pronto",
+                        corVermelho,
+                        corVermelhoInteracao,
+                        corVermelhoPressionado,
+                        35
+                );
+        botaoPronto.setBounds(70, 330, 160, 32);
+        botaoPronto.setForeground(corBege);
+        botaoPronto.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        card.add(botaoPronto);
+
+        botaoPronto.addActionListener(e -> {
+            try {
+                pedidoController.alterarStatusPedido(pedido.getId(), "Pronto");
+                recarregarTela();
+            } catch (DatabaseException | ControllerException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Erro ao atualizar pedido: " + ex.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+
+        return card;
+    }
+
+    private EstilizacaoRedonda.PainelRedondo criarCardPedidoPronto(
+            Color corBege,
+            Color corVermelho,
+            Color corVermelhoInteracao,
+            Color corVermelhoPressionado,
+            PedidoResumo pedido) {
+
+        EstilizacaoRedonda.PainelRedondo card =
+                new EstilizacaoRedonda.PainelRedondo(null, 40, 2, corBege, null);
+        card.setBorder(new LineBorder(corVermelho, 2, true));
+        card.setLayout(null);
+
+        String dataFormatada = pedido.getDataHora() != null
+                ? pedido.getDataHora().format(fmt)
+                : "";
+
+        JTextArea txtInfo = new JTextArea(
+                "Mesa: " + pedido.getNumeroMesa() + "\n" +
+                        "Garçom: " + pedido.getGarconLogin() + "\n" +
+                        "Data e Hora: " + dataFormatada + "\n\n" +
+                        "Desconto: R$" + String.format("%.2f", pedido.getDesconto()).replace('.', ',') + "\n" +
+                        "Acréscimo: R$" + String.format("%.2f", pedido.getAcrescimo()).replace('.', ',') + "\n" +
+                        "Total: R$" + String.format("%.2f", pedido.getTotal()).replace('.', ',') + "\n" +
+                        "Forma de Pagamento: " + pedido.getFormaPagamento() + "\n"
+        );
+        txtInfo.setBounds(20, 15, 260, 150);
+        txtInfo.setForeground(corVermelho);
+        txtInfo.setBackground(corBege);
+        txtInfo.setFont(new Font("Dialog", Font.PLAIN, 14));
+        txtInfo.setEditable(false);
+        card.add(txtInfo);
+
+        EstilizacaoRedonda.PainelRedondo painelItens =
+                new EstilizacaoRedonda.PainelRedondo(null, 40, 2, corVermelho, null);
+        painelItens.setBorder(new LineBorder(corVermelho, 2, true));
+        painelItens.setBounds(20, 190, 260, 110);
+        painelItens.setLayout(null);
+        card.add(painelItens);
+
+        StringBuilder sb = new StringBuilder();
+        if (pedido.getItensDescricao() != null) {
+            for (String linha : pedido.getItensDescricao()) {
+                sb.append(linha).append("\n");
+            }
+        }
+
+        JTextArea txtItens = new JTextArea(sb.toString());
+        txtItens.setBounds(10, 10, 240, 90);
+        txtItens.setForeground(corBege);
+        txtItens.setBackground(corVermelho);
+        txtItens.setFont(new Font("Dialog", Font.PLAIN, 13));
+        txtItens.setEditable(false);
+        painelItens.add(txtItens);
+
+        EstilizacaoRedonda.BotaoRedondo botaoPreparando =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Voltar p/ Preparo",
+                        corVermelho,
+                        corVermelhoInteracao,
+                        corVermelhoPressionado,
+                        35
+                );
+        botaoPreparando.setBounds(20, 330, 140, 32);
+        botaoPreparando.setForeground(corBege);
+        botaoPreparando.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        card.add(botaoPreparando);
+
+        EstilizacaoRedonda.BotaoRedondo botaoImprimir =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Imprimir",
+                        corVermelho,
+                        corVermelhoInteracao,
+                        corVermelhoPressionado,
+                        35
+                );
+        botaoImprimir.setBounds(170, 330, 110, 32);
+        botaoImprimir.setForeground(corBege);
+        botaoImprimir.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        card.add(botaoImprimir);
+
+        botaoPreparando.addActionListener(e -> {
+            try {
+                pedidoController.alterarStatusPedido(pedido.getId(), "Em Preparo");
+                recarregarTela();
+            } catch (DatabaseException | ControllerException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Erro ao atualizar pedido: " + ex.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+
+        
+
+        return card;
+    }
 }

@@ -69,4 +69,9 @@ public class CaixaController {
     public Optional<Caixa> buscarCaixaAberto() throws DatabaseException {
         return caixaDAO.buscarCaixaAberto();
     }
+
+    public boolean existeCaixaAberto() throws DatabaseException {
+        return caixaDAO.buscarCaixaAberto().isPresent();
+    }
+
 }
