@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -17,11 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.entities.Caixa;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.entities.Usuario;
 
 public class TelaGestao extends JFrame {
 
@@ -29,15 +28,12 @@ public class TelaGestao extends JFrame {
     private JPanel panelVermelho;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
-
     private EstilizacaoRedonda.BotaoRedondo botaoCriarConta;
     private EstilizacaoRedonda.BotaoRedondo botaoRelatorio;
     private EstilizacaoRedonda.BotaoRedondo botaoConfiguracoes;
     private EstilizacaoRedonda.BotaoRedondo botaoItens;
     private EstilizacaoRedonda.BotaoRedondo botaoCaixa;
-
     private JLabel lblCaixaStatus;
-
     private final CaixaController caixaController = new CaixaController();
 
     public static void main(String[] args) {
@@ -54,6 +50,7 @@ public class TelaGestao extends JFrame {
     }
 
     public TelaGestao() {
+    	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
 
         Color corPaletaVermelho = new Color(179, 13, 36);
         Color corPaletaBege = new Color(227, 202, 187);
@@ -79,21 +76,24 @@ public class TelaGestao extends JFrame {
         panelBranco.setBounds(0, 74, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	        botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo(
+	                "Criar Conta", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+	        botaoCriarConta.setBounds(370, 361, 209, 38);
+	        panelBranco.add(botaoCriarConta);
+	        botaoCriarConta.setForeground(corPaletaBege);
+	        botaoCriarConta.setBackground(corPaletaVermelho);
+	        botaoCriarConta.setFont(new Font("SansSerif", Font.PLAIN, 17));
+	        botaoCriarConta.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                dispose();
+	                TelaCadastro telaCadastro = new TelaCadastro();
+	                telaCadastro.setVisible(true);
+	            }
+	        });
+        }
 
-        botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo(
-                "Criar Conta", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
-        botaoCriarConta.setBounds(370, 361, 209, 38);
-        panelBranco.add(botaoCriarConta);
-        botaoCriarConta.setForeground(corPaletaBege);
-        botaoCriarConta.setBackground(corPaletaVermelho);
-        botaoCriarConta.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        botaoCriarConta.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaCadastro telaCadastro = new TelaCadastro();
-                telaCadastro.setVisible(true);
-            }
-        });
 
         JLabel lblCaixa = new JLabel("Caixa:");
         lblCaixa.setForeground(Color.RED);

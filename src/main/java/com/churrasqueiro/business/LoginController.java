@@ -42,8 +42,6 @@ public class LoginController {
 			throw new ControllerException("Campo de login vazio.");
 		} else if(senha.isEmpty() || senha == null){
 			throw new ControllerException("Campo de senha vazio.");
-		} else {
-			System.out.println("Campos preenchidos.\n------------------------------------------------------");
 		}
 	}
 }
