@@ -166,15 +166,42 @@ public class TelaPedidoConfirmar extends JFrame {
         botaoConfirmar.setBackground(new Color(179,13,36));
         botaoConfirmar.setBounds(565, 509, 182, 38);
         panelBranco.add(botaoConfirmar);
-        botaoConfirmar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        botaoConfirmar.addActionListener(e -> {
+
+            String forma = pedido.getFormaPagamento();
+            String formaNormalizada = forma == null ? "" : forma.trim();
+
+            if (formaNormalizada.equalsIgnoreCase("pix")) {
+                try {
+                    com.churrasqueiro.service.MercadoPagoPixService pixService =
+                            new com.churrasqueiro.service.MercadoPagoPixService();
+
+                    com.churrasqueiro.service.PixPaymentResponse pixResponse =
+                            pixService.criarPagamentoPix(pedido);
+
+                    TelaPixPagamento telaPix = new TelaPixPagamento(pedido, pixResponse);
+                    telaPix.setVisible(true);
+
+                    dispose();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaPedidoConfirmar.this,
+                            "Erro ao iniciar pagamento PIX: " + ex.getMessage(),
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
+            } else {
                 try {
                     PedidoController controller = new PedidoController();
                     controller.salvar(pedido);
 
                     JOptionPane.showMessageDialog(
                             TelaPedidoConfirmar.this,
-                            "Pedido salvo com sucesso!",
+                            "Pedido salvo com sucesso!\nForma de pagamento: " + formaNormalizada,
                             "Sucesso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -194,7 +221,6 @@ public class TelaPedidoConfirmar extends JFrame {
                 }
             }
         });
-
         final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
         botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoVoltar.setForeground(new Color(255, 255, 255));

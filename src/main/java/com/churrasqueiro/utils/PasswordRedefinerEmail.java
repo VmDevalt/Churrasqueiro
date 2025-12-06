@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PasswordRedefinerEmail {
 	private static Dotenv dotenv = Dotenv.load();
 	private static String remetente = dotenv.get("EMAIL");
-	private static String enderecoHost = dotenv.get("EMAIL_HOST_ADRESS");
+	private static String enderecoHost = dotenv.get("EMAIL_HOST_ADDRESS");
 	private static String nomeUsuario = dotenv.get("EMAIL");
 	private static String senhaUsuario = dotenv.get("EMAIL_PASSWORD");
 

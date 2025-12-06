@@ -24,6 +24,8 @@ import com.churrasqueiro.entities.PedidoResumo;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.NotaFiscalPdfUtil;
+
 
 public class TelaPedidos extends JFrame {
 
@@ -462,6 +464,27 @@ public class TelaPedidos extends JFrame {
         botaoImprimir.setForeground(corBege);
         botaoImprimir.setFont(new Font("SansSerif", Font.PLAIN, 13));
         card.add(botaoImprimir);
+        botaoImprimir.addActionListener(e -> {
+        try {
+                java.io.File pdfGerado = NotaFiscalPdfUtil.gerarNotaFiscalPedido(pedido);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Nota fiscal gerada em:\n" + pdfGerado.getAbsolutePath(),
+                        "Nota Fiscal",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+        } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Erro ao gerar nota fiscal: " + ex.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+        }
+        });
 
         botaoPreparando.addActionListener(e -> {
             try {
