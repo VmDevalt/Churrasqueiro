@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.entities.Usuario;
 
 public class TelaMenuPrincipal extends JFrame {
 
@@ -45,6 +46,8 @@ public class TelaMenuPrincipal extends JFrame {
     Color corPaletaCinza = new Color(150, 150, 150);
 
     public TelaMenuPrincipal() {
+    	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
+    	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1280, 720);
         setResizable(false);
@@ -110,32 +113,58 @@ public class TelaMenuPrincipal extends JFrame {
                 dispose();
             }
         });
-
-        final EstilizacaoRedonda.BotaoRedondo botaoDashboard =
-            new EstilizacaoRedonda.BotaoRedondo("Dashboard",
-                    corPaletaVermelho, corPaletaVermelhoInteracao,
-                    corPaletaVermelhoPressionado, 35);
-        botaoDashboard.setForeground(corPaletaBege);
-        botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
-        botaoDashboard.setBounds(885, 269, 288, 335);
-        contentPane.add(botaoDashboard);
-        botaoDashboard.addActionListener(e -> {
-            dispose();
-            new TelaDashboard().setVisible(true);
-        });
-
-        final EstilizacaoRedonda.BotaoRedondo botaoGestao =
-            new EstilizacaoRedonda.BotaoRedondo("Gestão",
-                    corPaletaVermelho, corPaletaVermelhoInteracao,
-                    corPaletaVermelhoPressionado, 35);
-        botaoGestao.setForeground(corPaletaBege);
-        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
-        botaoGestao.setBounds(482, 269, 288, 335);
-        contentPane.add(botaoGestao);
-        botaoGestao.addActionListener(e -> {
-            dispose();
-            new TelaGestao().setVisible(true);
-        });
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	        final EstilizacaoRedonda.BotaoRedondo botaoDashboard =
+	            new EstilizacaoRedonda.BotaoRedondo("Dashboard",
+	                    corPaletaVermelho, corPaletaVermelhoInteracao,
+	                    corPaletaVermelhoPressionado, 35);
+	        botaoDashboard.setForeground(corPaletaBege);
+	        botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
+	        botaoDashboard.setBounds(885, 269, 288, 335);
+	        contentPane.add(botaoDashboard);
+	        botaoDashboard.addActionListener(e -> {
+	            dispose();
+	            new TelaDashboard().setVisible(true);
+	        });
+	
+	        final EstilizacaoRedonda.BotaoRedondo botaoGestao =
+	            new EstilizacaoRedonda.BotaoRedondo("Gestão",
+	                    corPaletaVermelho, corPaletaVermelhoInteracao,
+	                    corPaletaVermelhoPressionado, 35);
+	        botaoGestao.setForeground(corPaletaBege);
+	        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
+	        botaoGestao.setBounds(482, 269, 288, 335);
+	        contentPane.add(botaoGestao);
+	        botaoGestao.addActionListener(e -> {
+	            dispose();
+	            new TelaGestao().setVisible(true);
+	        });
+        } else {
+	        final EstilizacaoRedonda.BotaoRedondo botaoDashboard =
+		            new EstilizacaoRedonda.BotaoRedondo("Dashboard",
+		            		corPaletaCinza, new Color(172, 164, 164),
+		            		corPaletaVermelhoPressionado, 35);
+		        botaoDashboard.setForeground(corPaletaBege);
+		        botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
+		        botaoDashboard.setBounds(885, 269, 288, 335);
+		        contentPane.add(botaoDashboard);
+		        botaoDashboard.addActionListener(e -> {
+		        	JOptionPane.showMessageDialog(this, "Área restrita para Administradores.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		        });
+		
+		        final EstilizacaoRedonda.BotaoRedondo botaoGestao =
+		            new EstilizacaoRedonda.BotaoRedondo("Gestão",
+		            		corPaletaCinza, new Color(172, 164, 164),
+		            		corPaletaVermelhoPressionado, 35);
+		        botaoGestao.setForeground(corPaletaBege);
+		        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
+		        botaoGestao.setBounds(482, 269, 288, 335);
+		        contentPane.add(botaoGestao);
+		        botaoGestao.addActionListener(e -> {
+		        	JOptionPane.showMessageDialog(this, "Área restrita para Administradores.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		        });
+        }
 
         final EstilizacaoRedonda.BotaoRedondo botaoSair =
             new EstilizacaoRedonda.BotaoRedondo(
