@@ -44,15 +44,15 @@ public class TelaEsqueceuSenha extends JFrame {
 			dispose();
 			
 	    } catch (ControllerException e) {
-				 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
-				 JOptionPane.WARNING_MESSAGE);
+			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
+			 JOptionPane.WARNING_MESSAGE);
 	    } catch (DatabaseException e) {
             JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
             JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado.", e.getMessage(), 
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
             JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
         }

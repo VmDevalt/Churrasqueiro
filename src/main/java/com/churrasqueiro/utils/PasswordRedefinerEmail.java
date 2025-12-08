@@ -39,9 +39,17 @@ public class PasswordRedefinerEmail {
             message.setFrom(new InternetAddress(PasswordRedefinerEmail.remetente));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
             message.setSubject("código de redefinição de senha".toUpperCase());
-            message.setText("Olá, " + login + "!\n\n"
-            		+ "Aqui está seu código de redefinição de senha do Sistema Churrasqueiro: " + token + "\n\n"
-            		+ "Observação: Esta é uma mensagem automática.");
+            String html = ""
+            	    + "<html>"
+            	    + "<body style='font-family: Arial, sans-serif;'>"
+            	    + "<h2>Olá, " + login + "!</h2>"
+            	    + "<p>Aqui está seu código de redefinição de senha do <b>Sistema Churrasqueiro</b>:</p>"
+            	    + "<div style='font-size: 22px; font-weight: bold; color: #b30000;'>" + token + "</div>"
+            	    + "<p><b>E lembre-se: </b> esse código expira em 45 minutos.</p>"
+            	    + "<p style='margin-top:35px;color:#555;'>Observação: Esta é uma mensagem automática.</p>"
+            	    + "</body>"
+            	    + "</html>";
+            	message.setContent(html, "text/html; charset=UTF-8");
 
             Transport.send(message);
             System.out.println("[DEBUG]: E-mail enviado com sucesso!");
