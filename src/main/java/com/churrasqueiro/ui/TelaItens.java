@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,17 +18,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
-
+import javax.swing.JComboBox;
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
 import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
-
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import java.awt.Image; 
+import java.net.URL;
 
 public class TelaItens extends JFrame {
 
@@ -175,17 +178,40 @@ public class TelaItens extends JFrame {
 
     String nomeCategoria = mapaCategorias.getOrDefault(item.getCategoriaId(), "Não definida");
 
+    final int ICON_SIZE = 82;
+    
     JLabel burguerLabel = new JLabel();
-    burguerLabel.setBounds(40, 35, 120, 120);
+    burguerLabel.setBounds(40, 49, ICON_SIZE, ICON_SIZE); 
 
     if (item.getFotoUrl() != null && !item.getFotoUrl().isBlank()) {
         try {
-            java.net.URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
+            boolean carregado = false;
+            Image imagemEscalada = null;
+            
+            URL imgUrl = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
             if (imgUrl != null) {
-                burguerLabel.setIcon(new ImageIcon(imgUrl));
+                imagemEscalada = new ImageIcon(imgUrl).getImage();
+                carregado = true;
+            } else {
+                String pathRelativo = "src/main/resources/assets/imagens/itens/" + item.getFotoUrl();
+                java.io.File arquivo = new java.io.File(pathRelativo);
+                
+                if (arquivo.exists()) {
+                    imagemEscalada = new ImageIcon(arquivo.getAbsolutePath()).getImage();
+                    carregado = true;
+                }
+            }
+            if (carregado) {
+                imagemEscalada = imagemEscalada.getScaledInstance(
+                    ICON_SIZE, 
+                    ICON_SIZE, 
+                    Image.SCALE_SMOOTH
+                ); 
+                burguerLabel.setIcon(new ImageIcon(imagemEscalada));
+            } else {System.err.println("Imagem não encontrada por Classpath ou caminho absoluto: " + item.getFotoUrl());
             }
         } catch (Exception e) {
-            System.err.println("Não foi possível carregar imagem: " + item.getFotoUrl());
+            System.err.println("Erro ao carregar ou escalar imagem: " + item.getFotoUrl() + " Erro: " + e.getMessage());
         }
     }
     panelCard.add(burguerLabel);
@@ -346,6 +372,30 @@ public class TelaItens extends JFrame {
                 telaCriarGrupo.setVisible(true);
             }
         });
+        
+        final EstilizacaoRedonda.BotaoRedondo botaoEditarGrupo = new EstilizacaoRedonda.BotaoRedondo("Editar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        botaoEditarGrupo.setBounds(435, 20, 151, 38);
+        botaoEditarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoEditarGrupo.setForeground(Color.WHITE);
+        panel.add(botaoEditarGrupo);
+        botaoEditarGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UIManager.put("OptionPane.background", corPaletaBege);
+		        UIManager.put("Panel.background", corPaletaBege);
+		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+		        String[] itensGrupos = { "Hamburgueres", "Bebidas", "Acompanhamentos" };
+		        JComboBox<String> cBoxItensGrupo = new JComboBox<>(itensGrupos);
+		        Object[] opcoes = { "Avançar", "Cancelar" };
+		        int escolha = JOptionPane.showOptionDialog(
+		            TelaItens.this,"Selecione qual Grupo deseja editar", "Editar Grupo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+		        if (escolha == 0) { 
+		            dispose();
+		            TelaEditarGrupo telaEditarGrupo = new TelaEditarGrupo();
+		            telaEditarGrupo.setVisible(true);
+		        }
+		    }
+		});
+       
 
         this.campoPesquisa = new EstilizacaoRedonda.CaixaTextoRedonda(
                 "Digite...",

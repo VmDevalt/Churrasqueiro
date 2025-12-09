@@ -3,102 +3,57 @@ package com.churrasqueiro.entities;
 import java.sql.Timestamp;
 
 public class Caixa {
-	private int id;
-	private boolean status;
-	private Timestamp dataAbertura;
-	private Timestamp dataFechamento;
-	private double valorAbertura;
-	private double valorFechamento;
-	private double valorEntrada;
-	private double valorSaida;
-	
-	public Caixa(int id, boolean status, Timestamp dataAbertura, Timestamp dataFechamento, double valorAbertura, double valorFechamento, double valorEntrada, double valorSaida) {
-		this.id = id;
-		this.status = status;
-		this.dataAbertura = dataAbertura;
-		this.dataFechamento = dataFechamento;
-		this.valorAbertura = valorAbertura;
-		this.valorFechamento = valorFechamento;
-		this.valorEntrada = valorEntrada;
-		this.valorSaida = valorSaida;
-	}
-	
-	public Caixa() {
-		//CONSTRUTOR VAZIO (SÓ PRA NÃO FICAR SEM NADA DENTRO)
-	}
-	
-	public Caixa(boolean status, Timestamp dataAbertura, Timestamp dataFechamento, double valorAbertura, double valorFechamento, double valorEntrada, double valorSaida) {
-		this.status = status;
-		this.dataAbertura = dataAbertura;
-		this.dataFechamento = dataFechamento;
-		this.valorAbertura = valorAbertura;
-		this.valorFechamento = valorFechamento;
-		this.valorEntrada = valorEntrada;
-		this.valorSaida = valorSaida;	
-	}
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Integer id;
+    private double saldoInicial;
+    private double saldoAtual;
+    private double metaFaturamento;
+    private Timestamp dataAbertura;
+    private Timestamp dataFechamento;
+    private boolean statusCaixa;
+    private double vendasDia;
+    private double vendasMeta;
 
-	public boolean getStatus() {
-		return status;
-	}
+    public Caixa() {}
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    public Caixa(Integer id, double saldoInicial, double saldoAtual, double metaFaturamento,
+                 Timestamp dataAbertura, Timestamp dataFechamento,
+                 boolean statusCaixa, double vendasDia, double vendasMeta) {
+        this.id = id;
+        this.saldoInicial = saldoInicial;
+        this.saldoAtual = saldoAtual;
+        this.metaFaturamento = metaFaturamento;
+        this.dataAbertura = dataAbertura;
+        this.dataFechamento = dataFechamento;
+        this.statusCaixa = statusCaixa;
+        this.vendasDia = vendasDia;
+        this.vendasMeta = vendasMeta;
+    }
 
-	public Timestamp getDataAbertura() {
-		return dataAbertura;
-	}
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-	public void setDataAbertura(Timestamp dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
+    public double getSaldoInicial() { return saldoInicial; }
+    public void setSaldoInicial(double saldoInicial) { this.saldoInicial = saldoInicial; }
 
-	public Timestamp getDataFechamento() {
-		return dataFechamento;
-	}
+    public double getSaldoAtual() { return saldoAtual; }
+    public void setSaldoAtual(double saldoAtual) { this.saldoAtual = saldoAtual; }
 
-	public void setDataFechamento(Timestamp dataFechamento) {
-		this.dataFechamento = dataFechamento;
-	}
+    public double getMetaFaturamento() { return metaFaturamento; }
+    public void setMetaFaturamento(double metaFaturamento) { this.metaFaturamento = metaFaturamento; }
 
-	public double getValorAbertura() {
-		return valorAbertura;
-	}
+    public Timestamp getDataAbertura() { return dataAbertura; }
+    public void setDataAbertura(Timestamp dataAbertura) { this.dataAbertura = dataAbertura; }
 
-	public void setValorAbertura(double valorAbertura) {
-		this.valorAbertura = valorAbertura;
-	}
+    public Timestamp getDataFechamento() { return dataFechamento; }
+    public void setDataFechamento(Timestamp dataFechamento) { this.dataFechamento = dataFechamento; }
 
-	public double getValorFechamento() {
-		return valorFechamento;
-	}
+    public boolean isStatusCaixa() { return statusCaixa; }
+    public void setStatusCaixa(boolean statusCaixa) { this.statusCaixa = statusCaixa; }
 
-	public void setValorFechamento(double valorFechamento) {
-		this.valorFechamento = valorFechamento;
-	}
+    public double getVendasDia() { return vendasDia; }
+    public void setVendasDia(double vendasDia) { this.vendasDia = vendasDia; }
 
-	public double getValorEntrada() {
-		return valorEntrada;
-	}
-
-	public void setValorEntrada(double valorEntrada) {
-		this.valorEntrada = valorEntrada;
-	}
-
-	public double getValorSaida() {
-		return valorSaida;
-	}
-
-	public void setValorSaida(double valorSaida) {
-		this.valorSaida = valorSaida;
-	}
-	
+    public double getVendasMeta() { return vendasMeta; }
+    public void setVendasMeta(double vendasMeta) { this.vendasMeta = vendasMeta; }
 }

@@ -1,6 +1,5 @@
 package com.churrasqueiro.utils;
 
-import javax.swing.*;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;

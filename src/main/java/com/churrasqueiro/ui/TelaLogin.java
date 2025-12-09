@@ -1,34 +1,23 @@
 package com.churrasqueiro.ui;
 
 import java.awt.EventQueue;
-
-import javax.swing.border.LineBorder;
-
-import com.churrasqueiro.ui.EstilizacaoRedonda;
 import com.churrasqueiro.business.LoginController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.data.UsuarioDAO;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 import java.util.Optional;
-
 public class TelaLogin extends JFrame {
 	
 	private static final LoginController loginController = new LoginController();
@@ -209,7 +198,9 @@ public class TelaLogin extends JFrame {
 				Optional<Usuario> usuarioOPT;
 				try {
 					usuarioOPT = usuarioDAO.buscarPorLogin(getLogin());
-					usuarioLogado = usuarioOPT.get();
+					if(!usuarioOPT.isEmpty()) {
+						usuarioLogado = usuarioOPT.get();
+					}
 				} catch (DatabaseException e1) {
 					e1.printStackTrace();
 				}
@@ -219,7 +210,7 @@ public class TelaLogin extends JFrame {
 		botaoLogar.setForeground(new Color(227,202,187));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(275, 393, 268, 38);
-        botaoLogar.setFont(new Font("Tahoma", Font.BOLD, 16));
+        botaoLogar.setFont(new Font("Calibri", Font.BOLD, 16));
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);

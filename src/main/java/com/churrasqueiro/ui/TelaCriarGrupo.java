@@ -15,9 +15,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.entities.Categoria;
-import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaCriarGrupo extends JFrame {
 
@@ -75,13 +75,13 @@ public class TelaCriarGrupo extends JFrame {
         contentPane.setLayout(null);
         
         JLabel gruposLabel = new JLabel("Grupos");
-        gruposLabel.setBounds(539, 34, 208, 38);
-        gruposLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gruposLabel.setBounds(570, 34, 208, 38);
+        gruposLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gruposLabel.setForeground(corPaletaBege);
         contentPane.add(gruposLabel);
         
         JLabel logoLabel = new JLabel("");
-        logoLabel.setBounds(30, 10, 92, 82);
+        logoLabel.setBounds(30, 12, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaCriarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
         
@@ -92,42 +92,41 @@ public class TelaCriarGrupo extends JFrame {
         panel.setLayout(null);
         
         JLabel criarGrupoLabel = new JLabel("Criar Grupo");
-        criarGrupoLabel.setBounds(504, 27, 353, 68);
+        criarGrupoLabel.setBounds(525, 27, 353, 68);
         panel.add(criarGrupoLabel);
-        criarGrupoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        criarGrupoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         criarGrupoLabel.setForeground(corPaletaVermelho);
         
         JLabel nomeLabel = new JLabel("Nome");
-        nomeLabel.setBounds(65, 145, 187, 32);
+        nomeLabel.setBounds(65, 165, 187, 32);
         panel.add(nomeLabel);
-        nomeLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        nomeLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         nomeLabel.setForeground(corPaletaPreto);
         
-        this.campoDescricaoGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoDescricaoGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+        this.campoDescricaoGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome do grupo...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+        campoDescricaoGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_10);
         campoDescricaoGrupo.setToolTipText("Digite o nome do Grupo");
-        campoDescricaoGrupo.setBounds(65, 280, 1135, 38);
+        campoDescricaoGrupo.setBounds(65, 300, 1135, 38);
 		panel.add(campoDescricaoGrupo);
 		campoDescricaoGrupo.setColumns(10);
 		
-		this.campoNomeGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoNomeGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		this.campoNomeGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite a descrição...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		campoNomeGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_10);
 		campoNomeGrupo.setToolTipText("Digite a descrição do Grupo");
-		campoNomeGrupo.setBounds(65, 179, 1135, 38);
+		campoNomeGrupo.setBounds(65, 200, 1135, 38);
 		panel.add(campoNomeGrupo);
 		campoNomeGrupo.setColumns(10);
 		
 		JLabel descricaoLabel = new JLabel("Descrição");
 		descricaoLabel.setForeground(Color.BLACK);
-		descricaoLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-		descricaoLabel.setBounds(65, 246, 187, 32);
+		descricaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+		descricaoLabel.setBounds(65, 266, 187, 32);
 		panel.add(descricaoLabel);
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoAdicionarGrupo = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoAdicionarGrupo.setText("Adicionar Grupo");
-		botaoAdicionarGrupo.setBounds(504, 445, 205, 38);
+		final EstilizacaoRedonda.BotaoRedondo botaoAdicionarGrupo = new EstilizacaoRedonda.BotaoRedondo("Adicionar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		botaoAdicionarGrupo.setBounds(523, 450, 235, 45);
 		panel.add(botaoAdicionarGrupo);
-		botaoAdicionarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoAdicionarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		botaoAdicionarGrupo.setForeground(corPaletaBege);
 		botaoAdicionarGrupo.setBackground(new Color(0, 0, 0));
 		botaoAdicionarGrupo.addActionListener(new ActionListener() {
@@ -137,10 +136,10 @@ public class TelaCriarGrupo extends JFrame {
 		});
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoVoltar.setBounds(1128, 41, 104, 38);
+		botaoVoltar.setBounds(1128, 35, 104, 38);
 		contentPane.add(botaoVoltar);
-		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+		botaoVoltar.setForeground(corPaletaBege);
 		botaoVoltar.setBackground(new Color(0, 0, 0));
 		botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

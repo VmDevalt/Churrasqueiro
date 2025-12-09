@@ -5,26 +5,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import com.churrasqueiro.business.CadastroUsuarioController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaCadastro extends JFrame {
 
@@ -76,6 +71,7 @@ public class TelaCadastro extends JFrame {
 			JOptionPane.showMessageDialog(this,
 					"Cadastro realizado com sucesso! Tipo: " + novoUsuario.getTipo(),
 					"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			limparCampos();
 		} catch(ControllerException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
 			JOptionPane.WARNING_MESSAGE);
@@ -104,6 +100,9 @@ public class TelaCadastro extends JFrame {
 	}
 
 	
+	/**
+	 * 
+	 */
 	public TelaCadastro() {
 		
 		 Color corPaletaVermelho = new Color(179,13,36);
@@ -135,10 +134,10 @@ public class TelaCadastro extends JFrame {
 		panelBranco.setLayout(null);
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		botaoVoltar.setForeground(corPaletaVermelho);
 		botaoVoltar.setBackground(new Color(0, 0, 0));
-		botaoVoltar.setBounds(1083, 39, 133, 38);
+		botaoVoltar.setBounds(1090, 25, 133, 38);
         panelVermelho.add(botaoVoltar);
         botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,74 +148,74 @@ public class TelaCadastro extends JFrame {
 		});
 		
 		this.campoEmail = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoEmail.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoEmail.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoEmail.setToolTipText("Digite seu texto");
-		campoEmail.setBounds(550, 189, 540, 38);
+		campoEmail.setBounds(575, 219, 480, 38);
 		campoEmail.setColumns(10);
 		panelBranco.add(campoEmail);
 		
 		this.campoLogin = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu login...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoLogin.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoLogin.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoLogin.setToolTipText("Digite seu texto");
-		campoLogin.setBounds(6, 189, 540, 38);
+		campoLogin.setBounds(45, 219, 480, 38);
 		campoLogin.setColumns(10);
 		panelBranco.add(campoLogin);
 		
 		this.campoSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Digite sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoSenha.setToolTipText("Digite seu texto");
-		campoSenha.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoSenha.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoSenha.setColumns(10);
-		campoSenha.setBounds(6, 302, 540, 38);
+		campoSenha.setBounds(45, 332, 480, 38);
 		panelBranco.add(campoSenha);
 		
 		this.CampoConfirmarSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Confirme sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		CampoConfirmarSenha.setBounds(550, 302, 540, 38);
+		CampoConfirmarSenha.setBounds(575, 332, 480, 38);
 		CampoConfirmarSenha.setToolTipText("Digite seu texto");
-		CampoConfirmarSenha.setFont(new Font("Calibri", Font.PLAIN, 14));
+		CampoConfirmarSenha.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		CampoConfirmarSenha.setColumns(10);
 		panelBranco.add(CampoConfirmarSenha);
 		
 		JLabel labelCadastro = new JLabel("Cadastro de Usuário");
 		labelCadastro.setHorizontalAlignment(SwingConstants.CENTER);
 	    labelCadastro.setForeground(corPaletaPreto);
-	    labelCadastro.setFont(new Font("Calibri", Font.PLAIN, 28));
-	    labelCadastro.setBounds(349, 0, 345, 32);
+	    labelCadastro.setFont(FontsConstants.MONTSERRAT_BOLD_50);
+	    labelCadastro.setBounds(247, 40, 600, 40);
 	    panelBranco.add(labelCadastro);
 		
 		JLabel labelLogin = new JLabel("Login");
 	    labelLogin.setForeground(corPaletaPreto);
-	    labelLogin.setFont(new Font("Calibri", Font.PLAIN, 17));
-	    labelLogin.setBounds(220, 145, 50, 32);
+	    labelLogin.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+	    labelLogin.setBounds(250, 180, 60, 40);
 	    panelBranco.add(labelLogin);
 	    
 	    JLabel labelEmail = new JLabel("Email");
 	    labelEmail.setForeground(corPaletaPreto);
-	    labelEmail.setFont(new Font("Calibri", Font.PLAIN, 17));
-	    labelEmail.setBounds(781, 145, 50, 32);
+	    labelEmail.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+	    labelEmail.setBounds(785, 180, 60, 40);
 	    panelBranco.add(labelEmail);
 			
 	    JLabel labelSenha = new JLabel("Senha");
 	    labelSenha.setForeground(corPaletaPreto);
-	    labelSenha.setFont(new Font("Calibri", Font.PLAIN, 17));
-	    labelSenha.setBounds(220, 258, 50, 32);
+	    labelSenha.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+	    labelSenha.setBounds(247, 300, 70, 32);
 	    panelBranco.add(labelSenha);
 	    
 	    JLabel labelConfirmarSenha = new JLabel("Confirmar Senha");
 	    labelConfirmarSenha.setForeground(Color.BLACK);
-	    labelConfirmarSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
-	    labelConfirmarSenha.setBounds(746, 258, 136, 32);
+	    labelConfirmarSenha.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+	    labelConfirmarSenha.setBounds(720, 300, 180, 32);
 	    panelBranco.add(labelConfirmarSenha);
 
         cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxTipoUsuario.setFont(new Font("Calibri", Font.PLAIN, 17));
+        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_BOLD_13);
 		cBoxTipoUsuario.setMaximumRowCount(2);
-		cBoxTipoUsuario.setBounds(424, 102, 202, 23);
+		cBoxTipoUsuario.setBounds(444, 140, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
 		
 		JLabel labelTipoUsuario = new JLabel("Tipo de Usuário");
 		labelTipoUsuario.setForeground(corPaletaPreto);
-		labelTipoUsuario.setFont(new Font("Calibri", Font.PLAIN, 17));
-		labelTipoUsuario.setBounds(465, 58, 129, 32);
+		labelTipoUsuario.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+		labelTipoUsuario.setBounds(463, 105, 170, 32);
 		panelBranco.add(labelTipoUsuario);
 		
 		this.botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo("Criar Conta",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
@@ -225,11 +224,10 @@ public class TelaCadastro extends JFrame {
 				cadastrar();
 			}
 		});
-		
-		botaoCriarConta.setForeground(new Color(255, 255, 255));
+		botaoCriarConta.setForeground(corPaletaBege);
 		botaoCriarConta.setBackground(new Color(179, 13, 36));
 		botaoCriarConta.setBounds(399, 433, 268, 38);
-        botaoCriarConta.setFont(new Font("Calibri", Font.PLAIN, 17));
+        botaoCriarConta.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         panelBranco.add(botaoCriarConta);
         
         JLabel labelLogo = new JLabel("");
@@ -238,6 +236,13 @@ public class TelaCadastro extends JFrame {
         panelBranco.add(labelLogo);
         java.net.URL urlLogo = getClass().getResource("src/main/resources/assets/imagens/logoPequena.png");
 		
+	}
+	
+	private void limparCampos() {
+		campoLogin.setText("");
+		campoSenha.setText("");
+		CampoConfirmarSenha.setText("");
+		campoEmail.setText("");
 	}
 
 }

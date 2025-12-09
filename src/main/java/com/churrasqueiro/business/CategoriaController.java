@@ -5,7 +5,6 @@ import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 

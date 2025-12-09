@@ -11,6 +11,16 @@ public class Usuario {
 	private String tokenRecuperacao;
 	private Timestamp tokenExpiracao;
 	
+	public Usuario(int id, String login, String senhaHash, String tipo, String email, String tokenRecuperacao, Timestamp tokenExpiracao) {
+		this.id = id;
+		this.login = login;
+		this.senhaHash = senhaHash;
+		this.tipo = tipo;
+		this.email = email;
+		this.tokenRecuperacao = tokenRecuperacao;
+		this.tokenExpiracao = tokenExpiracao;
+	}
+	
 	public Usuario(int id, String login, String senhaHash, String tipo, String email) {
 		this.id = id;
 		this.login = login;

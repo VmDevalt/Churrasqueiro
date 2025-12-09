@@ -1,7 +1,12 @@
 package com.churrasqueiro.ui;
 
 import com.churrasqueiro.utils.FontsConstants;
-
+import com.churrasqueiro.business.EsqueceuSenhaController;
+import com.churrasqueiro.data.UsuarioDAO;
+import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
+import java.util.Optional;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -16,55 +21,55 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 	private EstilizacaoRedonda.CaixaTextoRedonda campoCodigo;
 	private String emailUsuario;
 	private String codigoGerado;
+	private static final EsqueceuSenhaController esqueceuSenhaController = new EsqueceuSenhaController();
 
 	public TelaValidacaoCodigoEsqueceuSenha(String email) {
 		this.emailUsuario = email;
-		this.codigoGerado = gerarCodigo();
-		enviarCodigoPorEmail();
+		try{
+			Optional<Usuario> usuarioOpt = UsuarioDAO.buscarLoginViaEmail(email);
+			this.codigoGerado = usuarioOpt.get().getTokenRecuperacao();
+		}catch(DatabaseException e) {
+	    	JOptionPane.showMessageDialog(this,
+	    			"Falha de comunicação com o banco de dados.",
+	    			"Erro",
+	    			JOptionPane.ERROR_MESSAGE);
+	    			e.printStackTrace();
+	    	this.codigoGerado = TelaEsqueceuSenha.getToken();
+		}
 		initialize();
 	}
 	
-	private String gerarCodigo() {
-		int codigo = (int) (Math.random() * 900000) + 100000;
-		return String.valueOf(codigo);
-	}
-	
-	private void enviarCodigoPorEmail() {
-		System.out.println("Código " + codigoGerado + " enviado para: " + emailUsuario);
-	}
-	
-	private boolean validarCodigo(String codigoDigitado) {
-		return codigoDigitado.equals(codigoGerado);
+	private String getCodigo() {
+		return campoCodigo.getText().trim();
 	}
 	
 	public void verificarCodigo() {
-		String codigo = campoCodigo.getText().trim();
-		
-		if (codigo.isEmpty()) {
+		String codigoDigitado = getCodigo();
+		try {
+			esqueceuSenhaController.validarCodigo(codigoDigitado, codigoGerado);
 			JOptionPane.showMessageDialog(this,
-					"Por favor, digite o código recebido.",
-					"Campo Vazio",
-					JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		if (validarCodigo(codigo)) {
-			JOptionPane.showMessageDialog(this,
-					"Código válido!",
-					"Sucesso",
+					"Os códigos coincidem.",
+					"Sucesso!",
 					JOptionPane.INFORMATION_MESSAGE);
-			
 			TelaNovaSenha telaNovaSenha = new TelaNovaSenha(emailUsuario);
 			telaNovaSenha.setVisible(true);
 			dispose();
-		} else {
-			JOptionPane.showMessageDialog(this,
-					"Código inválido. Tente novamente.",
-					"Erro",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	
+	    } catch (ControllerException e) {
+			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
+			 JOptionPane.WARNING_MESSAGE);
+			 e.printStackTrace();
+	    } catch (DatabaseException e) {
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
+            JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+        }
+    }
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -170,19 +175,35 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         botaoVoltar.setBounds(35, 30, 120, 35);
         botaoVoltar.addActionListener(e -> {
             dispose();
-            
             new TelaEsqueceuSenha().setVisible(true);
         });
         panelVermelho.add(botaoVoltar);
 	}
-	
-	private void reenviarCodigo() {
-    	this.codigoGerado = gerarCodigo();
-    	enviarCodigoPorEmail();
-    	JOptionPane.showMessageDialog(this,
-    			"Novo código enviado para: " + emailUsuario,
-    			"Código Reenviado",
-    			JOptionPane.INFORMATION_MESSAGE);
-    }
 
+	private void reenviarCodigo() {
+		try {
+    		esqueceuSenhaController.enviarToken(emailUsuario);
+			Optional<Usuario> usuarioOpt = UsuarioDAO.buscarLoginViaEmail(emailUsuario);
+			codigoGerado = usuarioOpt.get().getTokenRecuperacao();
+        	JOptionPane.showMessageDialog(this,
+        			"Novo código enviado para: " + emailUsuario,
+        			"Código Reenviado!",
+        			JOptionPane.INFORMATION_MESSAGE);
+		} catch(ControllerException e) {
+	    	JOptionPane.showMessageDialog(this,
+	    			e.getMessage(),
+	    			"Erro no envio",
+	    			JOptionPane.ERROR_MESSAGE);
+		} catch (DatabaseException e) {
+	    	JOptionPane.showMessageDialog(this,
+	    			e.getMessage(),
+	    			"Erro no banco de dados",
+	    			JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+	    	JOptionPane.showMessageDialog(this,
+	    			"Erro inesperado.",
+	    			"Erro fatal",
+	    			JOptionPane.ERROR_MESSAGE);
+		}
+    }
 }

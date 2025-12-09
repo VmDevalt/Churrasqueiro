@@ -13,6 +13,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.io.IOException;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
@@ -20,8 +25,6 @@ import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.exceptions.ControllerException;
-import com.churrasqueiro.ui.EstilizacaoRedonda;
-
 public class TelaCriarItem extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -94,6 +97,7 @@ public class TelaCriarItem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Criar Item - Churrasqueiro");
         contentPaneVermelho = new JPanel();
         contentPaneVermelho.setBackground(new Color(179, 13, 36));
@@ -108,7 +112,7 @@ public class TelaCriarItem extends JFrame {
         panelClaro.setLayout(null);
 
         JLabel labelCriarItem = new JLabel("Criar item");
-        labelCriarItem.setBounds(581, 24, 116, 26);
+        labelCriarItem.setBounds(581, 24, 127, 26);
         labelCriarItem.setForeground(new Color(179, 13, 36));
         labelCriarItem.setFont(new Font("SansSerif", Font.BOLD, 25));
         panelClaro.add(labelCriarItem);
@@ -198,32 +202,29 @@ public class TelaCriarItem extends JFrame {
                 if (resultado == JFileChooser.APPROVE_OPTION) {
 
                     try {
-                        java.io.File arquivo = chooser.getSelectedFile();
-                        String nomeArquivo = arquivo.getName();
-
-                        campoFoto.setText(nomeArquivo);
+                        java.io.File arquivoOriginal = chooser.getSelectedFile();
+                        String nomeArquivoOriginal = arquivoOriginal.getName();
+                        
+                        String nomeBase = nomeArquivoOriginal;
+                        if (nomeArquivoOriginal.lastIndexOf('.') != -1) {
+                            nomeBase = nomeArquivoOriginal.substring(0, nomeArquivoOriginal.lastIndexOf('.'));
+                        }
+                        String nomeArquivoPng = nomeBase + ".png"; 
+                        
+                        campoFoto.setText(nomeArquivoPng);
 
                         java.nio.file.Path destino = java.nio.file.Paths.get(
-                                "src/main/resources/assets/imagens/itens/" + nomeArquivo
+                                "src/main/resources/assets/imagens/itens/" + nomeArquivoPng
                         );
+                        redimensionarEsalvar(arquivoOriginal, destino, 82, 82);
+                        
+                        ImageIcon novoIcone = new ImageIcon(destino.toFile().getAbsolutePath());
 
-                        java.nio.file.Files.copy(
-                                arquivo.toPath(),
-                                destino,
-                                java.nio.file.StandardCopyOption.REPLACE_EXISTING
-                        );
-
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Imagem carregada com sucesso!",
-                                "Sucesso",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
-
+                        JOptionPane.showMessageDialog(null,"Imagem carregada, redimensionada para 82x82px e salva como PNG!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Erro ao copiar a imagem:\n" + ex.getMessage(),
+                                "Erro ao processar (redimensionar/copiar) a imagem:\n" + ex.getMessage(),
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
@@ -305,6 +306,23 @@ public class TelaCriarItem extends JFrame {
                 System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
             }
         }
+    }
+
+    private void redimensionarEsalvar(java.io.File arquivoOriginal, java.nio.file.Path destino, int finalWidth, int finalHeight) throws IOException {
+
+        BufferedImage originalImage = ImageIO.read(arquivoOriginal);
+
+        if (originalImage == null) {
+            throw new IOException("Não foi possível ler a imagem do caminho: " + arquivoOriginal.getAbsolutePath());
+        }
+        destino.getParent().toFile().mkdirs();
+
+        Image scaledImage = originalImage.getScaledInstance(finalWidth, finalHeight, Image.SCALE_SMOOTH);
+        BufferedImage resizedBufferedImage = new BufferedImage(finalWidth, finalHeight, BufferedImage.TYPE_INT_ARGB); 
+        Graphics2D g2d = resizedBufferedImage.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+        ImageIO.write(resizedBufferedImage, "png", destino.toFile());
     }
 
     private void carregarCategoriasNoComboBox() {
