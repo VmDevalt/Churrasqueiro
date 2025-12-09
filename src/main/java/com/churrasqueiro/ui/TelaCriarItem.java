@@ -102,19 +102,19 @@ public class TelaCriarItem extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Criar Item - Churrasqueiro");
         contentPaneVermelho = new JPanel();
-        contentPaneVermelho.setBackground(new Color(179, 13, 36));
+        contentPaneVermelho.setBackground(corPaletaVermelho);
         contentPaneVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPaneVermelho);
         contentPaneVermelho.setLayout(null);
 
         JPanel panelClaro = new JPanel();
-        panelClaro.setBounds(0, 71, 1264, 663);
+        panelClaro.setBounds(0, 102, 1264, 663);
         contentPaneVermelho.add(panelClaro);
         panelClaro.setBackground(new Color(227, 202, 187));
         panelClaro.setLayout(null);
 
         JLabel labelCriarItem = new JLabel("Criar Item");
-        labelCriarItem.setBounds(581, 24, 353, 68);
+        labelCriarItem.setBounds(550, 24, 353, 68);
         labelCriarItem.setForeground(new Color(179, 13, 36));
         labelCriarItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         panelClaro.add(labelCriarItem);
@@ -279,9 +279,9 @@ public class TelaCriarItem extends JFrame {
         contentPaneVermelho.add(logoLabel);
 
         JLabel labelItem = new JLabel("Itens");
-        labelItem.setFont(new Font("SansSerif", Font.BOLD, 25));
-        labelItem.setForeground(new Color(255, 255, 255));
-        labelItem.setBounds(607, 26, 65, 25);
+        labelItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        labelItem.setForeground(corPaletaBege);
+        labelItem.setBounds(570, 34, 208, 38);
         contentPaneVermelho.add(labelItem);
 
         final EstilizacaoRedonda.BotaoRedondo botaoSair =
