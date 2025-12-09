@@ -114,7 +114,7 @@ public class TelaCriarItem extends JFrame {
         panelClaro.setLayout(null);
 
         JLabel labelCriarItem = new JLabel("Criar Item");
-        labelCriarItem.setBounds(550, 24, 353, 68);
+        labelCriarItem.setBounds(535, 24, 353, 68);
         labelCriarItem.setForeground(new Color(179, 13, 36));
         labelCriarItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         panelClaro.add(labelCriarItem);
@@ -122,10 +122,10 @@ public class TelaCriarItem extends JFrame {
         final EstilizacaoRedonda.BotaoRedondo botaoAdicionarItem =
                 new EstilizacaoRedonda.BotaoRedondo("Confirmar", corPaletaPreto, corPaletaPretoInteração, corPaletaPreto, 35);
         botaoAdicionarItem.setText("Adicionar Item");
-        botaoAdicionarItem.setBounds(542, 474, 178, 38);
+        botaoAdicionarItem.setBounds(546, 494, 200, 40);
         panelClaro.add(botaoAdicionarItem);
-        botaoAdicionarItem.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoAdicionarItem.setForeground(new Color(255, 255, 255));
+        botaoAdicionarItem.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        botaoAdicionarItem.setForeground(corPaletaBege);
         botaoAdicionarItem.setBackground(new Color(0, 0, 0));
         botaoAdicionarItem.addActionListener(new ActionListener() {
             @Override
@@ -138,31 +138,31 @@ public class TelaCriarItem extends JFrame {
         comboBoxGrupos.setBorder(new LineBorder(new Color(179, 13, 36), 1));
         comboBoxGrupos.setForeground(corPaletaPreto);
         comboBoxGrupos.setBackground(corPaletaBege);
-        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         comboBoxGrupos.setMaximumRowCount(2);
-        comboBoxGrupos.setBounds(100, 269, 486, 38);
+        comboBoxGrupos.setBounds(100, 309, 486, 38);
         panelClaro.add(comboBoxGrupos);
 
         carregarCategoriasNoComboBox();
 
         this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoNome.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoNome.setToolTipText("Digite seu texto");
-        campoNome.setBounds(90, 88, 1088, 38);
+        campoNome.setBounds(90, 128, 1088, 38);
         panelClaro.add(campoNome);
         campoNome.setColumns(10);
 
         this.campoDescricao = new EstilizacaoRedonda.CaixaTextoRedonda("Digite a descrição...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoDescricao.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoDescricao.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoDescricao.setToolTipText("Digite seu texto");
-        campoDescricao.setBounds(90, 182, 1088, 38);
+        campoDescricao.setBounds(90, 222, 1088, 38);
         panelClaro.add(campoDescricao);
         campoDescricao.setColumns(10);
 
         this.campoPreco = new EstilizacaoRedonda.CaixaTextoRedonda("R$.", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoPreco.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPreco.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoPreco.setToolTipText("Digite seu texto");
-        campoPreco.setBounds(90, 366, 496, 38);
+        campoPreco.setBounds(90, 406, 496, 38);
         panelClaro.add(campoPreco);
         campoPreco.setColumns(10);
         aplicarMascaraPreco(campoPreco);
@@ -170,21 +170,21 @@ public class TelaCriarItem extends JFrame {
         EstilizacaoRedonda.BotaoRedondo botaoSelecionarFoto =
                 new EstilizacaoRedonda.BotaoRedondo(
                         "Selecionar",
-                        corPaletaPreto,
-                        corPaletaPretoInteração,
-                        corPaletaPreto,
+                        corPaletaVermelho,
+                        corPaletaVermelhoInteracao,
+                        corPaletaVermelhoPressionado,
                         35
                 );
 
-        botaoSelecionarFoto.setFont(new Font("SansSerif", Font.BOLD, 14));
-        botaoSelecionarFoto.setForeground(Color.WHITE);
-        botaoSelecionarFoto.setBounds(1050, 269, 120, 38);
+        botaoSelecionarFoto.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        botaoSelecionarFoto.setForeground(corPaletaBege);
+        botaoSelecionarFoto.setBounds(1058, 309, 120, 38);
         panelClaro.add(botaoSelecionarFoto);
 
         this.campoFoto = new EstilizacaoRedonda.CaixaTextoRedonda("Adicione uma foto...", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoFoto.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoFoto.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoFoto.setToolTipText("Digite seu texto");
-        campoFoto.setBounds(658, 269, 520, 38);
+        campoFoto.setBounds(658, 309, 520, 38);
         panelClaro.add(campoFoto);
         campoFoto.setColumns(10);
         botaoSelecionarFoto.addActionListener(new ActionListener() {
@@ -236,60 +236,66 @@ public class TelaCriarItem extends JFrame {
         });
 
         this.campoPrecoVariavel = new EstilizacaoRedonda.CaixaTextoRedonda("R$.", corPaletaVermelho, corPaletaBege, corPaletaCinza, 2, 35);
-        campoPrecoVariavel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPrecoVariavel.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoPrecoVariavel.setToolTipText("Digite seu texto");
-        campoPrecoVariavel.setBounds(658, 366, 520, 38);
+        campoPrecoVariavel.setBounds(658, 406, 520, 38);
         panelClaro.add(campoPrecoVariavel);
         campoPrecoVariavel.setColumns(10);
         aplicarMascaraPreco(campoPrecoVariavel);
 
         NewLabelNome = new JLabel("NOME");
-        NewLabelNome.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelNome.setBounds(114, 63, 46, 14);
+        NewLabelNome.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelNome.setForeground(corPaletaPreto);
+        NewLabelNome.setBounds(114, 103, 80, 20);
         panelClaro.add(NewLabelNome);
 
         NewLabelDescricao = new JLabel("DESCRIÇÃO");
-        NewLabelDescricao.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelDescricao.setBounds(114, 154, 108, 14);
+        NewLabelDescricao.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelDescricao.setForeground(corPaletaPreto);
+        NewLabelDescricao.setBounds(114, 194, 125, 20);
         panelClaro.add(NewLabelDescricao);
 
         NewLabelGrupo = new JLabel("GRUPO");
-        NewLabelGrupo.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelGrupo.setBounds(114, 242, 72, 14);
+        NewLabelGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelGrupo.setForeground(corPaletaPreto);
+        NewLabelGrupo.setBounds(114, 282, 100, 20);
         panelClaro.add(NewLabelGrupo);
 
         NewLabelFoto = new JLabel("FOTO");
-        NewLabelFoto.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelFoto.setBounds(687, 244, 65, 14);
+        NewLabelFoto.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelFoto.setForeground(corPaletaPreto);
+        NewLabelFoto.setBounds(687, 284, 65, 20);
         panelClaro.add(NewLabelFoto);
 
-        NewLabelPrecoVariavel = new JLabel("PREÇO \"A PARTIR DE : \"");
-        NewLabelPrecoVariavel.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelPrecoVariavel.setBounds(687, 341, 219, 14);
+        NewLabelPrecoVariavel = new JLabel("PREÇO DOBRADO");
+        NewLabelPrecoVariavel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelPrecoVariavel.setForeground(corPaletaPreto);
+        NewLabelPrecoVariavel.setBounds(687, 381, 219, 20);
         panelClaro.add(NewLabelPrecoVariavel);
 
         NewLabelPreco = new JLabel("PREÇO");
-        NewLabelPreco.setFont(new Font("SansSerif", Font.BOLD, 15));
-        NewLabelPreco.setBounds(114, 341, 72, 14);
+        NewLabelPreco.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        NewLabelPreco.setForeground(corPaletaPreto);
+        NewLabelPreco.setBounds(114, 381, 100, 20);
         panelClaro.add(NewLabelPreco);
 
         JLabel logoLabel = new JLabel("");
-        logoLabel.setBounds(61, 0, 92, 82);
+        logoLabel.setBounds(61, 13, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaCriarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPaneVermelho.add(logoLabel);
 
         JLabel labelItem = new JLabel("Itens");
         labelItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         labelItem.setForeground(corPaletaBege);
-        labelItem.setBounds(570, 34, 208, 38);
+        labelItem.setBounds(585, 34, 208, 38);
         contentPaneVermelho.add(labelItem);
 
         final EstilizacaoRedonda.BotaoRedondo botaoSair =
                 new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteração, corPaletaPreto, 35);
-        botaoSair.setBounds(1112, 22, 110, 38);
+        botaoSair.setBounds(1112, 34, 110, 38);
         contentPaneVermelho.add(botaoSair);
-        botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoSair.setForeground(new Color(255, 255, 255));
+        botaoSair.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoSair.setForeground(corPaletaBege);
         botaoSair.setBackground(new Color(0, 0, 0));
         botaoSair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
