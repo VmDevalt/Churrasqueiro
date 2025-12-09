@@ -1,6 +1,7 @@
 package com.churrasqueiro.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.Date;
@@ -81,22 +82,81 @@ public class TelaDashboard extends JFrame {
             } catch (java.io.IOException ignored) {}
         }
 
-        JLabel pedidosLabel = new JLabel("Pedidos");
-        pedidosLabel.setBounds(215, 34, 208, 38);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        pedidosLabel.setForeground(corPaletaBege);
-        contentPane.add(pedidosLabel);
-
-        JLabel gruposLabel = new JLabel("Gestão");
-        gruposLabel.setBounds(570, 34, 208, 38);
-        gruposLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        gruposLabel.setForeground(corPaletaBege);
-        contentPane.add(gruposLabel);
-
         JLabel logoLabel = new JLabel("");
         logoLabel.setBounds(20, 13, 92, 79);
         logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
+
+        JLabel pedidosLabel = new JLabel("Pedidos");
+        pedidosLabel.setBounds(215, 34, 208, 38);
+        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        pedidosLabel.setForeground(corPaletaBege);
+        pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contentPane.add(pedidosLabel);
+
+        pedidosLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                try {
+                    TelaPedidos telaPedidos = new TelaPedidos();
+                    telaPedidos.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaDashboard.this,
+                            "Tela de Pedidos ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                pedidosLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                pedidosLabel.setForeground(corPaletaBege);
+            }
+        });
+
+        JLabel gestaoLabel = new JLabel("Gestão");
+        gestaoLabel.setBounds(570, 34, 208, 38);
+        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gestaoLabel.setForeground(corPaletaBege);
+        gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contentPane.add(gestaoLabel);
+        gestaoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                try {
+                    TelaGestao telaGestao = new TelaGestao();
+                    telaGestao.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaDashboard.this,
+                            "Tela de Gestão ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                gestaoLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                gestaoLabel.setForeground(corPaletaBege);
+            }
+        });
 
         JPanel dashboardPanel = new JPanel();
         dashboardPanel.setBounds(949, 0, 317, 102);
@@ -163,8 +223,6 @@ public class TelaDashboard extends JFrame {
         panel.add(btnFiltrar);
 
         carregarGraficos(null, null);
-
-        setLocationRelativeTo(null);
     }
 
     private void aplicarFiltroDatas() {
