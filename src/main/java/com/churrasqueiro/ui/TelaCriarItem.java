@@ -25,6 +25,8 @@ import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.utils.FontsConstants;
+
 public class TelaCriarItem extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -111,10 +113,10 @@ public class TelaCriarItem extends JFrame {
         panelClaro.setBackground(new Color(227, 202, 187));
         panelClaro.setLayout(null);
 
-        JLabel labelCriarItem = new JLabel("Criar item");
-        labelCriarItem.setBounds(581, 24, 127, 26);
+        JLabel labelCriarItem = new JLabel("Criar Item");
+        labelCriarItem.setBounds(581, 24, 353, 68);
         labelCriarItem.setForeground(new Color(179, 13, 36));
-        labelCriarItem.setFont(new Font("SansSerif", Font.BOLD, 25));
+        labelCriarItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         panelClaro.add(labelCriarItem);
 
         final EstilizacaoRedonda.BotaoRedondo botaoAdicionarItem =
