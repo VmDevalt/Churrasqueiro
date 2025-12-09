@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 public class UsuarioDAO {
@@ -114,14 +115,14 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao fazer busca de usuário por login: " + e.getMessage());
+            System.err.println("Erro ao fazer busca de usuário por e-mail: " + e.getMessage());
             throw new DatabaseException("Falha ao consultar usuário no banco de dados.");
         }
         return Optional.empty();
     }
     
-    public static void atualizarToken(String token, String dataHora, String email) throws DatabaseException{
-    	String sql = "UPDATE usuario SET token_recuperacao = ?, token_expiracao = ? WHERE email = ?";
+    public void atualizarTokenViaEmail(String token, String email) throws DatabaseException{
+    	String sql = "UPDATE usuario SET token_recuperacao = ? WHERE email = ?";
     	
     	if(email.isEmpty()) {
     		System.err.println("E-MAIL VAZIO: VERIFICAR A CAUSA");
@@ -131,8 +132,76 @@ public class UsuarioDAO {
 			 PreparedStatement ps = conn.prepareStatement(sql)) {
 			
 			ps.setString(1, token);
-			ps.setString(2, dataHora);
-			ps.setString(3, email);
+			ps.setString(2, email);
+			ps.executeUpdate();
+			
+			} catch (SQLException e) {
+				System.err.println("Erro atualizar banco de dados: " + e.getMessage());
+				throw new DatabaseException("Falha ao atualizar banco de dados.");
+			}
+    }
+    
+    public void atualizarDataHoraViaEmail(Timestamp dataHora, String email) throws DatabaseException{
+    	String sql = "UPDATE usuario SET token_expiracao = ? WHERE email = ?";
+    	
+    	if(email.isEmpty()) {
+    		System.err.println("E-MAIL VAZIO: VERIFICAR A CAUSA");
+    	}
+    	
+		try (Connection conn = DatabaseConnection.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			
+			ps.setTimestamp(1, dataHora);
+			ps.setString(2, email);
+			ps.executeUpdate();
+			
+			} catch (SQLException e) {
+				System.err.println("Erro atualizar banco de dados: " + e.getMessage());
+				throw new DatabaseException("Falha ao atualizar banco de dados.");
+			}
+    }
+    
+    public static Optional<Usuario> buscarLoginViaToken(String token) throws DatabaseException {
+        String sql = "SELECT id, login, senhaHash, tipo, email, token_recuperacao, token_expiracao FROM usuario WHERE token_recuperacao = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, token);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("login"),
+                        rs.getString("senhaHash"),
+                        rs.getString("tipo"),
+                        rs.getString("email"),
+                        rs.getString("token_recuperacao"),
+                        rs.getTimestamp("token_expiracao")
+                    );
+                    return Optional.of(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao fazer busca de usuário por token: " + e.getMessage());
+            throw new DatabaseException("Falha ao consultar usuário no banco de dados.");
+        }
+        return Optional.empty();
+    }
+    
+    public void atualizarSenhaViaEmail(String senha, String email) throws DatabaseException{
+    	String sql = "UPDATE usuario SET senhaHash = ? WHERE email = ?";
+    	
+    	if(email.isEmpty()) {
+    		System.err.println("E-MAIL VAZIO: VERIFICAR A CAUSA");
+    	}
+    	
+		try (Connection conn = DatabaseConnection.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			
+			ps.setString(1, senha);
+			ps.setString(2, email);
 			ps.executeUpdate();
 			
 			} catch (SQLException e) {
