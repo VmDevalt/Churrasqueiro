@@ -1,6 +1,9 @@
 package com.churrasqueiro.ui;
 
 import com.churrasqueiro.utils.FontsConstants;
+import com.churrasqueiro.business.EsqueceuSenhaController;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -16,9 +19,10 @@ public class TelaNovaSenha extends JFrame {
     private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
     private EstilizacaoRedonda.CaixaSenhaRedonda campoConfirmarSenha;
     private String emailUsuario;
+    private static final EsqueceuSenhaController esqueceuSenhaController = new EsqueceuSenhaController();
     
     public TelaNovaSenha(String email) {
-        this.emailUsuario = email;
+        emailUsuario = email;
         initialize();
     }
     
@@ -33,51 +37,39 @@ public class TelaNovaSenha extends JFrame {
     public void salvarSenha() {
         String senha = getSenha();
         String confirmarSenha = getConfirmarSenha();
+        String email = emailUsuario;
         
-        if (senha.isEmpty() || confirmarSenha.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor, preencha ambos os campos.", 
-                "Campos Vazios", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
+        try {
+        	esqueceuSenhaController.validarCamposDeSenha(senha, confirmarSenha);
+        	esqueceuSenhaController.redefinirSenha(senha, email);
+			JOptionPane.showMessageDialog(this,
+					"Senha atualizada.",
+					"Sucesso!",
+					JOptionPane.INFORMATION_MESSAGE);
+		
+			JOptionPane.showMessageDialog(this,
+					"Após essa mensagem, você será redirecionado(a) à tela de login.",
+					"Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+			TelaLogin telaLogin = new TelaLogin();
+			telaLogin.setVisible(true);
+			dispose();
+			
+	    } catch (ControllerException e) {
+			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro ao redefinir senha",
+			 JOptionPane.WARNING_MESSAGE);
+			 
+	    } catch (DatabaseException e) {
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-        
-        if (!senha.equals(confirmarSenha)) {
-            JOptionPane.showMessageDialog(this,
-                "As senhas não coincidem. Tente novamente.",
-                "Senhas Diferentes",
-                JOptionPane.ERROR_MESSAGE);
-            return;
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
+            JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
         }
-        
-        if (senha.length() < 8) {
-            JOptionPane.showMessageDialog(this,
-                "A senha deve ter pelo menos 8 caracteres.",
-                "Senha Muito Curta",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        boolean sucesso = atualizarSenhaNoBanco(emailUsuario, senha);
-        
-        if (sucesso) {
-            JOptionPane.showMessageDialog(this,
-                "Senha alterada com sucesso! Redirecionando para login...",
-                "Sucesso",
-                JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            
-        } else {
-            JOptionPane.showMessageDialog(this,
-                "Erro ao alterar senha. Tente novamente.",
-                "Erro",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private boolean atualizarSenhaNoBanco(String email, String novaSenha) {
-        System.out.println("Atualizando senha para: " + email);
-        return true;
     }
     
     private void initialize() {

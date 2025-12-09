@@ -25,15 +25,15 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 
 	public TelaValidacaoCodigoEsqueceuSenha(String email) {
 		this.emailUsuario = email;
-		Optional<Usuario> usuarioOpt;
 		try{
-			usuarioOpt = UsuarioDAO.buscarLoginViaEmail(email);
+			Optional<Usuario> usuarioOpt = UsuarioDAO.buscarLoginViaEmail(email);
 			this.codigoGerado = usuarioOpt.get().getTokenRecuperacao();
 		}catch(DatabaseException e) {
 	    	JOptionPane.showMessageDialog(this,
 	    			"Falha de comunicação com o banco de dados.",
 	    			"Erro",
 	    			JOptionPane.ERROR_MESSAGE);
+	    			e.printStackTrace();
 	    	this.codigoGerado = TelaEsqueceuSenha.getToken();
 		}
 		initialize();
@@ -54,13 +54,21 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
 			TelaNovaSenha telaNovaSenha = new TelaNovaSenha(emailUsuario);
 			telaNovaSenha.setVisible(true);
 			dispose();
-		} catch (ControllerException e) {
-			JOptionPane.showMessageDialog(this,
-					e.getMessage(),
-					"Erro de validação",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
+	    } catch (ControllerException e) {
+			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
+			 JOptionPane.WARNING_MESSAGE);
+			 e.printStackTrace();
+	    } catch (DatabaseException e) {
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
+            JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+        }
+    }
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -167,7 +175,6 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         botaoVoltar.setBounds(35, 30, 120, 35);
         botaoVoltar.addActionListener(e -> {
             dispose();
-            
             new TelaEsqueceuSenha().setVisible(true);
         });
         panelVermelho.add(botaoVoltar);
