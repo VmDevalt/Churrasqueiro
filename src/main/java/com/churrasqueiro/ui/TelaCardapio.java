@@ -24,19 +24,16 @@ public class TelaCardapio extends JFrame {
     private ItemCardapioController itemController = new ItemCardapioController();
     private List<ItemCardapio> itens = new ArrayList<>();
 
+    private final Color corPaletaVermelho = new Color(179, 13, 36);
+    private final Color corPaletaBege = new Color(227, 202, 187);
+    private final Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
+    private final Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
+    private final Color corPaletaPreto = new Color(0, 0, 0);
+    private final Color corPaletaPretoInteracao = new Color(35, 35, 35);
+
     public TelaCardapio(PedidoEmMontagem pedido) {
 
         this.pedido = pedido;
-
-        Color corVermelho = new Color(179, 13, 36);
-        Color corBege = new Color(227,202,187);
-        Color corPreto = new Color(0,0,0);
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
         setTitle("Cardápio - Churrasqueiro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +42,7 @@ public class TelaCardapio extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel panelVermelho = new JPanel();
-        panelVermelho.setBackground(corVermelho);
+        panelVermelho.setBackground(corPaletaVermelho);
         panelVermelho.setLayout(null);
         panelVermelho.setBorder(new EmptyBorder(5,5,5,5));
         setContentPane(panelVermelho);
@@ -75,12 +72,12 @@ public class TelaCardapio extends JFrame {
 
         JLabel titulo = new JLabel("Cardápio");
         titulo.setFont(new Font("SansSerif", Font.BOLD, 36));
-        titulo.setForeground(corBege);
+        titulo.setForeground(corPaletaBege);
         titulo.setBounds(530, 12, 400, 52);
         panelVermelho.add(titulo);
 
         JPanel panelBranco = new JPanel();
-        panelBranco.setBackground(corBege);
+        panelBranco.setBackground(corPaletaBege);
         panelBranco.setBounds(0, 74, 1280, 609);
         panelBranco.setLayout(null);
         panelVermelho.add(panelBranco);
@@ -93,17 +90,22 @@ public class TelaCardapio extends JFrame {
         panelBranco.add(scrollPane);
 
         panelCards = new JPanel();
-        panelCards.setBackground(corBege);
+        panelCards.setBackground(corPaletaBege);
         panelCards.setLayout(null);
         scrollPane.setViewportView(panelCards);
 
-        JButton botaoAvancar = new JButton("Avançar");
-        botaoAvancar.setBackground(corPreto);
-        botaoAvancar.setForeground(corBege);
+        EstilizacaoRedonda.BotaoRedondo botaoAvancar =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Avançar",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        35
+                );
+        botaoAvancar.setForeground(Color.WHITE);
         botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 20));
         botaoAvancar.setBounds(1050, 550, 180, 40);
         panelBranco.add(botaoAvancar);
-        
 
         botaoAvancar.addActionListener(e -> {
             TelaNovoPedido t = new TelaNovoPedido(pedido);
@@ -154,14 +156,15 @@ public class TelaCardapio extends JFrame {
             yMax = Math.max(yMax, y + h);
         }
 
-        panelCards.setPreferredSize(new Dimension(1280, yMax));
+        int alturaMinima = 470;
+        panelCards.setPreferredSize(new Dimension(1280, Math.max(alturaMinima, yMax + 20)));
         panelCards.revalidate();
         panelCards.repaint();
     }
 
     private JPanel criarCard(ItemCardapio item) {
 
-        JPanel p = new EstilizacaoRedonda.PainelRedondo(null, 60, 4, new Color(179,13,36), null);
+        JPanel p = new EstilizacaoRedonda.PainelRedondo(null, 60, 4, corPaletaVermelho, null);
         p.setLayout(null);
 
         JLabel img = new JLabel();
@@ -170,7 +173,12 @@ public class TelaCardapio extends JFrame {
         try {
             if (item.getFotoUrl() != null) {
                 URL u = getClass().getResource("/assets/imagens/itens/" + item.getFotoUrl());
-                if (u != null) img.setIcon(new ImageIcon(u));
+                if (u != null) {
+                    ImageIcon iconOriginal = new ImageIcon(u);
+                    Image imgEscalada = iconOriginal.getImage().getScaledInstance(82, 82, Image.SCALE_SMOOTH);
+                    ImageIcon iconRedimensionado = new ImageIcon(imgEscalada);
+                    img.setIcon(iconRedimensionado);
+                }
             }
         } catch (Exception ignored) {}
 
@@ -178,31 +186,44 @@ public class TelaCardapio extends JFrame {
 
         JLabel nome = new JLabel(item.getNome());
         nome.setFont(new Font("Dialog", Font.PLAIN, 20));
+        nome.setForeground(Color.WHITE);
         nome.setBounds(134, 12, 180, 26);
         p.add(nome);
 
         JTextArea desc = new JTextArea(item.getDescricao());
         desc.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        desc.setForeground(new Color(227,202,187));
-        desc.setBackground(new Color(179,13,36));
+        desc.setForeground(corPaletaBege);
+        desc.setBackground(corPaletaVermelho);
         desc.setWrapStyleWord(true);
         desc.setLineWrap(true);
         desc.setBounds(127, 50, 180, 80);
         desc.setEditable(false);
+        desc.setOpaque(true);
         p.add(desc);
 
         JLabel preco = new JLabel("R$ " + String.format("%.2f", item.getPreco()).replace('.', ','));
-        preco.setFont(new Font("Dialog", Font.PLAIN, 20));
+        preco.setFont(new Font("Dialog", Font.BOLD, 20));
+        preco.setForeground(Color.WHITE);
         preco.setBounds(26, 150, 120, 26);
         p.add(preco);
 
-        JButton botao = new JButton("Adicionar");
-        botao.setBounds(165, 152, 130, 28);
-        botao.addActionListener(e -> {
+        EstilizacaoRedonda.BotaoRedondo botaoAdicionar =
+                new EstilizacaoRedonda.BotaoRedondo(
+                        "Adicionar",
+                        corPaletaPreto,
+                        corPaletaPretoInteracao,
+                        corPaletaPreto,
+                        25
+                );
+        botaoAdicionar.setBounds(165, 148, 130, 32);
+        botaoAdicionar.setFont(new Font("SansSerif", Font.BOLD, 14));
+        botaoAdicionar.setForeground(Color.WHITE);
+        p.add(botaoAdicionar);
+
+        botaoAdicionar.addActionListener(e -> {
             pedido.adicionarItem(item);
             JOptionPane.showMessageDialog(this, item.getNome() + " adicionado ao pedido!");
         });
-        p.add(botao);
 
         return p;
     }

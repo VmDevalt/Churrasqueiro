@@ -30,19 +30,16 @@ public class TelaPedidoConfirmar extends JFrame {
     private JPanel panelVermelho;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
-    private JButton botaoNovoPedido;
 
     private PedidoEmMontagem pedido;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaPedidoConfirmar frame = new TelaPedidoConfirmar(new PedidoEmMontagem());
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                TelaPedidoConfirmar frame = new TelaPedidoConfirmar(new PedidoEmMontagem());
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -56,26 +53,22 @@ public class TelaPedidoConfirmar extends JFrame {
         Color corPaletaVermelhoInteracao = new Color(200,50,50);
         Color corPaletaVermelhoPressionado = new Color(150,0,0);
         Color corPaletaPreto = new Color(0,0,0);
-        Color corPaletaPretoInteração = new Color(35,35,35);
-        Color corPaletaCinza = new Color(140,127,127);
-        Color corPaletaBegeInteracao = new Color(245,225,210);
-        Color corPaletaBegePressionado = new Color(200,175,160);
+        Color corPaletaPretoInteracao = new Color(35,35,35);
 
-        setTitle("Novo Pedido - Churrasqueiro");
+        setTitle("Novo Pedido - Churrasqueira");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1280, 720);
-        setSize(LARGURA, ALTURA);
+        setBounds(100, 100, LARGURA, ALTURA);
         setResizable(false);
         setLocationRelativeTo(null);
 
         panelVermelho = new JPanel();
-        panelVermelho.setBackground(new Color(179, 13, 36));
+        panelVermelho.setBackground(corPaletaVermelho);
         panelVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(panelVermelho);
         panelVermelho.setLayout(null);
 
         JPanel panelBranco = new JPanel();
-        panelBranco.setBackground(new Color(227,202,187));
+        panelBranco.setBackground(corPaletaBege);
         panelBranco.setBounds(0, 74, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
@@ -86,26 +79,27 @@ public class TelaPedidoConfirmar extends JFrame {
                 java.awt.Image icon = javax.imageio.ImageIO.read(url);
                 setIconImage(icon);
             } catch (java.io.IOException e) {
-                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+                System.err.println("Falha ao carregar ícone: " + e.getMessage());
             }
         }
 
-        final EstilizacaoRedonda.PainelRedondo panelResumoPedido = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaVermelho,null);
-        panelResumoPedido.setFocusable(true);
-        panelResumoPedido.requestFocusInWindow();
+        final EstilizacaoRedonda.PainelRedondo panelResumoPedido =
+                new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaVermelho,null);
         panelResumoPedido.setBounds(392, 109, 544, 342);
         panelBranco.add(panelResumoPedido);
         panelResumoPedido.setLayout(null);
 
         JTextArea textResumoPedido = new JTextArea();
+        textResumoPedido.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        textResumoPedido.setForeground(corPaletaBege);
+        textResumoPedido.setBackground(corPaletaVermelho);
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("Mesa: ").append(pedido.getNumeroMesa()).append("\n");
         sb.append("Cliente: ").append(pedido.getNomeCliente()).append("\n");
         sb.append("Forma de Pagamento: ").append(pedido.getFormaPagamento()).append("\n");
-        sb.append("Observações: ").append(
-                pedido.getObservacoes() == null ? "" : pedido.getObservacoes()
-        ).append("\n");
+        sb.append("Observações: ").append(pedido.getObservacoes() == null ? "" : pedido.getObservacoes()).append("\n");
         sb.append("------------------------------------------------------------\n");
         sb.append("ITENS:\n");
 
@@ -115,63 +109,50 @@ public class TelaPedidoConfirmar extends JFrame {
         pedido.getItens().forEach(item -> {
             int id = item.getId();
             mapaQtd.put(id, mapaQtd.getOrDefault(id, 0) + 1);
-            if (!mapaItem.containsKey(id)) {
-                mapaItem.put(id, item);
-            }
+            mapaItem.putIfAbsent(id, item);
         });
 
         mapaItem.forEach((id, item) -> {
             int quantidade = mapaQtd.get(id);
-
-            sb.append("- ")
-              .append(quantidade).append("x ")
-              .append(item.getNome())
-              .append(" (R$ ")
-              .append(String.format("%.2f", item.getPreco()).replace('.', ','))
-              .append(")\n");
+            sb.append("- ").append(quantidade).append("x ")
+                    .append(item.getNome())
+                    .append(" (R$ ")
+                    .append(String.format("%.2f", item.getPreco()).replace('.', ','))
+                    .append(")\n");
         });
 
         sb.append("------------------------------------------------------------\n");
-        sb.append("Total Itens: R$ ")
-        .append(String.format("%.2f", pedido.getTotalItens()).replace('.', ','))
-        .append("\n");
-        sb.append("Acréscimo: R$ ")
-        .append(String.format("%.2f", pedido.getAcrescimo()).replace('.', ','))
-        .append("\n");
-        sb.append("Desconto: R$ ")
-        .append(String.format("%.2f", pedido.getDesconto()).replace('.', ','))
-        .append("\n");
-        sb.append("TOTAL FINAL: R$ ")
-        .append(String.format("%.2f", pedido.getTotalFinal()).replace('.', ','))
-        .append("\n");
+        sb.append("Total Itens: R$ ").append(String.format("%.2f", pedido.getTotalItens()).replace('.', ',')).append("\n");
+        sb.append("Acréscimo: R$ ").append(String.format("%.2f", pedido.getAcrescimo()).replace('.', ',')).append("\n");
+        sb.append("Desconto: R$ ").append(String.format("%.2f", pedido.getDesconto()).replace('.', ',')).append("\n");
+        sb.append("TOTAL FINAL: R$ ").append(String.format("%.2f", pedido.getTotalFinal()).replace('.', ',')).append("\n");
 
         textResumoPedido.setText(sb.toString());
-        textResumoPedido.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        textResumoPedido.setColumns(2);
-        textResumoPedido.setForeground(new Color(227,202,187));
-        textResumoPedido.setBackground(new Color(179,13,36));
         textResumoPedido.setBounds(12, 12, 520, 318);
         panelResumoPedido.add(textResumoPedido);
 
         JLabel lblConfirmarPedido = new JLabel("Confirmar Pedido");
         lblConfirmarPedido.setForeground(Color.BLACK);
         lblConfirmarPedido.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblConfirmarPedido.setBounds(555, 12, 182, 26);
+        lblConfirmarPedido.setBounds(555, 12, 220, 26);
         panelBranco.add(lblConfirmarPedido);
 
-        final EstilizacaoRedonda.BotaoRedondo botaoConfirmar = new EstilizacaoRedonda.BotaoRedondo("Confirmar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
-        botaoConfirmar.setText("Confirmar");
+        final EstilizacaoRedonda.BotaoRedondo botaoConfirmar =
+                new EstilizacaoRedonda.BotaoRedondo("Confirmar",
+                        corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
+
         botaoConfirmar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoConfirmar.setForeground(corPaletaBege);
-        botaoConfirmar.setBackground(new Color(179,13,36));
         botaoConfirmar.setBounds(565, 509, 182, 38);
         panelBranco.add(botaoConfirmar);
+
         botaoConfirmar.addActionListener(e -> {
 
             String forma = pedido.getFormaPagamento();
-            String formaNormalizada = forma == null ? "" : forma.trim();
+            String formaNormalizada = forma == null ? "" : forma.trim().toLowerCase();
 
-            if (formaNormalizada.equalsIgnoreCase("pix")) {
+            if (formaNormalizada.equals("pix")) {
+
                 try {
                     com.churrasqueiro.service.MercadoPagoPixService pixService =
                             new com.churrasqueiro.service.MercadoPagoPixService();
@@ -181,39 +162,45 @@ public class TelaPedidoConfirmar extends JFrame {
 
                     TelaPixPagamento telaPix = new TelaPixPagamento(pedido, pixResponse);
                     telaPix.setVisible(true);
-
                     dispose();
 
                 } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(
-                            TelaPedidoConfirmar.this,
+                    JOptionPane.showMessageDialog(this,
                             "Erro ao iniciar pagamento PIX: " + ex.getMessage(),
-                            "Erro",
-                            JOptionPane.ERROR_MESSAGE
-                    );
+                            "Erro", JOptionPane.ERROR_MESSAGE);
                 }
 
-            } else {
+            }
+
+            else if (
+                formaNormalizada.contains("cart") ||
+                formaNormalizada.contains("crédito") ||
+                formaNormalizada.contains("credito")
+            ) {
+
+                TelaCartaoPagamentoGif tela = new TelaCartaoPagamentoGif(pedido);
+                tela.setVisible(true);
+                dispose();
+            }
+
+            else {
                 try {
                     PedidoController controller = new PedidoController();
                     controller.salvar(pedido);
 
                     JOptionPane.showMessageDialog(
-                            TelaPedidoConfirmar.this,
+                            this,
                             "Pedido salvo com sucesso!\nForma de pagamento: " + formaNormalizada,
                             "Sucesso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
 
                     dispose();
-                    TelaPedidos telaPedidos = new TelaPedidos();
-                    telaPedidos.setVisible(true);
+                    new TelaPedidos().setVisible(true);
 
                 } catch (ControllerException | DatabaseException ex) {
-                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(
-                            TelaPedidoConfirmar.this,
+                            this,
                             "Erro ao salvar pedido: " + ex.getMessage(),
                             "Erro",
                             JOptionPane.ERROR_MESSAGE
@@ -221,18 +208,19 @@ public class TelaPedidoConfirmar extends JFrame {
                 }
             }
         });
-        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar =
+                new EstilizacaoRedonda.BotaoRedondo("Voltar",
+                        corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
+
         botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoVoltar.setForeground(new Color(255, 255, 255));
-        botaoVoltar.setBackground(new Color(0, 0, 0));
+        botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBounds(1131, 19, 104, 38);
         panelVermelho.add(botaoVoltar);
-        botaoVoltar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaNovoPedido telaNovo = new TelaNovoPedido(pedido);
-                telaNovo.setVisible(true);
-                dispose();
-            }
+
+        botaoVoltar.addActionListener(e -> {
+            new TelaNovoPedido(pedido).setVisible(true);
+            dispose();
         });
 
         JLabel logoLabel = new JLabel("");

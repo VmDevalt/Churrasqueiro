@@ -210,7 +210,7 @@ public class TelaLogin extends JFrame {
 		botaoLogar.setForeground(new Color(227,202,187));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(275, 393, 268, 38);
-        botaoLogar.setFont(new Font("Tahoma", Font.BOLD, 16));
+        botaoLogar.setFont(new Font("Calibri", Font.BOLD, 16));
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);

@@ -468,13 +468,6 @@ public class TelaPedidos extends JFrame {
         try {
                 java.io.File pdfGerado = NotaFiscalPdfUtil.gerarNotaFiscalPedido(pedido);
 
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Nota fiscal gerada em:\n" + pdfGerado.getAbsolutePath(),
-                        "Nota Fiscal",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-
         } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(
