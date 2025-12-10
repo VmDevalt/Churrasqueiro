@@ -6,6 +6,7 @@ import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.data.UsuarioDAO;
+import com.churrasqueiro.utils.FontsConstants;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -148,7 +149,7 @@ public class TelaLogin extends JFrame {
 		botaoRevelarSenha.setOpaque(false);
 
         this.campoLogin = new EstilizacaoRedonda.CaixaTextoRedonda("Digite seu email...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoLogin.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoLogin.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoLogin.setToolTipText("Digite seu texto");
 		campoLogin.setBounds(250, 225, 597, 38);
 		panel.add(campoLogin);
@@ -157,7 +158,7 @@ public class TelaLogin extends JFrame {
 
 		this.campoSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Digite sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
 		campoSenha.setToolTipText("Digite seu texto");
-		campoSenha.setFont(new Font("Calibri", Font.PLAIN, 14));
+		campoSenha.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoSenha.setColumns(10);
 		campoSenha.setBounds(250, 308, 597, 38);
 		panel.add(campoSenha);
@@ -182,14 +183,14 @@ public class TelaLogin extends JFrame {
 
         JLabel labelLogin = new JLabel("Login");
         labelLogin.setForeground(corPaletaPreto);
-		labelLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelLogin.setBounds(510, 191, 58, 32);
+		labelLogin.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+		labelLogin.setBounds(507, 191, 70, 32);
 		panel.add(labelLogin);
 		
 		JLabel labelSenha = new JLabel("Senha");
         labelSenha.setForeground(corPaletaPreto);
-		labelSenha.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelSenha.setBounds(510, 276, 71, 32);
+		labelSenha.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+		labelSenha.setBounds(505, 276, 71, 32);
 		panel.add(labelSenha);
 
         this.botaoLogar = new EstilizacaoRedonda.BotaoRedondo("Entrar",corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
@@ -210,7 +211,7 @@ public class TelaLogin extends JFrame {
 		botaoLogar.setForeground(new Color(227,202,187));
 		botaoLogar.setBackground(new Color(179, 13, 36));
 		botaoLogar.setBounds(275, 393, 268, 38);
-        botaoLogar.setFont(new Font("Calibri", Font.BOLD, 16));
+        botaoLogar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         panel.add(botaoLogar);
 
         final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
@@ -224,7 +225,7 @@ public class TelaLogin extends JFrame {
 		botaoEsqueciSenha.setForeground(new Color(227,202,187));
 		botaoEsqueciSenha.setBackground(new Color(0, 0, 0));
 		botaoEsqueciSenha.setBounds(555, 393, 261, 38);
-        botaoEsqueciSenha.setFont(new Font("Tahoma", Font.BOLD, 16));
+        botaoEsqueciSenha.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         panel.add(botaoEsqueciSenha);
     }
 }
