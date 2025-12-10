@@ -27,6 +27,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import com.churrasqueiro.business.DashboardController;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 import com.toedter.calendar.JDateChooser;
 
 public class TelaDashboard extends JFrame {
@@ -89,7 +90,7 @@ public class TelaDashboard extends JFrame {
 
         JLabel pedidosLabel = new JLabel("Pedidos");
         pedidosLabel.setBounds(215, 34, 208, 38);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         pedidosLabel.setForeground(corPaletaBege);
         pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentPane.add(pedidosLabel);
@@ -125,7 +126,7 @@ public class TelaDashboard extends JFrame {
 
         JLabel gestaoLabel = new JLabel("Gestão");
         gestaoLabel.setBounds(570, 34, 208, 38);
-        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gestaoLabel.setForeground(corPaletaBege);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentPane.add(gestaoLabel);
@@ -159,15 +160,15 @@ public class TelaDashboard extends JFrame {
         });
 
         JPanel dashboardPanel = new JPanel();
-        dashboardPanel.setBounds(949, 0, 317, 102);
+        dashboardPanel.setBounds(840, 0, 426, 102);
         dashboardPanel.setBackground(corPaletaBege);
         dashboardPanel.setLayout(null);
         contentPane.add(dashboardPanel);
 
         JLabel dashbordLabel = new JLabel("Dashboard");
         dashbordLabel.setForeground(corPaletaPreto);
-        dashbordLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        dashbordLabel.setBounds(73, 35, 208, 38);
+        dashbordLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        dashbordLabel.setBounds(100, 35, 240, 38);
         dashboardPanel.add(dashbordLabel);
 
         panel = new JPanel();
@@ -178,9 +179,9 @@ public class TelaDashboard extends JFrame {
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                 new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-        botaoVoltar.setBounds(1132, 513, 104, 38);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBounds(1112, 513, 110, 38);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoVoltar.setForeground(corPaletaBege);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.addActionListener(e -> {
             dispose();
@@ -192,7 +193,7 @@ public class TelaDashboard extends JFrame {
         controller = new DashboardController();
 
         JLabel lblPeriodo = new JLabel("Período:");
-        lblPeriodo.setFont(new Font("SansSerif", Font.BOLD, 16));
+        lblPeriodo.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         lblPeriodo.setForeground(corPaletaPreto);
         lblPeriodo.setBounds(50, 10, 80, 25);
         panel.add(lblPeriodo);
@@ -200,10 +201,11 @@ public class TelaDashboard extends JFrame {
         dateInicio = new JDateChooser();
         dateInicio.setBounds(130, 10, 150, 25);
         dateInicio.setDateFormatString("dd/MM/yyyy");
+        dateInicio.setFont(FontsConstants.MONTSERRAT_BOLD_14);
         panel.add(dateInicio);
 
         JLabel lblAte = new JLabel("até");
-        lblAte.setFont(new Font("SansSerif", Font.BOLD, 16));
+        lblAte.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         lblAte.setForeground(corPaletaPreto);
         lblAte.setBounds(290, 10, 30, 25);
         panel.add(lblAte);
@@ -211,13 +213,14 @@ public class TelaDashboard extends JFrame {
         dateFim = new JDateChooser();
         dateFim.setBounds(330, 10, 150, 25);
         dateFim.setDateFormatString("dd/MM/yyyy");
+        dateFim.setFont(FontsConstants.MONTSERRAT_BOLD_14);
         panel.add(dateFim);
 
         EstilizacaoRedonda.BotaoRedondo btnFiltrar =
                 new EstilizacaoRedonda.BotaoRedondo("Aplicar filtro", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
         btnFiltrar.setBounds(500, 8, 160, 30);
-        btnFiltrar.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnFiltrar.setForeground(Color.WHITE);
+        btnFiltrar.setFont(FontsConstants.MONTSERRAT_BOLD_14);
+        btnFiltrar.setForeground(corPaletaBege);
         btnFiltrar.setBackground(corPaletaPreto);
         btnFiltrar.addActionListener(e -> aplicarFiltroDatas());
         panel.add(btnFiltrar);
@@ -333,6 +336,11 @@ public class TelaDashboard extends JFrame {
         plot.getRangeAxis().setTickLabelPaint(corPaletaPreto);
         plot.getDomainAxis().setTickLabelPaint(corPaletaPreto);
 
+        plot.getRangeAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getDomainAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getRangeAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+        plot.getDomainAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, corPaletaVermelho);
         renderer.setDrawBarOutline(false);
@@ -340,6 +348,7 @@ public class TelaDashboard extends JFrame {
         chart.setBackgroundPaint(corPaletaBege);
         chart.setAntiAlias(true);
         chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }
@@ -362,6 +371,11 @@ public class TelaDashboard extends JFrame {
         plot.getRangeAxis().setTickLabelPaint(corPaletaPreto);
         plot.getDomainAxis().setTickLabelPaint(corPaletaPreto);
 
+        plot.getRangeAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getDomainAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getRangeAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+        plot.getDomainAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, corPaletaVermelho);
         renderer.setDrawBarOutline(false);
@@ -369,6 +383,7 @@ public class TelaDashboard extends JFrame {
         chart.setBackgroundPaint(corPaletaBege);
         chart.setAntiAlias(true);
         chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }
@@ -386,9 +401,11 @@ public class TelaDashboard extends JFrame {
         plot.setBackgroundPaint(corPaletaBege);
         plot.setOutlineVisible(false);
         plot.setLabelPaint(corPaletaPreto);
+        plot.setLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
 
         chart.setBackgroundPaint(corPaletaBege);
         chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }
