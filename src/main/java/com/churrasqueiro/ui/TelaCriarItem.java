@@ -122,7 +122,7 @@ public class TelaCriarItem extends JFrame {
         final EstilizacaoRedonda.BotaoRedondo botaoAdicionarItem =
                 new EstilizacaoRedonda.BotaoRedondo("Confirmar", corPaletaPreto, corPaletaPretoInteração, corPaletaPreto, 35);
         botaoAdicionarItem.setText("Adicionar Item");
-        botaoAdicionarItem.setBounds(546, 494, 200, 40);
+        botaoAdicionarItem.setBounds(516, 494, 230, 40);
         panelClaro.add(botaoAdicionarItem);
         botaoAdicionarItem.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         botaoAdicionarItem.setForeground(corPaletaBege);
