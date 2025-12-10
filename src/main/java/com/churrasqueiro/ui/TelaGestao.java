@@ -22,6 +22,7 @@ import com.churrasqueiro.entities.Caixa;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaGestao extends JFrame {
 
@@ -74,7 +75,7 @@ public class TelaGestao extends JFrame {
 
         JPanel panelBranco = new JPanel();
         panelBranco.setBackground(corPaletaBege);
-        panelBranco.setBounds(0, 74, 1280, 609);
+        panelBranco.setBounds(0, 102, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
 
@@ -90,7 +91,7 @@ public class TelaGestao extends JFrame {
             panelBranco.add(botaoCriarConta);
             botaoCriarConta.setForeground(corPaletaBege);
             botaoCriarConta.setBackground(corPaletaVermelho);
-            botaoCriarConta.setFont(new Font("SansSerif", Font.PLAIN, 17));
+            botaoCriarConta.setFont(FontsConstants.MONTSERRAT_BOLD_17);
             botaoCriarConta.addActionListener(e -> {
                 dispose();
                 TelaCadastro telaCadastro = new TelaCadastro();
@@ -100,13 +101,13 @@ public class TelaGestao extends JFrame {
 
         JLabel lblCaixa = new JLabel("Caixa:");
         lblCaixa.setForeground(Color.RED);
-        lblCaixa.setFont(new Font("Dialog", Font.PLAIN, 24));
+        lblCaixa.setFont(FontsConstants.MONTSERRAT_BOLD_22);
         lblCaixa.setBounds(394, 43, 89, 46);
         panelBranco.add(lblCaixa);
 
         lblCaixaStatus = new JLabel("...");
         lblCaixaStatus.setForeground(Color.BLACK);
-        lblCaixaStatus.setFont(new Font("Dialog", Font.PLAIN, 20));
+        lblCaixaStatus.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblCaixaStatus.setBounds(472, 44, 120, 46);
         panelBranco.add(lblCaixaStatus);
 
@@ -116,7 +117,7 @@ public class TelaGestao extends JFrame {
 
         JLabel lblData = new JLabel(dataFormatada);
         lblData.setForeground(Color.BLACK);
-        lblData.setFont(new Font("Dialog", Font.PLAIN, 28));
+        lblData.setFont(FontsConstants.MONTSERRAT_BOLD_25);
         lblData.setBounds(629, 41, 176, 46);
         panelBranco.add(lblData);
 
@@ -131,7 +132,7 @@ public class TelaGestao extends JFrame {
         panelBranco.add(botaoRelatorio);
         botaoRelatorio.setForeground(corPaletaBege);
         botaoRelatorio.setBackground(corPaletaVermelho);
-        botaoRelatorio.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoRelatorio.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         botaoRelatorio.addActionListener(e -> {
             dispose();
             TelaRelatorios telaRelatorio = new TelaRelatorios();
@@ -149,7 +150,7 @@ public class TelaGestao extends JFrame {
         panelBranco.add(botaoConfiguracoes);
         botaoConfiguracoes.setForeground(corPaletaBege);
         botaoConfiguracoes.setBackground(corPaletaVermelho);
-        botaoConfiguracoes.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoConfiguracoes.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         botaoConfiguracoes.addActionListener(e -> {
             dispose();
             TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
@@ -167,7 +168,7 @@ public class TelaGestao extends JFrame {
         panelBranco.add(botaoItens);
         botaoItens.setForeground(corPaletaBege);
         botaoItens.setBackground(corPaletaVermelho);
-        botaoItens.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoItens.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         botaoItens.addActionListener(e -> {
             dispose();
             TelaItens telaItens = new TelaItens();
@@ -185,7 +186,7 @@ public class TelaGestao extends JFrame {
         panelBranco.add(botaoCaixa);
         botaoCaixa.setForeground(corPaletaBege);
         botaoCaixa.setBackground(corPaletaVermelho);
-        botaoCaixa.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoCaixa.setFont(FontsConstants.MONTSERRAT_BOLD_17);
         botaoCaixa.addActionListener(e -> acaoCaixa());
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo(
@@ -195,7 +196,7 @@ public class TelaGestao extends JFrame {
                 corPaletaPreto,
                 35
         );
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.setBounds(1115, 19, 120, 38);
@@ -219,14 +220,14 @@ public class TelaGestao extends JFrame {
 
         JLabel gestaoLabel = new JLabel("Gestão");
         gestaoLabel.setForeground(corPaletaPreto);
-        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        gestaoLabel.setBounds(53, 10, 201, 57);
+        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        gestaoLabel.setBounds(570, 34, 208, 38);
         panelSelecionado.add(gestaoLabel);
 
         JLabel pedidosLabel = new JLabel("Pedidos");
-        pedidosLabel.setBounds(214, 10, 248, 54);
+        pedidosLabel.setBounds(215, 34, 208, 38);
         pedidosLabel.setForeground(corPaletaBege);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panelVermelho.add(pedidosLabel);
 
@@ -261,8 +262,8 @@ public class TelaGestao extends JFrame {
 
         JLabel dashboardLabel = new JLabel("Dashboard");
         dashboardLabel.setForeground(corPaletaBege);
-        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        dashboardLabel.setBounds(864, 10, 241, 54);
+        dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        dashboardLabel.setBounds(500, 35, 240, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panelVermelho.add(dashboardLabel);
 
