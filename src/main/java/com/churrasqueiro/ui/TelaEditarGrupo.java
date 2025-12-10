@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.churrasqueiro.utils.FontsConstants;
+
 public class TelaEditarGrupo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -66,13 +68,13 @@ public class TelaEditarGrupo extends JFrame {
         contentPane.setLayout(null);
         
         JLabel gruposLabel = new JLabel("Grupos");
-        gruposLabel.setBounds(539, 34, 208, 38);
-        gruposLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gruposLabel.setBounds(560, 34, 208, 38);
+        gruposLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gruposLabel.setForeground(corPaletaBege);
         contentPane.add(gruposLabel);
         
         JLabel logoLabel = new JLabel("");
-        logoLabel.setBounds(30, 10, 92, 82);
+        logoLabel.setBounds(30, 12, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaEditarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
         
@@ -83,49 +85,49 @@ public class TelaEditarGrupo extends JFrame {
         panel.setLayout(null);
         
         JLabel editarGrupoLabel = new JLabel("Editar Grupo");
-        editarGrupoLabel.setBounds(504, 27, 353, 68);
+        editarGrupoLabel.setBounds(505, 27, 353, 68);
         panel.add(editarGrupoLabel);
-        editarGrupoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        editarGrupoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         editarGrupoLabel.setForeground(corPaletaVermelho);
         
         JLabel nomeLabel = new JLabel("Nome");
         nomeLabel.setBounds(65, 145, 187, 32);
         panel.add(nomeLabel);
-        nomeLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        nomeLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         nomeLabel.setForeground(corPaletaPreto);
         
         this.campoDescricaoGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome do Grupo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoDescricaoGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+        campoDescricaoGrupo.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
         campoDescricaoGrupo.setBounds(65, 280, 1135, 38);
 		panel.add(campoDescricaoGrupo);
 		campoDescricaoGrupo.setColumns(10);
 		
 		this.campoNomeGrupo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite a descrição do Grupo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		campoNomeGrupo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		campoNomeGrupo.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
 		campoNomeGrupo.setBounds(65, 179, 1135, 38);
 		panel.add(campoNomeGrupo);
 		campoNomeGrupo.setColumns(10);
 		
 		JLabel descricaoLabel = new JLabel("Descrição");
 		descricaoLabel.setForeground(Color.BLACK);
-		descricaoLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		descricaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		descricaoLabel.setBounds(65, 246, 187, 32);
 		panel.add(descricaoLabel);
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoAtualizarGrupo = new EstilizacaoRedonda.BotaoRedondo("Atalizar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
 		botaoAtualizarGrupo.setText("Atualizar Grupo");
-		botaoAtualizarGrupo.setBounds(504, 445, 205, 38);
+		botaoAtualizarGrupo.setBounds(537, 440, 240, 45);
 		panel.add(botaoAtualizarGrupo);
-		botaoAtualizarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoAtualizarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		botaoAtualizarGrupo.setForeground(corPaletaBege);
 		botaoAtualizarGrupo.setBackground(new Color(0, 0, 0));
 		
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoVoltar.setBounds(1128, 41, 104, 38);
+		botaoVoltar.setBounds(1128, 32, 104, 38);
 		contentPane.add(botaoVoltar);
-		botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+		botaoVoltar.setForeground(corPaletaBege);
 		botaoVoltar.setBackground(new Color(0, 0, 0));
 		botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -1,11 +1,12 @@
 package com.churrasqueiro.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -18,9 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.entities.Caixa;
+import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
-import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaGestao extends JFrame {
 
@@ -50,7 +52,7 @@ public class TelaGestao extends JFrame {
     }
 
     public TelaGestao() {
-    	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
+        Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
 
         Color corPaletaVermelho = new Color(179, 13, 36);
         Color corPaletaBege = new Color(227, 202, 187);
@@ -73,37 +75,39 @@ public class TelaGestao extends JFrame {
 
         JPanel panelBranco = new JPanel();
         panelBranco.setBackground(corPaletaBege);
-        panelBranco.setBounds(0, 74, 1280, 609);
+        panelBranco.setBounds(0, 102, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
-        
-        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
-	        botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo(
-	                "Criar Conta", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
-	        botaoCriarConta.setBounds(370, 361, 209, 38);
-	        panelBranco.add(botaoCriarConta);
-	        botaoCriarConta.setForeground(corPaletaBege);
-	        botaoCriarConta.setBackground(corPaletaVermelho);
-	        botaoCriarConta.setFont(new Font("SansSerif", Font.PLAIN, 17));
-	        botaoCriarConta.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	                dispose();
-	                TelaCadastro telaCadastro = new TelaCadastro();
-	                telaCadastro.setVisible(true);
-	            }
-	        });
-        }
 
+        if (usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+            botaoCriarConta = new EstilizacaoRedonda.BotaoRedondo(
+                    "Criar Conta",
+                    corPaletaVermelho,
+                    corPaletaVermelhoInteracao,
+                    corPaletaVermelhoPressionado,
+                    35
+            );
+            botaoCriarConta.setBounds(370, 361, 209, 38);
+            panelBranco.add(botaoCriarConta);
+            botaoCriarConta.setForeground(corPaletaBege);
+            botaoCriarConta.setBackground(corPaletaVermelho);
+            botaoCriarConta.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+            botaoCriarConta.addActionListener(e -> {
+                dispose();
+                TelaCadastro telaCadastro = new TelaCadastro();
+                telaCadastro.setVisible(true);
+            });
+        }
 
         JLabel lblCaixa = new JLabel("Caixa:");
         lblCaixa.setForeground(Color.RED);
-        lblCaixa.setFont(new Font("Dialog", Font.PLAIN, 24));
+        lblCaixa.setFont(FontsConstants.MONTSERRAT_BOLD_22);
         lblCaixa.setBounds(394, 43, 89, 46);
         panelBranco.add(lblCaixa);
 
         lblCaixaStatus = new JLabel("...");
         lblCaixaStatus.setForeground(Color.BLACK);
-        lblCaixaStatus.setFont(new Font("Dialog", Font.PLAIN, 20));
+        lblCaixaStatus.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblCaixaStatus.setBounds(472, 44, 120, 46);
         panelBranco.add(lblCaixaStatus);
 
@@ -113,81 +117,94 @@ public class TelaGestao extends JFrame {
 
         JLabel lblData = new JLabel(dataFormatada);
         lblData.setForeground(Color.BLACK);
-        lblData.setFont(new Font("Dialog", Font.PLAIN, 28));
+        lblData.setFont(FontsConstants.MONTSERRAT_BOLD_25);
         lblData.setBounds(629, 41, 176, 46);
         panelBranco.add(lblData);
 
         botaoRelatorio = new EstilizacaoRedonda.BotaoRedondo(
-                "Relatórios", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+                "Relatórios",
+                corPaletaVermelho,
+                corPaletaVermelhoInteracao,
+                corPaletaVermelhoPressionado,
+                35
+        );
         botaoRelatorio.setBounds(707, 370, 209, 38);
         panelBranco.add(botaoRelatorio);
         botaoRelatorio.setForeground(corPaletaBege);
         botaoRelatorio.setBackground(corPaletaVermelho);
-        botaoRelatorio.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        botaoRelatorio.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaRelatorios telaRelatorio = new TelaRelatorios();
-                telaRelatorio.setVisible(true);
-            }
+        botaoRelatorio.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+        botaoRelatorio.addActionListener(e -> {
+            dispose();
+            TelaRelatorios telaRelatorio = new TelaRelatorios();
+            telaRelatorio.setVisible(true);
         });
 
         botaoConfiguracoes = new EstilizacaoRedonda.BotaoRedondo(
-                "Configurações", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+                "Configurações",
+                corPaletaVermelho,
+                corPaletaVermelhoInteracao,
+                corPaletaVermelhoPressionado,
+                35
+        );
         botaoConfiguracoes.setBounds(370, 262, 209, 38);
         panelBranco.add(botaoConfiguracoes);
         botaoConfiguracoes.setForeground(corPaletaBege);
         botaoConfiguracoes.setBackground(corPaletaVermelho);
-        botaoConfiguracoes.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        botaoConfiguracoes.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
-                telaConfiguracoes.setVisible(true);
-            }
+        botaoConfiguracoes.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+        botaoConfiguracoes.addActionListener(e -> {
+            dispose();
+            TelaConfiguracoes telaConfiguracoes = new TelaConfiguracoes();
+            telaConfiguracoes.setVisible(true);
         });
 
         botaoItens = new EstilizacaoRedonda.BotaoRedondo(
-                "Itens", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+                "Itens",
+                corPaletaVermelho,
+                corPaletaVermelhoInteracao,
+                corPaletaVermelhoPressionado,
+                35
+        );
         botaoItens.setBounds(707, 262, 209, 38);
         panelBranco.add(botaoItens);
         botaoItens.setForeground(corPaletaBege);
         botaoItens.setBackground(corPaletaVermelho);
-        botaoItens.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        botaoItens.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaItens telaItens = new TelaItens();
-                telaItens.setVisible(true);
-            }
+        botaoItens.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+        botaoItens.addActionListener(e -> {
+            dispose();
+            TelaItens telaItens = new TelaItens();
+            telaItens.setVisible(true);
         });
 
         botaoCaixa = new EstilizacaoRedonda.BotaoRedondo(
-                "Abrir/Fechar Caixa", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
+                "Abrir/Fechar Caixa",
+                corPaletaVermelho,
+                corPaletaVermelhoInteracao,
+                corPaletaVermelhoPressionado,
+                35
+        );
         botaoCaixa.setBounds(382, 91, 210, 24);
         panelBranco.add(botaoCaixa);
         botaoCaixa.setForeground(corPaletaBege);
         botaoCaixa.setBackground(corPaletaVermelho);
-        botaoCaixa.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        botaoCaixa.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                acaoCaixa();
-            }
-        });
+        botaoCaixa.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+        botaoCaixa.addActionListener(e -> acaoCaixa());
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo(
-                "Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+                "Voltar",
+                corPaletaPreto,
+                corPaletaPretoInteracao,
+                corPaletaPreto,
+                35
+        );
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.setBounds(1115, 19, 120, 38);
         panelVermelho.add(botaoVoltar);
-        botaoVoltar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
-                telaMenuPrincipal.setVisible(true);
-            }
+        botaoVoltar.addActionListener(e -> {
+            dispose();
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
+            telaMenuPrincipal.setVisible(true);
         });
 
         JLabel logoLabel = new JLabel("");
@@ -203,21 +220,81 @@ public class TelaGestao extends JFrame {
 
         JLabel gestaoLabel = new JLabel("Gestão");
         gestaoLabel.setForeground(corPaletaPreto);
-        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        gestaoLabel.setBounds(53, 10, 201, 57);
+        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        gestaoLabel.setBounds(570, 34, 208, 38);
         panelSelecionado.add(gestaoLabel);
 
         JLabel pedidosLabel = new JLabel("Pedidos");
-        pedidosLabel.setBounds(214, 10, 248, 54);
-        panelVermelho.add(pedidosLabel);
+        pedidosLabel.setBounds(215, 34, 208, 38);
         pedidosLabel.setForeground(corPaletaBege);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panelVermelho.add(pedidosLabel);
+
+        pedidosLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    TelaPedidos telaPedidos = new TelaPedidos();
+                    telaPedidos.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaGestao.this,
+                            "Tela de Pedidos ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                pedidosLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                pedidosLabel.setForeground(corPaletaBege);
+            }
+        });
 
         JLabel dashboardLabel = new JLabel("Dashboard");
         dashboardLabel.setForeground(corPaletaBege);
-        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        dashboardLabel.setBounds(864, 10, 241, 54);
+        dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        dashboardLabel.setBounds(500, 35, 240, 38);
+        dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panelVermelho.add(dashboardLabel);
+
+        dashboardLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    TelaDashboard telaDashboard = new TelaDashboard();
+                    telaDashboard.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaGestao.this,
+                            "Tela de Dashboard ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                dashboardLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                dashboardLabel.setForeground(corPaletaBege);
+            }
+        });
 
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
         if (url != null) {
@@ -250,81 +327,81 @@ public class TelaGestao extends JFrame {
     }
 
     private void acaoCaixa() {
-    try {
-        Optional<Caixa> caixaAbertoOpt = caixaController.buscarCaixaAberto();
+        try {
+            Optional<Caixa> caixaAbertoOpt = caixaController.buscarCaixaAberto();
 
-        if (!caixaAbertoOpt.isPresent()) {
+            if (!caixaAbertoOpt.isPresent()) {
 
-            int opcao = JOptionPane.showConfirmDialog(
-                    this,
-                    "Não há caixa aberto no momento.\nDeseja abrir um novo caixa?",
-                    "Abrir Caixa",
-                    JOptionPane.YES_NO_OPTION
-            );
+                int opcao = JOptionPane.showConfirmDialog(
+                        this,
+                        "Não há caixa aberto no momento.\nDeseja abrir um novo caixa?",
+                        "Abrir Caixa",
+                        JOptionPane.YES_NO_OPTION
+                );
 
-            if (opcao != JOptionPane.YES_OPTION) {
+                if (opcao != JOptionPane.YES_OPTION) {
+                    return;
+                }
+
+                String saldoInicialStr = JOptionPane.showInputDialog(
+                        this,
+                        "Informe o saldo inicial do caixa:",
+                        "Abrir Caixa",
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (saldoInicialStr == null) return;
+
+                String metaStr = JOptionPane.showInputDialog(
+                        this,
+                        "Informe a meta de faturamento do dia:",
+                        "Abrir Caixa",
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (metaStr == null) return;
+
+                double saldoInicial = Double.parseDouble(saldoInicialStr.trim().replace(",", "."));
+                double meta = Double.parseDouble(metaStr.trim().replace(",", "."));
+
+                Caixa caixaCriado = caixaController.abrirCaixa(saldoInicial, meta);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Caixa aberto com sucesso!\nID: " + caixaCriado.getId(),
+                        "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                atualizarStatusCaixa();
                 return;
             }
 
-            String saldoInicialStr = JOptionPane.showInputDialog(
+            int confirm = JOptionPane.showConfirmDialog(
                     this,
-                    "Informe o saldo inicial do caixa:",
-                    "Abrir Caixa",
-                    JOptionPane.QUESTION_MESSAGE
+                    "Deseja realmente fechar o caixa?",
+                    "Fechar Caixa",
+                    JOptionPane.YES_NO_OPTION
             );
-            if (saldoInicialStr == null) return;
 
-            String metaStr = JOptionPane.showInputDialog(
-                    this,
-                    "Informe a meta de faturamento do dia:",
-                    "Abrir Caixa",
-                    JOptionPane.QUESTION_MESSAGE
-            );
-            if (metaStr == null) return;
+            if (confirm == JOptionPane.YES_OPTION) {
+                caixaController.fecharCaixaAutomatico();
+                JOptionPane.showMessageDialog(this, "Caixa fechado com sucesso!");
+                atualizarStatusCaixa();
+            }
 
-            double saldoInicial = Double.parseDouble(saldoInicialStr.trim().replace(",", "."));
-            double meta = Double.parseDouble(metaStr.trim().replace(",", "."));
-
-            Caixa caixaCriado = caixaController.abrirCaixa(saldoInicial, meta);
-
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Caixa aberto com sucesso!\nID: " + caixaCriado.getId(),
-                    "Sucesso",
-                    JOptionPane.INFORMATION_MESSAGE
+                    "Valores inválidos ao abrir o caixa.\nUse apenas números (ex: 100.00).",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
             );
-
-            atualizarStatusCaixa();
-            return;
+        } catch (ControllerException | DatabaseException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Deseja realmente fechar o caixa?",
-                "Fechar Caixa",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            caixaController.fecharCaixaAutomatico();
-            JOptionPane.showMessageDialog(this, "Caixa fechado com sucesso!");
-            atualizarStatusCaixa();
-        }
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(
-                this,
-                "Valores inválidos ao abrir o caixa.\nUse apenas números (ex: 100.00).",
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-        );
-    } catch (ControllerException | DatabaseException ex) {
-        JOptionPane.showMessageDialog(
-                this,
-                ex.getMessage(),
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-        );
     }
-}
 }

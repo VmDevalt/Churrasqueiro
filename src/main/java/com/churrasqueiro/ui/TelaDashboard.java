@@ -1,8 +1,12 @@
 package com.churrasqueiro.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,11 +27,12 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import com.churrasqueiro.business.DashboardController;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
+import com.toedter.calendar.JDateChooser;
 
 public class TelaDashboard extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
 
@@ -35,6 +40,14 @@ public class TelaDashboard extends JFrame {
     private final Color corPaletaBege = new Color(227, 202, 187);
     private final Color corPaletaPreto = new Color(0, 0, 0);
     private final Color corPaletaPretoInteracao = new Color(35, 35, 35);
+
+    private JPanel contentPane;
+    private JPanel panel;
+    private JDateChooser dateInicio;
+    private JDateChooser dateFim;
+    private ChartPanel chartPanelTopVendas;
+    private ChartPanel chartPanelMelhoresFaturamentos;
+    private ChartPanel chartPanelPagamento;
 
     private DashboardController controller;
 
@@ -47,10 +60,11 @@ public class TelaDashboard extends JFrame {
                 e.printStackTrace();
             }
         });
-    };
+    }
 
     public TelaDashboard() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	
+    	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
         setTitle("Dashboard - Churrasqueiro");
@@ -58,9 +72,9 @@ public class TelaDashboard extends JFrame {
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
         contentPane.setLayout(null);
         contentPane.setBackground(corPaletaVermelho);
+        setContentPane(contentPane);
 
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
         if (url != null) {
@@ -70,36 +84,95 @@ public class TelaDashboard extends JFrame {
             } catch (java.io.IOException ignored) {}
         }
 
-        JLabel pedidosLabel = new JLabel("Pedidos");
-        pedidosLabel.setBounds(215, 34, 208, 38);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        pedidosLabel.setForeground(corPaletaBege);
-        contentPane.add(pedidosLabel);
-
-        JLabel gruposLabel = new JLabel("Gestão");
-        gruposLabel.setBounds(570, 34, 208, 38);
-        gruposLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        gruposLabel.setForeground(corPaletaBege);
-        contentPane.add(gruposLabel);
-
         JLabel logoLabel = new JLabel("");
         logoLabel.setBounds(20, 13, 92, 79);
         logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
 
+        JLabel pedidosLabel = new JLabel("Pedidos");
+        pedidosLabel.setBounds(215, 34, 208, 38);
+        pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        pedidosLabel.setForeground(corPaletaBege);
+        pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contentPane.add(pedidosLabel);
+        
+        pedidosLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                try {
+                    TelaPedidos telaPedidos = new TelaPedidos();
+                    telaPedidos.setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaDashboard.this,
+                            "Tela de Pedidos ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                pedidosLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                pedidosLabel.setForeground(corPaletaBege);
+            }
+        });
+
+        JLabel gestaoLabel = new JLabel("Gestão");
+        gestaoLabel.setBounds(570, 34, 208, 38);
+        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        gestaoLabel.setForeground(corPaletaBege);
+        gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contentPane.add(gestaoLabel);
+        
+        gestaoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                try {
+                    TelaGestao telaGestao = new TelaGestao();
+                    telaGestao.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaDashboard.this,
+                            "Tela de Gestão ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                gestaoLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+        		gestaoLabel.setForeground(corPaletaBege);
+            }
+        });
+
         JPanel dashboardPanel = new JPanel();
-        dashboardPanel.setBounds(949, 0, 317, 102);
+        dashboardPanel.setBounds(840, 0, 426, 102);
         dashboardPanel.setBackground(corPaletaBege);
         dashboardPanel.setLayout(null);
         contentPane.add(dashboardPanel);
 
         JLabel dashbordLabel = new JLabel("Dashboard");
         dashbordLabel.setForeground(corPaletaPreto);
-        dashbordLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
-        dashbordLabel.setBounds(73, 35, 208, 38);
+        dashbordLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        dashbordLabel.setBounds(100, 35, 240, 38);
         dashboardPanel.add(dashbordLabel);
 
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setBounds(0, 102, 1266, 581);
         panel.setBackground(corPaletaBege);
         panel.setLayout(null);
@@ -107,9 +180,9 @@ public class TelaDashboard extends JFrame {
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                 new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-        botaoVoltar.setBounds(1132, 513, 104, 38);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBounds(1112, 513, 110, 38);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoVoltar.setForeground(corPaletaBege);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.addActionListener(e -> {
             dispose();
@@ -118,24 +191,123 @@ public class TelaDashboard extends JFrame {
         });
         panel.add(botaoVoltar);
 
+        controller = new DashboardController();
+
+        JLabel lblPeriodo = new JLabel("Período:");
+        lblPeriodo.setFont(FontsConstants.MONTSERRAT_BOLD_16);
+        lblPeriodo.setForeground(corPaletaPreto);
+        lblPeriodo.setBounds(50, 10, 80, 25);
+        panel.add(lblPeriodo);
+
+        dateInicio = new JDateChooser();
+        dateInicio.setBounds(130, 10, 150, 25);
+        dateInicio.setDateFormatString("dd/MM/yyyy");
+        dateInicio.setFont(FontsConstants.MONTSERRAT_BOLD_14);
+        panel.add(dateInicio);
+
+        JLabel lblAte = new JLabel("até");
+        lblAte.setFont(FontsConstants.MONTSERRAT_BOLD_16);
+        lblAte.setForeground(corPaletaPreto);
+        lblAte.setBounds(290, 10, 30, 25);
+        panel.add(lblAte);
+
+        dateFim = new JDateChooser();
+        dateFim.setBounds(330, 10, 150, 25);
+        dateFim.setDateFormatString("dd/MM/yyyy");
+        dateFim.setFont(FontsConstants.MONTSERRAT_BOLD_14);
+        panel.add(dateFim);
+
+        EstilizacaoRedonda.BotaoRedondo btnFiltrar =
+                new EstilizacaoRedonda.BotaoRedondo("Aplicar filtro", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
+        btnFiltrar.setBounds(500, 8, 160, 30);
+        btnFiltrar.setFont(FontsConstants.MONTSERRAT_BOLD_14);
+        btnFiltrar.setForeground(corPaletaBege);
+        btnFiltrar.setBackground(corPaletaPreto);
+        btnFiltrar.addActionListener(e -> aplicarFiltroDatas());
+        panel.add(btnFiltrar);
+
+        carregarGraficos(null, null);
+    }
+
+    private void aplicarFiltroDatas() {
+        Date inicio = dateInicio.getDate();
+        Date fim = dateFim.getDate();
+
+        if (inicio == null && fim == null) {
+            carregarGraficos(null, null);
+            return;
+        }
+
+        if (inicio == null || fim == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Selecione as duas datas (início e fim).",
+                    "Período incompleto",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        LocalDate dataInicio = inicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dataFim = fim.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (dataFim.isBefore(dataInicio)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "A data final não pode ser menor que a data inicial.",
+                    "Período inválido",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        carregarGraficos(dataInicio, dataFim);
+    }
+
+    private void carregarGraficos(LocalDate dataInicio, LocalDate dataFim) {
+        if (controller == null) {
+            return;
+        }
+
+        if (chartPanelTopVendas != null) {
+            panel.remove(chartPanelTopVendas);
+        }
+        if (chartPanelMelhoresFaturamentos != null) {
+            panel.remove(chartPanelMelhoresFaturamentos);
+        }
+        if (chartPanelPagamento != null) {
+            panel.remove(chartPanelPagamento);
+        }
+
         try {
-            controller = new DashboardController();
+            DefaultCategoryDataset datasetTop;
+            DefaultCategoryDataset datasetFaturamento;
+            DefaultPieDataset datasetFormas;
 
-            DefaultCategoryDataset datasetTop = controller.obterTopMaisVendidos();
-            DefaultCategoryDataset datasetFaturamento = controller.obterFaturamentoPorDia();
-            DefaultPieDataset datasetFormas = controller.obterFormasPagamento();
+            if (dataInicio != null && dataFim != null) {
+                datasetTop = controller.obterTopMaisVendidos(dataInicio, dataFim);
+                datasetFaturamento = controller.obterFaturamentoPorDia(dataInicio, dataFim);
+                datasetFormas = controller.obterFormasPagamento(dataInicio, dataFim);
+            } else {
+                datasetTop = controller.obterTopMaisVendidos();
+                datasetFaturamento = controller.obterFaturamentoPorDia();
+                datasetFormas = controller.obterFormasPagamento();
+            }
 
-            ChartPanel chartPanelTopVendas = criarGraficoBarrasHorizontais(datasetTop);
+            chartPanelTopVendas = criarGraficoBarrasHorizontais(datasetTop);
             chartPanelTopVendas.setBounds(50, 50, 500, 250);
             panel.add(chartPanelTopVendas);
 
-            ChartPanel chartPanelMelhoresFaturamentos = criarGraficoBarrasVerticais(datasetFaturamento);
+            chartPanelMelhoresFaturamentos = criarGraficoBarrasVerticais(datasetFaturamento);
             chartPanelMelhoresFaturamentos.setBounds(50, 320, 500, 230);
             panel.add(chartPanelMelhoresFaturamentos);
 
-            ChartPanel chartPanelPagamento = criarGraficoPizza(datasetFormas);
+            chartPanelPagamento = criarGraficoPizza(datasetFormas);
             chartPanelPagamento.setBounds(600, 120, 600, 380);
             panel.add(chartPanelPagamento);
+
+            panel.revalidate();
+            panel.repaint();
 
         } catch (DatabaseException e) {
             JOptionPane.showMessageDialog(
@@ -145,8 +317,6 @@ public class TelaDashboard extends JFrame {
                     JOptionPane.ERROR_MESSAGE
             );
         }
-
-        setLocationRelativeTo(null);
     }
 
     private ChartPanel criarGraficoBarrasHorizontais(DefaultCategoryDataset dataset) {
@@ -163,7 +333,14 @@ public class TelaDashboard extends JFrame {
 
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(corPaletaBege);
-        plot.setRangeGridlinePaint(Color.lightGray);
+        plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
+        plot.getRangeAxis().setTickLabelPaint(corPaletaPreto);
+        plot.getDomainAxis().setTickLabelPaint(corPaletaPreto);
+
+        plot.getRangeAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getDomainAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getRangeAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+        plot.getDomainAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
 
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, corPaletaVermelho);
@@ -171,6 +348,8 @@ public class TelaDashboard extends JFrame {
 
         chart.setBackgroundPaint(corPaletaBege);
         chart.setAntiAlias(true);
+        chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }
@@ -189,7 +368,14 @@ public class TelaDashboard extends JFrame {
 
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(corPaletaBege);
-        plot.setRangeGridlinePaint(Color.lightGray);
+        plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
+        plot.getRangeAxis().setTickLabelPaint(corPaletaPreto);
+        plot.getDomainAxis().setTickLabelPaint(corPaletaPreto);
+
+        plot.getRangeAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getDomainAxis().setLabelFont(FontsConstants.MONTSERRAT_BOLD_14);
+        plot.getRangeAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
+        plot.getDomainAxis().setTickLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
 
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, corPaletaVermelho);
@@ -197,6 +383,8 @@ public class TelaDashboard extends JFrame {
 
         chart.setBackgroundPaint(corPaletaBege);
         chart.setAntiAlias(true);
+        chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }
@@ -213,8 +401,12 @@ public class TelaDashboard extends JFrame {
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setBackgroundPaint(corPaletaBege);
         plot.setOutlineVisible(false);
+        plot.setLabelPaint(corPaletaPreto);
+        plot.setLabelFont(FontsConstants.MONTSERRAT_REGULAR_12);
 
         chart.setBackgroundPaint(corPaletaBege);
+        chart.getTitle().setPaint(corPaletaPreto);
+        chart.getTitle().setFont(FontsConstants.MONTSERRAT_BOLD_16);
 
         return new ChartPanel(chart);
     }

@@ -1,9 +1,12 @@
 package com.churrasqueiro.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.business.PedidoController;
 import com.churrasqueiro.entities.PedidoResumo;
 import com.churrasqueiro.entities.PedidoEmMontagem;
@@ -51,6 +55,7 @@ public class TelaPedidos extends JFrame {
     }
 
     public TelaPedidos() {
+    	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
 
         Color corPaletaVermelho = new Color(179, 13, 36);
         Color corPaletaBege = new Color(227, 202, 187);
@@ -80,8 +85,6 @@ public class TelaPedidos extends JFrame {
                 System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
             }
         }
-
-        
         JLabel logoLabel = new JLabel();
         logoLabel.setBounds(20, -2, 92, 82);
         java.net.URL urlLogoPeq = getClass().getResource("/assets/imagens/iconeJanelaPequena.png");
@@ -90,7 +93,6 @@ public class TelaPedidos extends JFrame {
         }
         topoVermelho.add(logoLabel);
 
-        
         JPanel painelSelecionado = new JPanel();
         painelSelecionado.setBackground(corPaletaBege);
         painelSelecionado.setBounds(170, 0, 260, 77);
@@ -104,18 +106,115 @@ public class TelaPedidos extends JFrame {
         painelSelecionado.add(pedidosLabel);
 
         JLabel gestaoLabel = new JLabel("Gestão");
-        gestaoLabel.setForeground(corPaletaBege);
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+        	gestaoLabel.setForeground(corPaletaBege);
+        } else {
+        	gestaoLabel.setForeground(new Color(216, 173, 173));
+        }
+        
         gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         gestaoLabel.setBounds(530, 19, 200, 38);
+        gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(gestaoLabel);
 
+        gestaoLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaGestao telaGestao = new TelaGestao();
+	                    telaGestao.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaPedidos.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaPedidos.this,
+                            "Tela de Gestão ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                gestaoLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+            		gestaoLabel.setForeground(corPaletaBege);
+            	} else {
+	            	gestaoLabel.setForeground(new Color(216, 173, 173));
+	            }
+            }
+        });
+
         JLabel dashboardLabel = new JLabel("Dashboard");
-        dashboardLabel.setForeground(corPaletaBege);
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+        	dashboardLabel.setForeground(corPaletaBege);
+        } else {
+        	dashboardLabel.setForeground(new Color(216, 173, 173));
+        }
+        
         dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         dashboardLabel.setBounds(800, 19, 230, 38);
+        dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(dashboardLabel);
 
-        
+        dashboardLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaDashboard telaDashboard = new TelaDashboard();
+	                    telaDashboard.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaPedidos.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            TelaPedidos.this,
+                            "Tela de Dashboard ainda não está disponível.",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                dashboardLabel.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+            		dashboardLabel.setForeground(corPaletaBege);
+	            } else {
+	            	dashboardLabel.setForeground(new Color(216, 173, 173));
+	            }
+            }
+        });
+
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                 new EstilizacaoRedonda.BotaoRedondo(
                         "Voltar",
@@ -134,14 +233,11 @@ public class TelaPedidos extends JFrame {
             dispose();
         });
 
-        
         areaConteudo = new JPanel();
         areaConteudo.setBackground(corPaletaBege);
         areaConteudo.setBounds(0, 74, LARGURA, ALTURA - 74);
         areaConteudo.setLayout(null);
         topoVermelho.add(areaConteudo);
-
-        
         EstilizacaoRedonda.BotaoRedondo botaoNovoPedido =
                 new EstilizacaoRedonda.BotaoRedondo(
                         "Novo Pedido",
@@ -154,24 +250,12 @@ public class TelaPedidos extends JFrame {
         botaoNovoPedido.setFont(new Font("SansSerif", Font.PLAIN, 17));
         botaoNovoPedido.setForeground(corPaletaBege);
         areaConteudo.add(botaoNovoPedido);
-
-        
         botaoNovoPedido.addActionListener(e -> {
             PedidoEmMontagem pedido = new PedidoEmMontagem();
             TelaCardapio telaCardapio = new TelaCardapio(pedido);
             telaCardapio.setVisible(true);
             dispose();
         });
-
-        EstilizacaoRedonda.BotaoRedondo botaoCardapio =
-                new EstilizacaoRedonda.BotaoRedondo(
-                        "Cardápio",
-                        corPaletaVermelho,
-                        corPaletaVermelhoInteracao,
-                        corPaletaVermelhoPressionado,
-                        35
-                );
-        
         JLabel lblPreparo = new JLabel("Pedidos em Preparo");
         lblPreparo.setFont(new Font("SansSerif", Font.PLAIN, 18));
         lblPreparo.setForeground(corPaletaPreto);
@@ -183,14 +267,10 @@ public class TelaPedidos extends JFrame {
         lblProntos.setFont(new Font("SansSerif", Font.PLAIN, 18));
         lblProntos.setBounds(830, 90, 200, 22);
         areaConteudo.add(lblProntos);
-
-        
         JSeparator sep = new JSeparator(JSeparator.VERTICAL);
         sep.setForeground(corPaletaVermelho);
         sep.setBounds(640, 120, 2, 500);
         areaConteudo.add(sep);
-
-        
         JScrollPane scrollPreparo = new JScrollPane();
         scrollPreparo.setBounds(200, 120, 320, 450);
         scrollPreparo.setBorder(null);
@@ -203,8 +283,6 @@ public class TelaPedidos extends JFrame {
         conteudoPreparo.setBackground(corPaletaBege);
         conteudoPreparo.setLayout(null);
         scrollPreparo.setViewportView(conteudoPreparo);
-
-        
         JScrollPane scrollPronto = new JScrollPane();
         scrollPronto.setBounds(720, 120, 320, 450);
         scrollPronto.setBorder(null);
@@ -217,8 +295,6 @@ public class TelaPedidos extends JFrame {
         conteudoPronto.setBackground(corPaletaBege);
         conteudoPronto.setLayout(null);
         scrollPronto.setViewportView(conteudoPronto);
-
-        
         carregarPedidosNasColunas(
                 conteudoPreparo,
                 conteudoPronto,
@@ -246,8 +322,6 @@ public class TelaPedidos extends JFrame {
                     pedidoController.listarPedidosPorStatus("Em Preparo");
             List<PedidoResumo> pedidosProntos =
                     pedidoController.listarPedidosPorStatus("Pronto");
-
-            
             for (PedidoResumo p : pedidosPreparo) {
                 EstilizacaoRedonda.PainelRedondo cardPreparo =
                         criarCardPedidoPreparo(
@@ -261,8 +335,6 @@ public class TelaPedidos extends JFrame {
                 conteudoPreparo.add(cardPreparo);
                 yPreparo += 390;
             }
-
-            
             for (PedidoResumo p : pedidosProntos) {
                 EstilizacaoRedonda.PainelRedondo cardPronto =
                         criarCardPedidoPronto(
@@ -465,10 +537,9 @@ public class TelaPedidos extends JFrame {
         botaoImprimir.setFont(new Font("SansSerif", Font.PLAIN, 13));
         card.add(botaoImprimir);
         botaoImprimir.addActionListener(e -> {
-        try {
+            try {
                 java.io.File pdfGerado = NotaFiscalPdfUtil.gerarNotaFiscalPedido(pedido);
-
-        } catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(
                         this,
@@ -476,7 +547,7 @@ public class TelaPedidos extends JFrame {
                         "Erro",
                         JOptionPane.ERROR_MESSAGE
                 );
-        }
+            }
         });
 
         botaoPreparando.addActionListener(e -> {
@@ -493,8 +564,6 @@ public class TelaPedidos extends JFrame {
                 );
             }
         });
-
-        
 
         return card;
     }
