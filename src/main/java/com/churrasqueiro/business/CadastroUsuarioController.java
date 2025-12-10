@@ -54,6 +54,10 @@ public class CadastroUsuarioController {
 			throw new ControllerException("Campo de senha vazio.");
 		} else if (senhaConfirmada == null || senhaConfirmada.isEmpty()) {
 			throw new ControllerException("Confirme a senha do usuário.");
+		} else if (!senha.equals(senhaConfirmada)) {
+			throw new ControllerException("As senhas não coincidem.");
+		} else if (senha.length() < 6 || senhaConfirmada.length() < 6) {
+			throw new ControllerException("As senhas devem ter no mínimo 6 caracteres.");
 		}
 	}
 	
