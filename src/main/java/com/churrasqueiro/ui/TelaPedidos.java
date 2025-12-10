@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.business.PedidoController;
 import com.churrasqueiro.entities.PedidoResumo;
 import com.churrasqueiro.entities.PedidoEmMontagem;
@@ -54,6 +55,7 @@ public class TelaPedidos extends JFrame {
     }
 
     public TelaPedidos() {
+    	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
 
         Color corPaletaVermelho = new Color(179, 13, 36);
         Color corPaletaBege = new Color(227, 202, 187);
@@ -104,7 +106,13 @@ public class TelaPedidos extends JFrame {
         painelSelecionado.add(pedidosLabel);
 
         JLabel gestaoLabel = new JLabel("Gestão");
-        gestaoLabel.setForeground(corPaletaBege);
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+        	gestaoLabel.setForeground(corPaletaBege);
+        } else {
+        	gestaoLabel.setForeground(new Color(216, 173, 173));
+        }
+        
         gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         gestaoLabel.setBounds(530, 19, 200, 38);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -114,9 +122,18 @@ public class TelaPedidos extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    TelaGestao telaGestao = new TelaGestao();
-                    telaGestao.setVisible(true);
-                    dispose();
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaGestao telaGestao = new TelaGestao();
+	                    telaGestao.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaPedidos.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(
@@ -135,12 +152,22 @@ public class TelaPedidos extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                gestaoLabel.setForeground(corPaletaBege);
+            	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+            		gestaoLabel.setForeground(corPaletaBege);
+            	} else {
+	            	gestaoLabel.setForeground(new Color(216, 173, 173));
+	            }
             }
         });
 
         JLabel dashboardLabel = new JLabel("Dashboard");
-        dashboardLabel.setForeground(corPaletaBege);
+        
+        if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+        	dashboardLabel.setForeground(corPaletaBege);
+        } else {
+        	dashboardLabel.setForeground(new Color(216, 173, 173));
+        }
+        
         dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         dashboardLabel.setBounds(800, 19, 230, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -150,9 +177,18 @@ public class TelaPedidos extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    TelaDashboard telaDashboard = new TelaDashboard();
-                    telaDashboard.setVisible(true);
-                    dispose();
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaDashboard telaDashboard = new TelaDashboard();
+	                    telaDashboard.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaPedidos.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(
@@ -171,7 +207,11 @@ public class TelaPedidos extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                dashboardLabel.setForeground(corPaletaBege);
+            	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+            		dashboardLabel.setForeground(corPaletaBege);
+	            } else {
+	            	dashboardLabel.setForeground(new Color(216, 173, 173));
+	            }
             }
         });
 
