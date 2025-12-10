@@ -25,6 +25,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.business.DashboardController;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.FontsConstants;
@@ -63,7 +64,9 @@ public class TelaDashboard extends JFrame {
     }
 
     public TelaDashboard() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
+    	
+    	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
         setTitle("Dashboard - Churrasqueiro");
@@ -94,14 +97,23 @@ public class TelaDashboard extends JFrame {
         pedidosLabel.setForeground(corPaletaBege);
         pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentPane.add(pedidosLabel);
-
+        
         pedidosLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 try {
-                    TelaPedidos telaPedidos = new TelaPedidos();
-                    telaPedidos.setVisible(true);
-                    dispose();
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaPedidos telaPedidos = new TelaPedidos();
+	                    telaPedidos.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaDashboard.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(
@@ -130,13 +142,23 @@ public class TelaDashboard extends JFrame {
         gestaoLabel.setForeground(corPaletaBege);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentPane.add(gestaoLabel);
+        
         gestaoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 try {
-                    TelaGestao telaGestao = new TelaGestao();
-                    telaGestao.setVisible(true);
-                    dispose();
+                	if(usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	                    TelaGestao telaGestao = new TelaGestao();
+	                    telaGestao.setVisible(true);
+	                    dispose();
+                	} else {
+                        JOptionPane.showMessageDialog(
+                                TelaDashboard.this,
+                                "Área restrita para Administradores.",
+                                "Aviso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(
