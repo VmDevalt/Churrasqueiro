@@ -33,7 +33,6 @@ public class TelaNovoPedido extends JFrame {
     private EstilizacaoRedonda.CaixaTextoRedonda campoAcrescimo;
     private EstilizacaoRedonda.CaixaTextoRedonda campoDesconto;
     private EstilizacaoRedonda.CaixaTextoRedonda campoObservacoes;
-
     private PedidoEmMontagem pedido;
 
     public static void main(String[] args) {
@@ -50,7 +49,6 @@ public class TelaNovoPedido extends JFrame {
     }
 
     public TelaNovoPedido(PedidoEmMontagem pedido) {
-
         this.pedido = pedido;
 
         Color corPaletaVermelho = new Color(179,13,36);
@@ -107,6 +105,9 @@ public class TelaNovoPedido extends JFrame {
         cBoxMesas.setMaximumRowCount(2);
         cBoxMesas.setBounds(500, 99, 56, 23);
         panelBranco.add(cBoxMesas);
+        if(pedido.getNumeroMesa() != null) {
+        	cBoxMesas.setSelectedItem(pedido.getNumeroMesa());
+        }
 
         String[] FormaPagamento = {"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"};
         this.cBoxFormaPagamento = new JComboBox<>(FormaPagamento);
@@ -117,6 +118,9 @@ public class TelaNovoPedido extends JFrame {
         cBoxFormaPagamento.setMaximumRowCount(2);
         cBoxFormaPagamento.setBounds(643, 340, 210, 23);
         panelBranco.add(cBoxFormaPagamento);
+        if(pedido.getFormaPagamento() != null) {
+        	cBoxFormaPagamento.setSelectedItem(pedido.getFormaPagamento());
+        }
 
         lblMesas = new JLabel("Mesas:");
         lblMesas.setForeground(Color.BLACK);
@@ -135,6 +139,10 @@ public class TelaNovoPedido extends JFrame {
         campoNome.setBounds(699, 93, 360, 38);
         campoNome.setColumns(10);
         panelBranco.add(campoNome);
+        if(pedido.getNomeCliente() != null ) {
+        	campoNome.setForeground(corPaletaPreto);
+        	campoNome.setText(pedido.getNomeCliente());
+        }
 
         JLabel lblAcrescimo = new JLabel("Acréscimo:");
         lblAcrescimo.setForeground(Color.BLACK);
@@ -147,6 +155,10 @@ public class TelaNovoPedido extends JFrame {
         campoAcrescimo.setBounds(520, 207, 360, 38);
         campoAcrescimo.setColumns(10);
         panelBranco.add(campoAcrescimo);
+        if(pedido.getAcrescimo() != 0 ) {
+        	campoAcrescimo.setForeground(corPaletaPreto);
+        	campoAcrescimo.setText(String.valueOf(pedido.getAcrescimo()).replace(".", ",") + "0");
+        }
 
         JLabel lblDesconto = new JLabel("Desconto:");
         lblDesconto.setForeground(Color.BLACK);
@@ -159,6 +171,10 @@ public class TelaNovoPedido extends JFrame {
         campoDesconto.setBounds(520, 275, 360, 38);
         campoDesconto.setColumns(10);
         panelBranco.add(campoDesconto);
+        if(pedido.getDesconto() != 0 ) {
+        	campoDesconto.setForeground(corPaletaPreto);
+        	campoDesconto.setText(String.valueOf(pedido.getDesconto()).replace(".", ",") + "0");
+        }
 
         JLabel lblFormaPagamento = new JLabel("Formas de Pagamento:");
         lblFormaPagamento.setForeground(Color.BLACK);
@@ -177,6 +193,10 @@ public class TelaNovoPedido extends JFrame {
         campoObservacoes.setBounds(535, 418, 360, 38);
         campoObservacoes.setColumns(10);
         panelBranco.add(campoObservacoes);
+        if(pedido.getObservacoes() != null ) {
+        	campoObservacoes.setForeground(corPaletaPreto);
+        	campoObservacoes.setText(pedido.getObservacoes());
+        }
 
         final EstilizacaoRedonda.BotaoRedondo botaoAvancar = new EstilizacaoRedonda.BotaoRedondo("Avançar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
         botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -191,18 +211,17 @@ public class TelaNovoPedido extends JFrame {
             String formaPag = (String) cBoxFormaPagamento.getSelectedItem();
             String nomeCliente = campoNome.getText();
             String obs = campoObservacoes.getText();
-
+            String txtAcrescimo = campoAcrescimo.getText();
+            String txtDesconto = campoDesconto.getText();
             double acrescimo = 0.0;
             double desconto = 0.0;
 
             try {
-                String txtAcrescimo = campoAcrescimo.getText();
                 if (txtAcrescimo != null && !txtAcrescimo.isBlank()
                         && !txtAcrescimo.equals("Digite o Acréssimo")) {
                     acrescimo = Double.parseDouble(txtAcrescimo.replace(",", "."));
                 }
 
-                String txtDesconto = campoDesconto.getText();
                 if (txtDesconto != null && !txtDesconto.isBlank()
                         && !txtDesconto.equals("Digite o Desconto")) {
                     desconto = Double.parseDouble(txtDesconto.replace(",", "."));
@@ -212,6 +231,50 @@ public class TelaNovoPedido extends JFrame {
                         this,
                         "Verifique os valores de Acréssimo e Desconto.",
                         "Valor inválido",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            
+            if(nomeCliente.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Digite o nome do cliente.",
+                        "Aviso",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            } else if (nomeCliente.contains("1") || nomeCliente.contains("2") || nomeCliente.contains("3") || nomeCliente.contains("4") || nomeCliente.contains("5") ||
+            		   nomeCliente.contains("6") || nomeCliente.contains("7") || nomeCliente.contains("8") || nomeCliente.contains("9") || nomeCliente.contains("0") ||
+            		   nomeCliente.contains("!") || nomeCliente.contains("@") || nomeCliente.contains("#") || nomeCliente.contains("$") || nomeCliente.contains("%") ||
+            		   nomeCliente.contains("&") || nomeCliente.contains("*") || nomeCliente.contains("(") || nomeCliente.contains(")") || nomeCliente.contains("+") ||
+            		   nomeCliente.contains("=") || nomeCliente.contains("_") || nomeCliente.contains("\\")|| nomeCliente.contains("/") || nomeCliente.contains(",") ||
+            		   nomeCliente.contains(";") || nomeCliente.contains("?") || nomeCliente.contains("|") || nomeCliente.contains("\"")|| nomeCliente.contains("[") ||
+            		   nomeCliente.contains("]") || nomeCliente.contains("{") || nomeCliente.contains("}") || nomeCliente.length() < 2) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Digite um nome válido.",
+                        "Aviso",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            
+            if(txtAcrescimo.contains("-")) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Não podem haver valores negativos. Digite um valor válido.",
+                        "Aviso",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            
+            if(txtDesconto.contains("-")) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "O desconto já é negativo. Digite um valor válido.",
+                        "Aviso",
                         JOptionPane.WARNING_MESSAGE
                 );
                 return;
@@ -235,13 +298,46 @@ public class TelaNovoPedido extends JFrame {
         botaoVoltar.setBackground(new Color(0, 0, 0));
         botaoVoltar.setBounds(1131, 19, 104, 38);
         panelVermelho.add(botaoVoltar);
-        botaoVoltar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        botaoVoltar.addActionListener( e -> {
+                String mesa = (String) cBoxMesas.getSelectedItem();
+                String formaPag = (String) cBoxFormaPagamento.getSelectedItem();
+                String nomeCliente = campoNome.getText();
+                String obs = campoObservacoes.getText();
+                String txtAcrescimo = campoAcrescimo.getText();
+                String txtDesconto = campoDesconto.getText();
+                double acrescimo = 0.0;
+                double desconto = 0.0;
+                
+                try {
+                    if (txtAcrescimo != null && !txtAcrescimo.isBlank()
+                            && !txtAcrescimo.equals("Digite o Acréssimo")) {
+                        acrescimo = Double.parseDouble(txtAcrescimo.replace(",", "."));
+                    }
+
+                    if (txtDesconto != null && !txtDesconto.isBlank()
+                            && !txtDesconto.equals("Digite o Desconto")) {
+                        desconto = Double.parseDouble(txtDesconto.replace(",", "."));
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Verifique os valores de Acréssimo e Desconto.",
+                            "Valor inválido",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+                }
+                
+                pedido.setNumeroMesa(mesa);
+                pedido.setNomeCliente(nomeCliente);
+                pedido.setFormaPagamento(formaPag);
+                pedido.setAcrescimo(acrescimo);
+                pedido.setDesconto(desconto);
+                pedido.setObservacoes(obs);
                 dispose();
                 TelaCardapio telaCardapio = new TelaCardapio(pedido);
                 telaCardapio.setVisible(true);
-            }
-        });
+            });
 
         JLabel relatoriosLabel = new JLabel("Novo Pedido");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));

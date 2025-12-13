@@ -53,6 +53,9 @@ public class PedidoController {
         if (pedido.getFormaPagamento() == null || pedido.getFormaPagamento().isBlank()) {
             throw new ControllerException("Selecione a forma de pagamento.");
         }
+        if (pedido.getTotalFinal() <= 0) {
+        	throw new ControllerException("O preço a ser pago não pode ser um valor negativo.");
+        }
 
         Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
         int garconId;
