@@ -32,7 +32,6 @@ public class TelaCardapio extends JFrame {
     private final Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
     public TelaCardapio(PedidoEmMontagem pedido) {
-
         this.pedido = pedido;
 
         setTitle("Cardápio - Churrasqueiro");
