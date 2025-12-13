@@ -56,14 +56,6 @@ VALUES
 (2),
 (3);
 
-INSERT INTO Caixa (saldo_inicial, saldo_atual, meta_faturamento, data_abertura, data_fechamento, status_caixa, vendas_dia, vendas_meta)
-VALUES
-(1000.00, 1000.00, 5000.00, '2025-11-01 08:00:00', NULL, TRUE, 1500.00, 5000.00),
-(2000.00, 2000.00, 10000.00, '2025-11-01 09:00:00', '2025-11-01 18:00:00', FALSE, 9000.00, 10000.00),
-(1500.00, 1500.00, 7000.00, '2025-11-01 10:00:00', '2025-11-01 17:00:00', FALSE, 6000.00, 7000.00),
-(1200.00, 1200.00, 6000.00, '2025-11-01 11:00:00', '2025-11-01 19:00:00', FALSE, 5500.00, 6000.00),
-(1800.00, 1800.00, 8000.00, '2025-11-01 12:00:00', '2025-11-01 20:00:00', FALSE, 7600.00, 8000.00);
-
 
 INSERT INTO Categorias_Cardapio (nome, descricao)
 VALUES
@@ -145,26 +137,6 @@ VALUES
 -- SOBREMESA (categoria_id = 3)
 ('Milk Shake 400ml', 'Milk shake de Chocolate, Morango ou Ovomaltine', 15.00, 3, 'MILK-SHAKE.jpg', 20.00),
 ('Pudim de Leite', 'Sobremesa pudim de leite condensado', 6.00, 3, 'imagem_pudim.jpg', 8.00);
-
-INSERT INTO Pedidos (mesa_id, garcon_id, data_hora, status, desconto, acrescimo, total, forma_pagamento)
-VALUES
-(1, 1, '2025-11-01 12:30:00', 'Aberto', 2.00, 0.00, 20.50, 'Cartão de Crédito'),
-(2, 2, '2025-11-01 13:00:00', 'Aberto', 1.00, 1.50, 25.00, 'Dinheiro'),
-(3, 3, '2025-11-01 14:00:00', 'Aberto', 0.00, 2.00, 18.00, 'Pix'),
-(1, 2, '2025-11-01 15:00:00', 'Aberto', 1.50, 0.00, 22.00, 'Cartão de Débito'),
-(2, 1, '2025-11-01 16:00:00', 'Aberto', 0.00, 1.00, 26.00, 'Dinheiro');
-
-INSERT INTO Itens_Pedido (pedido_id, item_cardapio_id, quantidade, preco_unitario, total_item)
-VALUES
-(1, 1, 1, 18.50, 18.50),
-(1, 3, 1, 7.50, 7.50),
-(2, 2, 1, 4.00, 4.00),
-(2, 4, 1, 25.00, 25.00), 
-(3, 1, 1, 18.50, 18.50),
-(4, 5, 1, 6.00, 6.00), 
-(5, 2, 1, 4.00, 4.00),
-(5, 3, 1, 7.50, 7.50); 
-
 
 ALTER TABLE usuario ALTER COLUMN id RESTART WITH 10;
 ALTER TABLE Pedidos ALTER COLUMN id RESTART WITH 10;

@@ -3,21 +3,27 @@ package com.churrasqueiro.service;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import com.churrasqueiro.exceptions.PagamentoException;
 
 public class MercadoPagoPixService {
 
     public PixPaymentResponse criarPagamentoPix(PedidoEmMontagem pedido) throws Exception {
+    	try {
 
         URL url = new URL(MercadoPagoConfig.PAGAMENTOS_URL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setConnectTimeout(5000);
+        con.setReadTimeout(5000);
 
         con.setRequestMethod("POST");
         con.setDoOutput(true);
@@ -92,7 +98,19 @@ public class MercadoPagoPixService {
         String ticketUrl = txData.get("ticket_url").getAsString();
 
         return new PixPaymentResponse(paymentId, qrCode, qrCodeBase64, ticketUrl);
-    }
+    	} catch (UnknownHostException | ConnectException | SocketTimeoutException e) {
+
+            throw new PagamentoException(
+                "Sem conexão com a internet, Verifique o Wi-Fi e tente novamente."
+            );
+
+        } catch (Exception e) {
+
+            throw new PagamentoException(
+                "Não foi possível gerar o pagamento PIX. Tente novamente."
+            );
+        }
+	}
 
     private String escapeJson(String value) {
         if (value == null) return "";
