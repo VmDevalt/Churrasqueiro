@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
-public class AppInitializer {
+public class H2Initializer {
 
     public static void main(String[] args) {
 
@@ -38,7 +38,7 @@ public class AppInitializer {
             if (tabelaVazia) {
                 System.out.println("Executando data.sql para popular dados iniciais...");
 
-                InputStream in = AppInitializer.class.getResourceAsStream("/db/data.sql");
+                InputStream in = H2Initializer.class.getResourceAsStream("/db/data.sql");
                 if (in == null) {
                     System.err.println("data.sql não encontrado no classpath (/db/data.sql).");
                     return;
