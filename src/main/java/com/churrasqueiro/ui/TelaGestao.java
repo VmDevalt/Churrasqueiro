@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
+
 import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.entities.Caixa;
 import com.churrasqueiro.entities.Usuario;
@@ -37,6 +40,16 @@ public class TelaGestao extends JFrame {
     private EstilizacaoRedonda.BotaoRedondo botaoCaixa;
     private JLabel lblCaixaStatus;
     private final CaixaController caixaController = new CaixaController();
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -53,13 +66,6 @@ public class TelaGestao extends JFrame {
 
     public TelaGestao() {
         Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
-
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
         setTitle("Gestão - Churrasqueiro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -197,7 +203,7 @@ public class TelaGestao extends JFrame {
                 35
         );
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
-        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setForeground(corPaletaBege);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.setBounds(1115, 19, 120, 38);
         panelVermelho.add(botaoVoltar);
@@ -211,18 +217,6 @@ public class TelaGestao extends JFrame {
         logoLabel.setIcon(new ImageIcon(TelaGestao.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         logoLabel.setBounds(30, 0, 92, 82);
         panelVermelho.add(logoLabel);
-
-        JPanel panelSelecionado = new JPanel();
-        panelSelecionado.setBounds(495, 0, 254, 77);
-        panelVermelho.add(panelSelecionado);
-        panelSelecionado.setBackground(corPaletaBege);
-        panelSelecionado.setLayout(null);
-
-        JLabel gestaoLabel = new JLabel("Gestão");
-        gestaoLabel.setForeground(corPaletaPreto);
-        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        gestaoLabel.setBounds(570, 34, 208, 38);
-        panelSelecionado.add(gestaoLabel);
 
         JLabel pedidosLabel = new JLabel("Pedidos");
         pedidosLabel.setBounds(215, 34, 208, 38);
@@ -246,6 +240,9 @@ public class TelaGestao extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+       			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -263,9 +260,21 @@ public class TelaGestao extends JFrame {
         JLabel dashboardLabel = new JLabel("Dashboard");
         dashboardLabel.setForeground(corPaletaBege);
         dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        dashboardLabel.setBounds(500, 35, 240, 38);
+        dashboardLabel.setBounds(798, 34, 240, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panelVermelho.add(dashboardLabel);
+        
+                JPanel panelSelecionado = new JPanel();
+                panelSelecionado.setBounds(552, 0, 169, 102);
+                panelVermelho.add(panelSelecionado);
+                panelSelecionado.setBackground(corPaletaBege);
+                panelSelecionado.setLayout(null);
+                        
+                                JLabel gestaoLabel = new JLabel("Gestão");
+                                gestaoLabel.setBounds(12, 30, 152, 38);
+                                panelSelecionado.add(gestaoLabel);
+                                gestaoLabel.setForeground(corPaletaPreto);
+                                gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
 
         dashboardLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -282,6 +291,9 @@ public class TelaGestao extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+       			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -338,6 +350,9 @@ public class TelaGestao extends JFrame {
                         "Abrir Caixa",
                         JOptionPane.YES_NO_OPTION
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
                 if (opcao != JOptionPane.YES_OPTION) {
                     return;
@@ -349,6 +364,10 @@ public class TelaGestao extends JFrame {
                         "Abrir Caixa",
                         JOptionPane.QUESTION_MESSAGE
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
+                
                 if (saldoInicialStr == null) return;
 
                 String metaStr = JOptionPane.showInputDialog(
@@ -357,6 +376,10 @@ public class TelaGestao extends JFrame {
                         "Abrir Caixa",
                         JOptionPane.QUESTION_MESSAGE
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
+                
                 if (metaStr == null) return;
 
                 double saldoInicial = Double.parseDouble(saldoInicialStr.trim().replace(",", "."));
@@ -370,6 +393,9 @@ public class TelaGestao extends JFrame {
                         "Sucesso",
                         JOptionPane.INFORMATION_MESSAGE
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
                 atualizarStatusCaixa();
                 return;
@@ -381,12 +407,18 @@ public class TelaGestao extends JFrame {
                     "Fechar Caixa",
                     JOptionPane.YES_NO_OPTION
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 caixaController.fecharCaixaAutomatico();
                 JOptionPane.showMessageDialog(this, "Caixa fechado com sucesso!");
                 atualizarStatusCaixa();
             }
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(
@@ -395,6 +427,10 @@ public class TelaGestao extends JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+            
         } catch (ControllerException | DatabaseException ex) {
             JOptionPane.showMessageDialog(
                     this,
@@ -402,6 +438,9 @@ public class TelaGestao extends JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 }

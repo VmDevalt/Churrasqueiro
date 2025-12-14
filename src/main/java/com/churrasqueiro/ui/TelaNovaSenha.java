@@ -10,6 +10,7 @@ import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
 
 public class TelaNovaSenha extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -20,6 +21,16 @@ public class TelaNovaSenha extends JFrame {
     private EstilizacaoRedonda.CaixaSenhaRedonda campoConfirmarSenha;
     private String emailUsuario;
     private static final EsqueceuSenhaController esqueceuSenhaController = new EsqueceuSenhaController();
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
     
     public TelaNovaSenha(String email) {
         emailUsuario = email;
@@ -46,11 +57,17 @@ public class TelaNovaSenha extends JFrame {
 					"Senha atualizada.",
 					"Sucesso!",
 					JOptionPane.INFORMATION_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 		
 			JOptionPane.showMessageDialog(this,
 					"Após essa mensagem, você será redirecionado(a) à tela de login.",
 					"Aviso",
 					JOptionPane.INFORMATION_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 			
 			TelaLogin telaLogin = new TelaLogin();
 			telaLogin.setVisible(true);
@@ -59,26 +76,29 @@ public class TelaNovaSenha extends JFrame {
 	    } catch (ControllerException e) {
 			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro ao redefinir senha",
 			 JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 			 
 	    } catch (DatabaseException e) {
             JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
             JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
             JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
     
     private void initialize() {
-        Color corPaletaVermelho = new Color(179,13,36);
-        Color corPaletaBege = new Color(227,202,187);
-        Color corPaletaVermelhoInteracao = new Color(200,50,50);
-        Color corPaletaVermelhoPressionado = new Color(150,0,0);
-        Color corPaletaPreto = new Color(0,0,0);
-        Color corPaletaCinza = new Color(140,127,127);
 
         setTitle("Nova Senha - Churrasqueiro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -151,7 +171,7 @@ public class TelaNovaSenha extends JFrame {
         botaoVoltar.setBorderPainted(false);
         botaoVoltar.setFocusPainted(false);
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
-        botaoVoltar.setBounds(35, 30, 120, 35);
+        botaoVoltar.setBounds(1115, 19, 120, 35);
         botaoVoltar.addActionListener(e -> {
             dispose();
             
