@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.business.PedidoController;
@@ -42,6 +43,14 @@ public class TelaPedidos extends JFrame {
 
     private final PedidoController pedidoController = new PedidoController();
     private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -56,13 +65,6 @@ public class TelaPedidos extends JFrame {
 
     public TelaPedidos() {
     	Usuario usuarioLogado = TelaLogin.getUsuarioLogado();
-
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
         setTitle("Pedidos - Churrasqueiro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,6 +135,9 @@ public class TelaPedidos extends JFrame {
                                 "Aviso",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -142,6 +147,9 @@ public class TelaPedidos extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+       			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -188,6 +196,9 @@ public class TelaPedidos extends JFrame {
                                 "Aviso",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 	}
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -197,6 +208,9 @@ public class TelaPedidos extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+       			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -451,6 +465,9 @@ public class TelaPedidos extends JFrame {
                         "Erro",
                         JOptionPane.ERROR_MESSAGE
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             }
         });
 
@@ -562,6 +579,9 @@ public class TelaPedidos extends JFrame {
                         "Erro",
                         JOptionPane.ERROR_MESSAGE
                 );
+   			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             }
         });
 

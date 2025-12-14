@@ -195,7 +195,7 @@ public class TelaRelatorios extends JFrame {
         JLabel relatoriosLabel = new JLabel("Relatórios");
         relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         relatoriosLabel.setForeground(corPaletaBege);
-        relatoriosLabel.setBounds(487, 34, 208, 38);
+        relatoriosLabel.setBounds(542, 34, 190, 38);
         contentPane.add(relatoriosLabel);
 
         JLabel logoLabel = new JLabel("");

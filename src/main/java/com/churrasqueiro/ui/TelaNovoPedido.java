@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.entities.PedidoEmMontagem;
 
@@ -56,7 +57,7 @@ public class TelaNovoPedido extends JFrame {
         Color corPaletaVermelhoInteracao = new Color(200,50,50);
         Color corPaletaVermelhoPressionado = new Color(150,0,0);
         Color corPaletaPreto = new Color(0,0,0);
-        Color corPaletaPretoInteração = new Color(35,35,35);
+        Color corPaletaPretoInteracao = new Color(35,35,35);
         Color corPaletaCinza = new Color(140,127,127);
         Color corPaletaBegeInteracao = new Color(245,225,210);
         Color corPaletaBegePressionado = new Color(200,175,160);
@@ -198,7 +199,7 @@ public class TelaNovoPedido extends JFrame {
         	campoObservacoes.setText(pedido.getObservacoes());
         }
 
-        final EstilizacaoRedonda.BotaoRedondo botaoAvancar = new EstilizacaoRedonda.BotaoRedondo("Avançar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoAvancar = new EstilizacaoRedonda.BotaoRedondo("Avançar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
         botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoAvancar.setForeground(corPaletaBege);
         botaoAvancar.setBackground(new Color(0, 0, 0));
@@ -233,6 +234,9 @@ public class TelaNovoPedido extends JFrame {
                         "Valor inválido",
                         JOptionPane.WARNING_MESSAGE
                 );
+      			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 return;
             }
             
@@ -243,6 +247,9 @@ public class TelaNovoPedido extends JFrame {
                         "Aviso",
                         JOptionPane.WARNING_MESSAGE
                 );
+      			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 return;
             } else if (nomeCliente.contains("1") || nomeCliente.contains("2") || nomeCliente.contains("3") || nomeCliente.contains("4") || nomeCliente.contains("5") ||
             		   nomeCliente.contains("6") || nomeCliente.contains("7") || nomeCliente.contains("8") || nomeCliente.contains("9") || nomeCliente.contains("0") ||
@@ -257,6 +264,9 @@ public class TelaNovoPedido extends JFrame {
                         "Aviso",
                         JOptionPane.WARNING_MESSAGE
                 );
+      			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 return;
             }
             
@@ -267,6 +277,9 @@ public class TelaNovoPedido extends JFrame {
                         "Aviso",
                         JOptionPane.WARNING_MESSAGE
                 );
+      			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 return;
             }
             
@@ -277,6 +290,9 @@ public class TelaNovoPedido extends JFrame {
                         "Aviso",
                         JOptionPane.WARNING_MESSAGE
                 );
+      			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 return;
             }
 
@@ -292,7 +308,7 @@ public class TelaNovoPedido extends JFrame {
             dispose();
         });
 
-        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
         botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoVoltar.setForeground(new Color(255, 255, 255));
         botaoVoltar.setBackground(new Color(0, 0, 0));
@@ -325,6 +341,9 @@ public class TelaNovoPedido extends JFrame {
                             "Valor inválido",
                             JOptionPane.WARNING_MESSAGE
                     );
+          			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                     return;
                 }
                 

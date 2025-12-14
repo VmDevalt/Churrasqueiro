@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.business.PedidoController;
 import com.churrasqueiro.entities.ItemCardapio;
@@ -54,6 +55,9 @@ public class TelaPedidoConfirmar extends JFrame {
         Color corPaletaVermelhoPressionado = new Color(150,0,0);
         Color corPaletaPreto = new Color(0,0,0);
         Color corPaletaPretoInteracao = new Color(35,35,35);
+        Color corPaletaCinza = new Color(140,127,127);
+        Color corPaletaBegeInteracao = new Color(245,225,210);
+        Color corPaletaBegePressionado = new Color(200,175,160);
 
         setTitle("Novo Pedido - Churrasqueira");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -169,6 +173,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Erro ao iniciar pagamento PIX: " + ex.getMessage(),
                             "Erro", JOptionPane.ERROR_MESSAGE);
                 }
+     			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 
             }
 
@@ -194,6 +201,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Sucesso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+         			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
                     dispose();
                     new TelaPedidos().setVisible(true);
@@ -205,6 +215,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Erro",
                             JOptionPane.ERROR_MESSAGE
                     );
+         			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
         });
