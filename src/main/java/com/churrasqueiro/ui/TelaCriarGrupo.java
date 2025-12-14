@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.entities.Categoria;
@@ -28,6 +29,16 @@ public class TelaCriarGrupo extends JFrame {
     private EstilizacaoRedonda.CaixaTextoRedonda campoNomeGrupo;
     private EstilizacaoRedonda.CaixaTextoRedonda campoDescricaoGrupo;
     private final CategoriaController categoriaController = new CategoriaController();
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,16 +52,6 @@ public class TelaCriarGrupo extends JFrame {
 			}
 		});
 	}
-	
-	
-    Color corPaletaBege = new Color(227,202,187);
-    Color corPaletaVermelho = new Color(179,13,36);
-    Color corPaletaVermelhoInteracao = new Color(200,50,50);
-    Color corPaletaVermelhoPressionado = new Color(150,0,0);
-    Color corPaletaBranco = new Color(255,255,255);
-    Color corPaletaPreto = new Color(0,0,0);
-    Color corPaletaPretoInteração = new Color(35,35,35);
-    Color corPaletaCinza = new Color(140,127,127);
 
 	public TelaCriarGrupo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,7 +124,7 @@ public class TelaCriarGrupo extends JFrame {
 		descricaoLabel.setBounds(65, 266, 187, 32);
 		panel.add(descricaoLabel);
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoAdicionarGrupo = new EstilizacaoRedonda.BotaoRedondo("Adicionar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		final EstilizacaoRedonda.BotaoRedondo botaoAdicionarGrupo = new EstilizacaoRedonda.BotaoRedondo("Adicionar Grupo",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 		botaoAdicionarGrupo.setBounds(523, 450, 235, 45);
 		panel.add(botaoAdicionarGrupo);
 		botaoAdicionarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
@@ -135,7 +136,7 @@ public class TelaCriarGrupo extends JFrame {
 			}
 		});
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 		botaoVoltar.setBounds(1128, 35, 104, 38);
 		contentPane.add(botaoVoltar);
 		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
@@ -184,6 +185,9 @@ public class TelaCriarGrupo extends JFrame {
                     "Sucesso",
                     JOptionPane.INFORMATION_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             int opcao = JOptionPane.showConfirmDialog(
                     this,
@@ -191,6 +195,9 @@ public class TelaCriarGrupo extends JFrame {
                     "Categoria criada",
                     JOptionPane.YES_NO_OPTION
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             if (opcao == JOptionPane.YES_OPTION) {
                 dispose();
@@ -207,6 +214,9 @@ public class TelaCriarGrupo extends JFrame {
                     "Erro de Validação",
                     JOptionPane.WARNING_MESSAGE
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 
         } catch (DatabaseException ex) {
             JOptionPane.showMessageDialog(
@@ -215,6 +225,9 @@ public class TelaCriarGrupo extends JFrame {
                     "Erro de Banco",
                     JOptionPane.ERROR_MESSAGE
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 }

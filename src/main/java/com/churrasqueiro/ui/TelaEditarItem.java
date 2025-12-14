@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
@@ -48,16 +49,20 @@ public class TelaEditarItem extends JFrame {
     private final Map<String, Integer> listaCategorias = new HashMap<>();
 
     private final ItemCardapio itemEmEdicao;
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
+
 
     public TelaEditarItem(ItemCardapio item) {
         this.itemEmEdicao = item;
-
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteracao = new Color(35, 35, 35);
-        Color corPaletaCinza = new Color(140, 127, 127);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
@@ -221,6 +226,9 @@ public class TelaEditarItem extends JFrame {
                                 "Sucesso",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
@@ -228,6 +236,9 @@ public class TelaEditarItem extends JFrame {
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                     }
                 }
             }
@@ -363,6 +374,9 @@ public class TelaEditarItem extends JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 
@@ -446,21 +460,33 @@ public class TelaEditarItem extends JFrame {
 
         if (nome.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o nome do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (descricao.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a descrição do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (categoriaSelecionada == null || categoriaSelecionada.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selecione um grupo/categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (precoStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o preço do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
@@ -474,6 +500,9 @@ public class TelaEditarItem extends JFrame {
         Integer categoriaId = listaCategorias.get(categoriaSelecionada);
         if (categoriaId == null) {
             JOptionPane.showMessageDialog(this, "Categoria selecionada inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             return;
         }
 
@@ -493,6 +522,9 @@ public class TelaEditarItem extends JFrame {
                     "Sucesso",
                     JOptionPane.INFORMATION_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             int opcao = JOptionPane.showConfirmDialog(
                     this,
@@ -500,6 +532,9 @@ public class TelaEditarItem extends JFrame {
                     "Item atualizado",
                     JOptionPane.YES_NO_OPTION
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             if (opcao == JOptionPane.YES_OPTION) {
                 dispose();
@@ -514,6 +549,10 @@ public class TelaEditarItem extends JFrame {
                     "Erro de Validação",
                     JOptionPane.WARNING_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+	         
         } catch (DatabaseException ex) {
             JOptionPane.showMessageDialog(
                     this,
@@ -521,6 +560,9 @@ public class TelaEditarItem extends JFrame {
                     "Erro de Banco",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 

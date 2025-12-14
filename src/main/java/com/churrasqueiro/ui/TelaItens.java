@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,15 +23,17 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import javax.swing.UIManager;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+import java.awt.Image; 
+import java.net.URL;
+
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
 import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-import java.awt.Image; 
-import java.net.URL;
 
 public class TelaItens extends JFrame {
 
@@ -49,6 +52,16 @@ public class TelaItens extends JFrame {
     private final CategoriaController categoriaController = new CategoriaController();
 
     private List<ItemCardapio> listaCompletaItens;
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -77,6 +90,9 @@ public class TelaItens extends JFrame {
                     "Erro DB",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 
@@ -94,6 +110,9 @@ public class TelaItens extends JFrame {
                     "Erro DB",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 
@@ -166,11 +185,6 @@ public class TelaItens extends JFrame {
     }
 
     private JPanel criarCardProduto(ItemCardapio item) {
-    Color corPaletaVermelho = new Color(179, 13, 36);
-    Color corPaletaBege = new Color(227, 202, 187);
-    Color corTextoCategoria = new Color(40, 40, 40);
-    Color corPaletaPreto = new Color(0, 0, 0);
-    Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
     EstilizacaoRedonda.PainelRedondo panelCard =
             new EstilizacaoRedonda.PainelRedondo(null, 60, 4, corPaletaVermelho, null);
@@ -261,13 +275,6 @@ public class TelaItens extends JFrame {
 
     public TelaItens() {
 
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteração = new Color(35, 35, 35);
-        Color corPaletaCinza = new Color(140, 127, 127);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
@@ -300,7 +307,7 @@ public class TelaItens extends JFrame {
                 new EstilizacaoRedonda.BotaoRedondo(
                         "Voltar",
                         corPaletaPreto,
-                        corPaletaPretoInteração,
+                        corPaletaPretoInteracao,
                         corPaletaPreto,
                         35
                 );
@@ -357,7 +364,7 @@ public class TelaItens extends JFrame {
                 new EstilizacaoRedonda.BotaoRedondo(
                         "Criar Grupo",
                         corPaletaPreto,
-                        corPaletaPretoInteração,
+                        corPaletaPretoInteracao,
                         corPaletaPreto,
                         35
                 );
@@ -373,7 +380,7 @@ public class TelaItens extends JFrame {
             }
         });
         
-        final EstilizacaoRedonda.BotaoRedondo botaoEditarGrupo = new EstilizacaoRedonda.BotaoRedondo("Editar Grupo",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoEditarGrupo = new EstilizacaoRedonda.BotaoRedondo("Editar Grupo",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
         botaoEditarGrupo.setBounds(435, 20, 151, 38);
         botaoEditarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
         botaoEditarGrupo.setForeground(Color.WHITE);
