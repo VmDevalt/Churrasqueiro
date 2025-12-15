@@ -137,13 +137,10 @@ public class TelaCriarItem extends JFrame {
             }
         });
 
-        this.comboBoxGrupos = new JComboBox<>();
-        comboBoxGrupos.setBorder(new LineBorder(new Color(179, 13, 36), 1));
-        comboBoxGrupos.setForeground(corPaletaPreto);
-        comboBoxGrupos.setBackground(corPaletaBege);
-        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_BOLD_17);
-        comboBoxGrupos.setMaximumRowCount(2);
-        comboBoxGrupos.setBounds(100, 309, 486, 38);
+        this.comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
+        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        comboBoxGrupos.setMaximumRowCount(5);
+        comboBoxGrupos.setBounds(90, 309, 496, 38);
         panelClaro.add(comboBoxGrupos);
 
         carregarCategoriasNoComboBox();

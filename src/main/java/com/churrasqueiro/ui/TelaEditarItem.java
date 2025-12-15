@@ -108,13 +108,10 @@ public class TelaEditarItem extends JFrame {
             }
         });
 
-        comboBoxGrupos = new JComboBox<>();
-        comboBoxGrupos.setBorder(new LineBorder(corPaletaVermelho, 1));
-        comboBoxGrupos.setForeground(corPaletaPreto);
-        comboBoxGrupos.setBackground(corPaletaBege);
+        comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
         comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        comboBoxGrupos.setMaximumRowCount(4);
-        comboBoxGrupos.setBounds(100, 269, 486, 38);
+        comboBoxGrupos.setMaximumRowCount(5);
+        comboBoxGrupos.setBounds(90, 269, 496, 38);
         panelClaro.add(comboBoxGrupos);
 
         campoNome = new EstilizacaoRedonda.CaixaTextoRedonda(
