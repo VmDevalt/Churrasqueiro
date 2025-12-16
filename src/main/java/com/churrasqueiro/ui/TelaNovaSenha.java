@@ -7,10 +7,11 @@ import com.churrasqueiro.exceptions.DatabaseException;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.UIManager;
 
 public class TelaNovaSenha extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -21,6 +22,8 @@ public class TelaNovaSenha extends JFrame {
     private EstilizacaoRedonda.CaixaSenhaRedonda campoConfirmarSenha;
     private String emailUsuario;
     private static final EsqueceuSenhaController esqueceuSenhaController = new EsqueceuSenhaController();
+	private boolean visualizacaoSenha = false;
+	private boolean visualizacaoConfirmacaoSenha = false;
     
     Color corPaletaVermelho = new Color(179,13,36);
     Color corPaletaBege = new Color(227,202,187);
@@ -119,6 +122,52 @@ public class TelaNovaSenha extends JFrame {
         panelBranco.setBounds(90, 85, 1098, 505);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
+        
+		JButton botaoRevelarSenha = new JButton("");
+		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+		botaoRevelarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(visualizacaoSenha == false) {
+					campoSenha.setEchoChar((char)0);
+					visualizacaoSenha = true;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoSenha.setEchoChar('•');
+					visualizacaoSenha = false;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
+			}
+		});
+		botaoRevelarSenha.setBounds(661, 210, 58, 38);
+		panelBranco.add(botaoRevelarSenha);
+		botaoRevelarSenha.setBorder(null);
+		botaoRevelarSenha.setContentAreaFilled(false);
+		botaoRevelarSenha.setFocusPainted(false);
+		botaoRevelarSenha.setOpaque(false);
+		
+		JButton botaoRevelarConfirmarSenha = new JButton("");
+		botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+		botaoRevelarConfirmarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(visualizacaoConfirmacaoSenha == false) {
+					campoConfirmarSenha.setEchoChar((char)0);
+					visualizacaoConfirmacaoSenha = true;
+					botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoConfirmarSenha.setEchoChar('•');
+					visualizacaoConfirmacaoSenha = false;
+					botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
+			}
+		});
+		botaoRevelarConfirmarSenha.setBounds(661, 290, 58, 38);
+		panelBranco.add(botaoRevelarConfirmarSenha);
+		botaoRevelarConfirmarSenha.setBorder(null);
+		botaoRevelarConfirmarSenha.setContentAreaFilled(false);
+		botaoRevelarConfirmarSenha.setFocusPainted(false);
+		botaoRevelarConfirmarSenha.setOpaque(false);
         
         JLabel labelTitulo = new JLabel("Nova Senha");
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);

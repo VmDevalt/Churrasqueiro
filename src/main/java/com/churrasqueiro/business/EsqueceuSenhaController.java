@@ -50,8 +50,6 @@ public class EsqueceuSenhaController {
 
 	    PasswordRedefinerEmail.enviarEmail(token, email);
 	    
-	    System.out.println("[DEBUG_TOKEN]: " + token);
-	    
 	    return token;
 	}
 
