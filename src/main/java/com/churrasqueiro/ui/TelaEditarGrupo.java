@@ -77,9 +77,9 @@ public class TelaEditarGrupo extends JFrame {
         logoLabel.setBounds(30, 12, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaEditarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
+
+        JPanel panel = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
+        panel.setBounds(-25, 102, 1291, 581);
         panel.setBackground(corPaletaBege);
         contentPane.add(panel);
         panel.setLayout(null);
