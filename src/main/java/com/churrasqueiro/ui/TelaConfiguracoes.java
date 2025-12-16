@@ -67,9 +67,9 @@ public class TelaConfiguracoes extends JFrame {
         logoLabel.setBounds(30, 10, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaCriarGrupo.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPane.add(logoLabel);
-		
-		JPanel panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
+
+		JPanel panel = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
+        panel.setBounds(-25, 102, 1291, 581);
         panel.setBackground(corPaletaBege);
         contentPane.add(panel);
         panel.setLayout(null);
@@ -89,7 +89,7 @@ public class TelaConfiguracoes extends JFrame {
 		});
         
         JLabel contaLabel = new JLabel("Conta");
-        contaLabel.setBounds(564, 26, 109, 76);
+        contaLabel.setBounds(589, 26, 109, 76);
         contaLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         contaLabel.setForeground(corPaletaPreto);
         panel.add(contaLabel);
@@ -97,84 +97,84 @@ public class TelaConfiguracoes extends JFrame {
         JLabel loginTituloLabel = new JLabel("Login");
         loginTituloLabel.setForeground(corPaletaVermelho);
         loginTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        loginTituloLabel.setBounds(66, 163, 109, 44);
+        loginTituloLabel.setBounds(91, 163, 109, 44);
         panel.add(loginTituloLabel);
         
         JLabel loginTextoLabel = new JLabel(usuarioLogado.getLogin());
         loginTextoLabel.setForeground(corPaletaPreto);
         loginTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        loginTextoLabel.setBounds(66, 199, 292, 35);
+        loginTextoLabel.setBounds(91, 199, 292, 35);
         panel.add(loginTextoLabel);
         
         JLabel tipoContaTextoLabel = new JLabel(usuarioLogado.getTipo());
         tipoContaTextoLabel.setForeground(Color.BLACK);
         tipoContaTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        tipoContaTextoLabel.setBounds(66, 302, 206, 35);
+        tipoContaTextoLabel.setBounds(91, 302, 206, 35);
         panel.add(tipoContaTextoLabel);
         
         JLabel tipoContaTituloLabel = new JLabel("Tipo da conta");
         tipoContaTituloLabel.setForeground(new Color(179, 13, 36));
         tipoContaTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        tipoContaTituloLabel.setBounds(66, 267, 231, 44);
+        tipoContaTituloLabel.setBounds(91, 267, 231, 44);
         panel.add(tipoContaTituloLabel);
         
         JLabel emailTituloLabel = new JLabel("E-mail");
         emailTituloLabel.setForeground(new Color(179, 13, 36));
         emailTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        emailTituloLabel.setBounds(826, 147, 109, 44);
+        emailTituloLabel.setBounds(851, 147, 109, 44);
         panel.add(emailTituloLabel);
         
         JLabel lblIngridvitriachurrasqueirocom = new JLabel(usuarioLogado.getEmail());
         lblIngridvitriachurrasqueirocom.setForeground(Color.BLACK);
         lblIngridvitriachurrasqueirocom.setFont(new Font("SansSerif", Font.BOLD, 22));
-        lblIngridvitriachurrasqueirocom.setBounds(826, 183, 378, 35);
+        lblIngridvitriachurrasqueirocom.setBounds(851, 183, 378, 35);
         panel.add(lblIngridvitriachurrasqueirocom);
         
         JLabel cnpjTituloLabel = new JLabel("CNPJ");
         cnpjTituloLabel.setForeground(new Color(179, 13, 36));
         cnpjTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
-        cnpjTituloLabel.setBounds(826, 251, 109, 44);
+        cnpjTituloLabel.setBounds(851, 251, 109, 44);
         panel.add(cnpjTituloLabel);
         
         JLabel cpfTextoLabel = new JLabel("91.398.041/0001-33"); //pj mockaado gerado no 4devs 
         cpfTextoLabel.setForeground(Color.BLACK);
         cpfTextoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        cpfTextoLabel.setBounds(826, 286, 284, 35);
+        cpfTextoLabel.setBounds(851, 286, 284, 35);
         panel.add(cpfTextoLabel);
         
         JLabel formasPagamentoTituloLabel = new JLabel("Formas de Pagamento");
         formasPagamentoTituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formasPagamentoTituloLabel.setForeground(new Color(179, 13, 36));
         formasPagamentoTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
-        formasPagamentoTituloLabel.setBounds(448, 329, 350, 44);
+        formasPagamentoTituloLabel.setBounds(473, 329, 350, 44);
         panel.add(formasPagamentoTituloLabel);
         
         JLabel pixLabel = new JLabel("Pix");
         pixLabel.setHorizontalAlignment(SwingConstants.CENTER);
         pixLabel.setForeground(Color.BLACK);
         pixLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        pixLabel.setBounds(484, 370, 284, 35);
+        pixLabel.setBounds(509, 370, 284, 35);
         panel.add(pixLabel);
         
         JLabel dinheiroLabel = new JLabel("Dinheiro");
         dinheiroLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dinheiroLabel.setForeground(Color.BLACK);
         dinheiroLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        dinheiroLabel.setBounds(484, 405, 284, 35);
+        dinheiroLabel.setBounds(509, 405, 284, 35);
         panel.add(dinheiroLabel);
         
         JLabel debitoLabel = new JLabel("Débito");
         debitoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         debitoLabel.setForeground(Color.BLACK);
         debitoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        debitoLabel.setBounds(484, 442, 284, 35);
+        debitoLabel.setBounds(509, 442, 284, 35);
         panel.add(debitoLabel);
         
         JLabel creditoLabel = new JLabel("Crédito");
         creditoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         creditoLabel.setForeground(Color.BLACK);
         creditoLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-        creditoLabel.setBounds(484, 478, 284, 35);
+        creditoLabel.setBounds(509, 478, 284, 35);
         panel.add(creditoLabel);
 
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
