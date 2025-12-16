@@ -205,7 +205,7 @@ public class TelaGestao extends JFrame {
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(corPaletaBege);
         botaoVoltar.setBackground(corPaletaPreto);
-        botaoVoltar.setBounds(1115, 19, 120, 38);
+        botaoVoltar.setBounds(1115, 30, 120, 38);
         panelVermelho.add(botaoVoltar);
         botaoVoltar.addActionListener(e -> {
             dispose();
@@ -215,11 +215,11 @@ public class TelaGestao extends JFrame {
 
         JLabel logoLabel = new JLabel("");
         logoLabel.setIcon(new ImageIcon(TelaGestao.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        logoLabel.setBounds(30, 0, 92, 82);
+        logoLabel.setBounds(20,13, 92, 79);
         panelVermelho.add(logoLabel);
 
         JLabel pedidosLabel = new JLabel("Pedidos");
-        pedidosLabel.setBounds(215, 34, 208, 38);
+        pedidosLabel.setBounds(215, 30, 208, 38);
         pedidosLabel.setForeground(corPaletaBege);
         pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         pedidosLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -260,18 +260,18 @@ public class TelaGestao extends JFrame {
         JLabel dashboardLabel = new JLabel("Dashboard");
         dashboardLabel.setForeground(corPaletaBege);
         dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        dashboardLabel.setBounds(798, 34, 240, 38);
+        dashboardLabel.setBounds(798, 30, 240, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panelVermelho.add(dashboardLabel);
         
                 JPanel panelSelecionado = new JPanel();
-                panelSelecionado.setBounds(552, 0, 169, 102);
+                panelSelecionado.setBounds(480, 0, 240, 102);
                 panelVermelho.add(panelSelecionado);
                 panelSelecionado.setBackground(corPaletaBege);
                 panelSelecionado.setLayout(null);
                         
                                 JLabel gestaoLabel = new JLabel("Gestão");
-                                gestaoLabel.setBounds(12, 30, 152, 38);
+                                gestaoLabel.setBounds(48, 30, 152, 38);
                                 panelSelecionado.add(gestaoLabel);
                                 gestaoLabel.setForeground(corPaletaPreto);
                                 gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);

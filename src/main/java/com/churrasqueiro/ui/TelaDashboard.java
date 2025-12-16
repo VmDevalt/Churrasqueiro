@@ -89,7 +89,6 @@ public class TelaDashboard extends JFrame {
                 setIconImage(icon);
             } catch (java.io.IOException ignored) {}
         }
-
         JLabel logoLabel = new JLabel("");
         logoLabel.setBounds(20, 13, 92, 79);
         logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
@@ -227,7 +226,7 @@ public class TelaDashboard extends JFrame {
         
                 EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                         new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-                botaoVoltar.setBounds(1115, 19, 120, 38);
+                botaoVoltar.setBounds(1115, 30, 120, 38);
                 contentPane.add(botaoVoltar);
                 botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
                 botaoVoltar.setForeground(corPaletaBege);
