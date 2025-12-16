@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 
 import com.churrasqueiro.entities.PedidoEmMontagem;
+import com.churrasqueiro.utils.FontsConstants;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -97,28 +98,21 @@ public class TelaNovoPedido extends JFrame {
             }
         }
 
-        String[] mesas = {"01", "02", "03"};
-        this.cBoxMesas = new JComboBox<>(mesas);
-        cBoxMesas.setBorder(new LineBorder(new Color(179, 13, 36), 1));
-        cBoxMesas.setForeground(corPaletaPreto);
-        cBoxMesas.setBackground(corPaletaBege);
+        cBoxMesas = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"01", "02", "03"}, corPaletaBege, corPaletaVermelho, 2, 20);
         cBoxMesas.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        cBoxMesas.setMaximumRowCount(2);
+        cBoxMesas.setMaximumRowCount(5);
         cBoxMesas.setBounds(500, 99, 56, 23);
         panelBranco.add(cBoxMesas);
         if(pedido.getNumeroMesa() != null) {
         	cBoxMesas.setSelectedItem(pedido.getNumeroMesa());
         }
 
-        String[] FormaPagamento = {"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"};
-        this.cBoxFormaPagamento = new JComboBox<>(FormaPagamento);
-        cBoxFormaPagamento.setBorder(new LineBorder(new Color(179, 13, 36), 1));
-        cBoxFormaPagamento.setForeground(corPaletaPreto);
-        cBoxFormaPagamento.setBackground(corPaletaBege);
+        cBoxFormaPagamento = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"}, corPaletaBege, corPaletaVermelho, 2, 20);
         cBoxFormaPagamento.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        cBoxFormaPagamento.setMaximumRowCount(2);
+        cBoxFormaPagamento.setMaximumRowCount(5);
         cBoxFormaPagamento.setBounds(643, 340, 210, 23);
         panelBranco.add(cBoxFormaPagamento);
+
         if(pedido.getFormaPagamento() != null) {
         	cBoxFormaPagamento.setSelectedItem(pedido.getFormaPagamento());
         }

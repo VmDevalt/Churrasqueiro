@@ -101,8 +101,10 @@ public class TelaRelatorios extends JFrame {
         labelValorVendas.setBounds(97, 145, 350, 51);
         panel.add(labelValorVendas);
 
-        vendasComboBox = new JComboBox<>();
-        vendasComboBox.setBounds(427, 122, 160, 25);
+        vendasComboBox = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
+        vendasComboBox.setBounds(427, 122, 160, 30);
+        vendasComboBox.setFont(new Font("SansSerif", Font.PLAIN, 17));
+
         panel.add(vendasComboBox);
 
         JLabel maisVendidosLabel = new JLabel("Mais Vendido");
@@ -122,8 +124,10 @@ public class TelaRelatorios extends JFrame {
         unidadesLabel.setBounds(916, 195, 200, 28);
         panel.add(unidadesLabel);
 
-        maisVendidoComboBox = new JComboBox<>();
-        maisVendidoComboBox.setBounds(1076, 120, 160, 25);
+        maisVendidoComboBox =  new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
+        maisVendidoComboBox.setBounds(1076, 120, 160, 30);
+        maisVendidoComboBox.setFont(new Font("SansSerif", Font.PLAIN, 17));
+
         panel.add(maisVendidoComboBox);
 
         String[] opcoes = { "HOJE", "ÚLTIMA SEMANA", "ÚLTIMO MÊS", "ÚLTIMO ANO" };
