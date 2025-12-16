@@ -133,7 +133,7 @@ public class TelaDashboard extends JFrame {
         });
 
         JLabel gestaoLabel = new JLabel("Gestão");
-        gestaoLabel.setBounds(570, 34, 169, 38);
+        gestaoLabel.setBounds(500, 34, 169, 38);
         gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gestaoLabel.setForeground(corPaletaBege);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -172,7 +172,7 @@ public class TelaDashboard extends JFrame {
         });
 
         JPanel dashboardPanel = new JPanel();
-        dashboardPanel.setBounds(840, 0, 240, 102);
+        dashboardPanel.setBounds(720, 0, 340, 102);
         dashboardPanel.setBackground(corPaletaBege);
         dashboardPanel.setLayout(null);
         contentPane.add(dashboardPanel);
@@ -180,7 +180,7 @@ public class TelaDashboard extends JFrame {
         JLabel dashbordLabel = new JLabel("Dashboard");
         dashbordLabel.setForeground(corPaletaPreto);
         dashbordLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        dashbordLabel.setBounds(0, 36, 240, 38);
+        dashbordLabel.setBounds(52, 36, 240, 38);
         dashboardPanel.add(dashbordLabel);
 
         panel = new JPanel();
@@ -226,7 +226,7 @@ public class TelaDashboard extends JFrame {
         
                 EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                         new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-                botaoVoltar.setBounds(1115, 30, 120, 38);
+                botaoVoltar.setBounds(1115, 33, 120, 38);
                 contentPane.add(botaoVoltar);
                 botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
                 botaoVoltar.setForeground(corPaletaBege);
