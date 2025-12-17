@@ -24,6 +24,7 @@ import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaPedidoConfirmar extends JFrame {
 
@@ -145,7 +146,7 @@ public class TelaPedidoConfirmar extends JFrame {
                 new EstilizacaoRedonda.BotaoRedondo("Confirmar",
                         corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 
-        botaoConfirmar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoConfirmar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoConfirmar.setForeground(corPaletaBege);
         botaoConfirmar.setBounds(565, 509, 182, 38);
         panelBranco.add(botaoConfirmar);
@@ -226,7 +227,7 @@ public class TelaPedidoConfirmar extends JFrame {
                 new EstilizacaoRedonda.BotaoRedondo("Voltar",
                         corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBounds(1131, 19, 104, 38);
         panelVermelho.add(botaoVoltar);
@@ -242,7 +243,7 @@ public class TelaPedidoConfirmar extends JFrame {
         panelVermelho.add(logoLabel);
 
         JLabel novoPedidoLabel = new JLabel("Novo Pedido");
-        novoPedidoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        novoPedidoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         novoPedidoLabel.setForeground(corPaletaBege);
         novoPedidoLabel.setBounds(485, 12, 261, 52);
         panelVermelho.add(novoPedidoLabel);

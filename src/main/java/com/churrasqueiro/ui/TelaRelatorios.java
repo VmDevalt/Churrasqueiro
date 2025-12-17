@@ -20,6 +20,7 @@ import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.business.RelatoriosController;
 import com.churrasqueiro.entities.Caixa;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaRelatorios extends JFrame {
 
@@ -96,14 +97,14 @@ public class TelaRelatorios extends JFrame {
         panel.add(vendasLabel);
 
         labelValorVendas = new JLabel("R$ 0,00");
-        labelValorVendas.setFont(new Font("SansSerif", Font.BOLD, 45));
+        labelValorVendas.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         labelValorVendas.setForeground(corPaletaVermelho);
         labelValorVendas.setBounds(97, 145, 350, 51);
         panel.add(labelValorVendas);
 
         vendasComboBox = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
         vendasComboBox.setBounds(427, 122, 160, 30);
-        vendasComboBox.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        vendasComboBox.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
 
         panel.add(vendasComboBox);
 
@@ -115,7 +116,7 @@ public class TelaRelatorios extends JFrame {
 
         itemMaisVendidoLabel = new JLabel("N/A");
         itemMaisVendidoLabel.setForeground(corPaletaVermelho);
-        itemMaisVendidoLabel.setFont(new Font("SansSerif", Font.BOLD, 45));
+        itemMaisVendidoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         itemMaisVendidoLabel.setBounds(723, 145, 500, 51);
         panel.add(itemMaisVendidoLabel);
 
@@ -126,7 +127,7 @@ public class TelaRelatorios extends JFrame {
 
         maisVendidoComboBox =  new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
         maisVendidoComboBox.setBounds(1076, 120, 160, 30);
-        maisVendidoComboBox.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        maisVendidoComboBox.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
 
         panel.add(maisVendidoComboBox);
 
@@ -197,7 +198,7 @@ public class TelaRelatorios extends JFrame {
         panel.add(lblMetaFaturamentoValor);
 
         JLabel relatoriosLabel = new JLabel("Relatórios");
-        relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        relatoriosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         relatoriosLabel.setForeground(corPaletaBege);
         relatoriosLabel.setBounds(542, 34, 190, 38);
         contentPane.add(relatoriosLabel);
@@ -210,7 +211,7 @@ public class TelaRelatorios extends JFrame {
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =
                 new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
 
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBounds(1132, 34, 104, 38);
         contentPane.add(botaoVoltar);

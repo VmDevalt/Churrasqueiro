@@ -30,6 +30,7 @@ import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.NotaFiscalPdfUtil;
+import com.churrasqueiro.utils.FontsConstants;
 
 
 public class TelaPedidos extends JFrame {
@@ -103,7 +104,7 @@ public class TelaPedidos extends JFrame {
 
         JLabel pedidosLabel = new JLabel("Pedidos");
         pedidosLabel.setForeground(corPaletaPreto);
-        pedidosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         pedidosLabel.setBounds(55, 10, 200, 57);
         painelSelecionado.add(pedidosLabel);
 
@@ -115,7 +116,7 @@ public class TelaPedidos extends JFrame {
         	gestaoLabel.setForeground(new Color(216, 173, 173));
         }
         
-        gestaoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gestaoLabel.setBounds(530, 19, 200, 38);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(gestaoLabel);
@@ -176,7 +177,7 @@ public class TelaPedidos extends JFrame {
         	dashboardLabel.setForeground(new Color(216, 173, 173));
         }
         
-        dashboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         dashboardLabel.setBounds(800, 19, 230, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(dashboardLabel);
@@ -238,7 +239,7 @@ public class TelaPedidos extends JFrame {
                         35
                 );
         botaoVoltar.setBounds(1125, 19, 110, 38);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         topoVermelho.add(botaoVoltar);
         botaoVoltar.addActionListener(e -> {
@@ -261,7 +262,7 @@ public class TelaPedidos extends JFrame {
                         35
                 );
         botaoNovoPedido.setBounds(300, 25, 260, 38);
-        botaoNovoPedido.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        botaoNovoPedido.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
         botaoNovoPedido.setForeground(corPaletaBege);
         areaConteudo.add(botaoNovoPedido);
         botaoNovoPedido.addActionListener(e -> {

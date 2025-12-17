@@ -4,6 +4,8 @@ import java.awt.Font;
 
 public class FontsConstants {
     public static Font MONTSERRAT_LIGHT_10;
+    public static Font MONTSERRAT_LIGHT_13;
+    public static Font MONTSERRAT_LIGHT_16;
     public static Font MONTSERRAT_REGULAR_12;
     public static Font MONTSERRAT_REGULAR_13;
     public static Font MONTSERRAT_REGULAR_14;
@@ -20,6 +22,7 @@ public class FontsConstants {
     public static Font MONTSERRAT_BOLD_19;
     public static Font MONTSERRAT_BOLD_20;
     public static Font MONTSERRAT_BOLD_22;
+    public static Font MONTSERRAT_BOLD_24;
     public static Font MONTSERRAT_BOLD_25;
     public static Font MONTSERRAT_BOLD_30;
     public static Font MONTSERRAT_BOLD_40;
@@ -32,6 +35,8 @@ public class FontsConstants {
         FontManager fontManager = FontManager.getInstance();
 
         MONTSERRAT_LIGHT_10 = fontManager.getMontserratLight(10);
+        MONTSERRAT_LIGHT_13 = fontManager.getMontserratLight(13);
+        MONTSERRAT_LIGHT_16 = fontManager.getMontserratLight(16);
 
         MONTSERRAT_REGULAR_12 = fontManager.getMontserratRegular(12);
         MONTSERRAT_REGULAR_13 = fontManager.getMontserratRegular(13);
@@ -50,6 +55,7 @@ public class FontsConstants {
         MONTSERRAT_BOLD_19 = fontManager.getMontserratBold(19);
         MONTSERRAT_BOLD_20 = fontManager.getMontserratBold(20);
         MONTSERRAT_BOLD_22 = fontManager.getMontserratBold(22);
+        MONTSERRAT_BOLD_24 = fontManager.getMontserratBold(24);
         MONTSERRAT_BOLD_25 = fontManager.getMontserratBold(25);
         MONTSERRAT_BOLD_30 = fontManager.getMontserratBold(30);
         MONTSERRAT_BOLD_40 = fontManager.getMontserratBold(40);

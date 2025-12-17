@@ -219,7 +219,7 @@ public class TelaCadastro extends JFrame {
 	    panelBranco.add(labelConfirmarSenha);
 
         cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxTipoUsuario.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
 		cBoxTipoUsuario.setBounds(444, 140, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
 		

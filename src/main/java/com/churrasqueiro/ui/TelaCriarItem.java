@@ -138,7 +138,7 @@ public class TelaCriarItem extends JFrame {
         });
 
         this.comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
-        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
         comboBoxGrupos.setMaximumRowCount(5);
         comboBoxGrupos.setBounds(90, 309, 496, 38);
         panelClaro.add(comboBoxGrupos);

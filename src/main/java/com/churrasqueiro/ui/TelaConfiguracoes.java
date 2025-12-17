@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
+
 import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaConfiguracoes extends JFrame {
 
@@ -59,7 +61,7 @@ public class TelaConfiguracoes extends JFrame {
         
         JLabel configuracoesLabel = new JLabel("Configurações");
         configuracoesLabel.setBounds(498, 21, 259, 58);
-        configuracoesLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        configuracoesLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         configuracoesLabel.setForeground(corPaletaBege);
         contentPane.add(configuracoesLabel);
         
@@ -75,7 +77,7 @@ public class TelaConfiguracoes extends JFrame {
         panel.setLayout(null);
         
         final EstilizacaoRedonda.BotaoRedondo botaoSair = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
-		botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
+		botaoSair.setFont(FontsConstants.MONTSERRAT_BOLD_18);
 		botaoSair.setForeground(corPaletaBege);
 		botaoSair.setBackground(new Color(0, 0, 0));
 		botaoSair.setBounds(1099, 38, 111, 38);
@@ -90,7 +92,7 @@ public class TelaConfiguracoes extends JFrame {
         
         JLabel contaLabel = new JLabel("Conta");
         contaLabel.setBounds(564, 26, 109, 76);
-        contaLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        contaLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         contaLabel.setForeground(corPaletaPreto);
         panel.add(contaLabel);
         

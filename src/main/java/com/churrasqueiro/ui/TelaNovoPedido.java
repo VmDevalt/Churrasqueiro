@@ -99,7 +99,7 @@ public class TelaNovoPedido extends JFrame {
         }
 
         cBoxMesas = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"01", "02", "03"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxMesas.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        cBoxMesas.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
         cBoxMesas.setMaximumRowCount(5);
         cBoxMesas.setBounds(500, 99, 56, 23);
         panelBranco.add(cBoxMesas);
@@ -108,7 +108,7 @@ public class TelaNovoPedido extends JFrame {
         }
 
         cBoxFormaPagamento = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxFormaPagamento.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        cBoxFormaPagamento.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
         cBoxFormaPagamento.setMaximumRowCount(5);
         cBoxFormaPagamento.setBounds(643, 340, 210, 23);
         panelBranco.add(cBoxFormaPagamento);
@@ -130,7 +130,7 @@ public class TelaNovoPedido extends JFrame {
         panelBranco.add(lblNome);
 
         this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoNome.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoNome.setBounds(699, 93, 360, 38);
         campoNome.setColumns(10);
         panelBranco.add(campoNome);
@@ -146,7 +146,7 @@ public class TelaNovoPedido extends JFrame {
         panelBranco.add(lblAcrescimo);
 
         this.campoAcrescimo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Acréssimo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoAcrescimo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoAcrescimo.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoAcrescimo.setBounds(520, 207, 360, 38);
         campoAcrescimo.setColumns(10);
         panelBranco.add(campoAcrescimo);
@@ -162,7 +162,7 @@ public class TelaNovoPedido extends JFrame {
         panelBranco.add(lblDesconto);
 
         this.campoDesconto = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Desconto",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoDesconto.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoDesconto.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoDesconto.setBounds(520, 275, 360, 38);
         campoDesconto.setColumns(10);
         panelBranco.add(campoDesconto);
@@ -184,7 +184,7 @@ public class TelaNovoPedido extends JFrame {
         panelBranco.add(lblObservacoes);
 
         this.campoObservacoes = new EstilizacaoRedonda.CaixaTextoRedonda("Digite as Observações",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-        campoObservacoes.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoObservacoes.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoObservacoes.setBounds(535, 418, 360, 38);
         campoObservacoes.setColumns(10);
         panelBranco.add(campoObservacoes);
@@ -194,7 +194,7 @@ public class TelaNovoPedido extends JFrame {
         }
 
         final EstilizacaoRedonda.BotaoRedondo botaoAvancar = new EstilizacaoRedonda.BotaoRedondo("Avançar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
-        botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoAvancar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoAvancar.setForeground(corPaletaBege);
         botaoAvancar.setBackground(new Color(0, 0, 0));
         botaoAvancar.setBounds(1052, 530, 182, 38);
@@ -303,7 +303,7 @@ public class TelaNovoPedido extends JFrame {
         });
 
         final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(new Color(255, 255, 255));
         botaoVoltar.setBackground(new Color(0, 0, 0));
         botaoVoltar.setBounds(1131, 19, 104, 38);
@@ -353,7 +353,7 @@ public class TelaNovoPedido extends JFrame {
             });
 
         JLabel relatoriosLabel = new JLabel("Novo Pedido");
-        relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        relatoriosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         relatoriosLabel.setForeground(corPaletaBege);
         relatoriosLabel.setBounds(485, 12, 261, 52);
         panelVermelho.add(relatoriosLabel);
