@@ -138,7 +138,7 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JLabel lblConfirmarPedido = new JLabel("Confirmar Pedido");
         lblConfirmarPedido.setForeground(Color.BLACK);
-        lblConfirmarPedido.setFont(new Font("Dialog", Font.PLAIN, 22));
+        lblConfirmarPedido.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblConfirmarPedido.setBounds(555, 12, 220, 26);
         panelBranco.add(lblConfirmarPedido);
 

@@ -123,7 +123,7 @@ public class TelaNovaSenha extends JFrame {
         JLabel labelTitulo = new JLabel("Nova Senha");
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         labelTitulo.setForeground(corPaletaPreto);
-        labelTitulo.setFont(FontsConstants.MONTSERRAT_EXTRABOLD_50);
+        labelTitulo.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         labelTitulo.setBounds(298, 110, 508, 55);
         panelBranco.add(labelTitulo);
         
@@ -155,7 +155,7 @@ public class TelaNovaSenha extends JFrame {
         JButton botaoSalvar = new EstilizacaoRedonda.BotaoRedondo("Salvar Senha", corPaletaVermelho, corPaletaVermelhoInteracao, corPaletaVermelhoPressionado, 35);
         botaoSalvar.setForeground(corPaletaBege);
         botaoSalvar.setBackground(corPaletaVermelho);
-        botaoSalvar.setBounds(429, 350, 240, 38);
+        botaoSalvar.setBounds(429, 360, 240, 38);
         botaoSalvar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         botaoSalvar.addActionListener(e -> salvarSenha());
         panelBranco.add(botaoSalvar);
@@ -171,7 +171,7 @@ public class TelaNovaSenha extends JFrame {
         botaoVoltar.setBorderPainted(false);
         botaoVoltar.setFocusPainted(false);
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
-        botaoVoltar.setBounds(1115, 19, 120, 35);
+        botaoVoltar.setBounds(1115, 27, 120, 35);
         botaoVoltar.addActionListener(e -> {
             dispose();
             

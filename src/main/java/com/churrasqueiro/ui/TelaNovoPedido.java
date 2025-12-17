@@ -78,14 +78,14 @@ public class TelaNovoPedido extends JFrame {
 
         JPanel panelBranco = new JPanel();
         panelBranco.setBackground(new Color(227,202,187));
-        panelBranco.setBounds(0, 74, 1280, 609);
+        panelBranco.setBounds(0, 104, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
 
         JLabel lblinicioPedido = new JLabel("Início do Pedido");
-        lblinicioPedido.setForeground(Color.BLACK);
-        lblinicioPedido.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblinicioPedido.setBounds(558, 12, 168, 26);
+        lblinicioPedido.setForeground(corPaletaPreto);
+        lblinicioPedido.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        lblinicioPedido.setBounds(480, 25, 340, 35);
         panelBranco.add(lblinicioPedido);
 
         java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
@@ -99,18 +99,18 @@ public class TelaNovoPedido extends JFrame {
         }
 
         cBoxMesas = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"01", "02", "03"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxMesas.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
+        cBoxMesas.setFont(FontsConstants.MONTSERRAT_BOLD_13);
         cBoxMesas.setMaximumRowCount(5);
-        cBoxMesas.setBounds(500, 99, 56, 23);
+        cBoxMesas.setBounds(500, 95, 56, 30);
         panelBranco.add(cBoxMesas);
         if(pedido.getNumeroMesa() != null) {
         	cBoxMesas.setSelectedItem(pedido.getNumeroMesa());
         }
 
         cBoxFormaPagamento = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxFormaPagamento.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
+        cBoxFormaPagamento.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         cBoxFormaPagamento.setMaximumRowCount(5);
-        cBoxFormaPagamento.setBounds(643, 340, 210, 23);
+        cBoxFormaPagamento.setBounds(658, 340, 210, 23);
         panelBranco.add(cBoxFormaPagamento);
 
         if(pedido.getFormaPagamento() != null) {
@@ -119,13 +119,13 @@ public class TelaNovoPedido extends JFrame {
 
         lblMesas = new JLabel("Mesas:");
         lblMesas.setForeground(Color.BLACK);
-        lblMesas.setFont(new Font("Dialog", Font.PLAIN, 22));
+        lblMesas.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblMesas.setBounds(402, 96, 80, 26);
         panelBranco.add(lblMesas);
 
         lblNome = new JLabel("Nome:");
         lblNome.setForeground(Color.BLACK);
-        lblNome.setFont(new Font("Dialog", Font.PLAIN, 22));
+        lblNome.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblNome.setBounds(626, 99, 80, 26);
         panelBranco.add(lblNome);
 
@@ -141,13 +141,13 @@ public class TelaNovoPedido extends JFrame {
 
         JLabel lblAcrescimo = new JLabel("Acréscimo:");
         lblAcrescimo.setForeground(Color.BLACK);
-        lblAcrescimo.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblAcrescimo.setBounds(402, 200, 121, 26);
+        lblAcrescimo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        lblAcrescimo.setBounds(402, 210, 121, 26);
         panelBranco.add(lblAcrescimo);
 
         this.campoAcrescimo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Acréssimo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoAcrescimo.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
-        campoAcrescimo.setBounds(520, 207, 360, 38);
+        campoAcrescimo.setBounds(530, 207, 360, 38);
         campoAcrescimo.setColumns(10);
         panelBranco.add(campoAcrescimo);
         if(pedido.getAcrescimo() != 0 ) {
@@ -157,8 +157,8 @@ public class TelaNovoPedido extends JFrame {
 
         JLabel lblDesconto = new JLabel("Desconto:");
         lblDesconto.setForeground(Color.BLACK);
-        lblDesconto.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblDesconto.setBounds(402, 268, 121, 26);
+        lblDesconto.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        lblDesconto.setBounds(402, 278, 121, 26);
         panelBranco.add(lblDesconto);
 
         this.campoDesconto = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Desconto",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
@@ -173,19 +173,19 @@ public class TelaNovoPedido extends JFrame {
 
         JLabel lblFormaPagamento = new JLabel("Formas de Pagamento:");
         lblFormaPagamento.setForeground(Color.BLACK);
-        lblFormaPagamento.setFont(new Font("Dialog", Font.PLAIN, 22));
+        lblFormaPagamento.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblFormaPagamento.setBounds(402, 337, 255, 26);
         panelBranco.add(lblFormaPagamento);
 
         JLabel lblObservacoes = new JLabel("Observações:");
         lblObservacoes.setForeground(Color.BLACK);
-        lblObservacoes.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblObservacoes.setBounds(402, 411, 154, 26);
+        lblObservacoes.setFont(FontsConstants.MONTSERRAT_BOLD_20);
+        lblObservacoes.setBounds(402, 421, 154, 26);
         panelBranco.add(lblObservacoes);
 
         this.campoObservacoes = new EstilizacaoRedonda.CaixaTextoRedonda("Digite as Observações",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoObservacoes.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
-        campoObservacoes.setBounds(535, 418, 360, 38);
+        campoObservacoes.setBounds(555, 418, 360, 38);
         campoObservacoes.setColumns(10);
         panelBranco.add(campoObservacoes);
         if(pedido.getObservacoes() != null ) {
@@ -194,10 +194,10 @@ public class TelaNovoPedido extends JFrame {
         }
 
         final EstilizacaoRedonda.BotaoRedondo botaoAvancar = new EstilizacaoRedonda.BotaoRedondo("Avançar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
-        botaoAvancar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoAvancar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         botaoAvancar.setForeground(corPaletaBege);
         botaoAvancar.setBackground(new Color(0, 0, 0));
-        botaoAvancar.setBounds(1052, 530, 182, 38);
+        botaoAvancar.setBounds(570, 500, 182, 38);
         panelBranco.add(botaoAvancar);
 
         botaoAvancar.addActionListener(e -> {
@@ -302,11 +302,11 @@ public class TelaNovoPedido extends JFrame {
             dispose();
         });
 
-        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaVermelhoPressionado,35);
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
-        botaoVoltar.setForeground(new Color(255, 255, 255));
-        botaoVoltar.setBackground(new Color(0, 0, 0));
-        botaoVoltar.setBounds(1131, 19, 104, 38);
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBackground(corPaletaPreto);
+        botaoVoltar.setBounds(1132, 34, 104, 38);
         panelVermelho.add(botaoVoltar);
         botaoVoltar.addActionListener( e -> {
                 String mesa = (String) cBoxMesas.getSelectedItem();
@@ -355,12 +355,12 @@ public class TelaNovoPedido extends JFrame {
         JLabel relatoriosLabel = new JLabel("Novo Pedido");
         relatoriosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         relatoriosLabel.setForeground(corPaletaBege);
-        relatoriosLabel.setBounds(485, 12, 261, 52);
+        relatoriosLabel.setBounds(510, 27, 300, 52);
         panelVermelho.add(relatoriosLabel);
 
         JLabel logoLabel = new JLabel("");
         logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        logoLabel.setBounds(30, 0, 92, 82);
+        logoLabel.setBounds(30, 12, 92, 82);
         panelVermelho.add(logoLabel);
     }
 }

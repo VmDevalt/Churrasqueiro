@@ -196,11 +196,12 @@ public class TelaMenuPrincipal extends JFrame {
 
         JLabel labelEscolha = new JLabel("Escolha uma opção");
         labelEscolha.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        labelEscolha.setForeground(corPaletaPreto);
         labelEscolha.setBounds(437, 178, 523, 58);
         contentPane.add(labelEscolha);
 
         JLabel labelLogo = new JLabel("");
-        labelLogo.setBounds(576, 22, 265, 165);
+        labelLogo.setBounds(590, 22, 265, 165);
         contentPane.add(labelLogo);
 
         ImageIcon iconLogo = null;
