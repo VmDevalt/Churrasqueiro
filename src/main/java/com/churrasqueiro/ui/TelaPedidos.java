@@ -98,14 +98,14 @@ public class TelaPedidos extends JFrame {
 
         JPanel painelSelecionado = new JPanel();
         painelSelecionado.setBackground(corPaletaBege);
-        painelSelecionado.setBounds(170, 0, 260, 77);
+        painelSelecionado.setBounds(150, 0, 300, 104);
         painelSelecionado.setLayout(null);
         topoVermelho.add(painelSelecionado);
 
         JLabel pedidosLabel = new JLabel("Pedidos");
         pedidosLabel.setForeground(corPaletaPreto);
         pedidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        pedidosLabel.setBounds(55, 10, 200, 57);
+        pedidosLabel.setBounds(65, 32, 200, 38);
         painelSelecionado.add(pedidosLabel);
 
         JLabel gestaoLabel = new JLabel("Gestão");
@@ -117,7 +117,7 @@ public class TelaPedidos extends JFrame {
         }
         
         gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        gestaoLabel.setBounds(530, 19, 200, 38);
+        gestaoLabel.setBounds(530, 32, 200, 38);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(gestaoLabel);
 
@@ -178,7 +178,7 @@ public class TelaPedidos extends JFrame {
         }
         
         dashboardLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        dashboardLabel.setBounds(800, 19, 230, 38);
+        dashboardLabel.setBounds(800, 32, 260, 38);
         dashboardLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         topoVermelho.add(dashboardLabel);
 
@@ -238,7 +238,7 @@ public class TelaPedidos extends JFrame {
                         corPaletaPreto,
                         35
                 );
-        botaoVoltar.setBounds(1125, 19, 110, 38);
+        botaoVoltar.setBounds(1125, 32, 110, 38);
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         topoVermelho.add(botaoVoltar);
@@ -250,7 +250,7 @@ public class TelaPedidos extends JFrame {
 
         areaConteudo = new JPanel();
         areaConteudo.setBackground(corPaletaBege);
-        areaConteudo.setBounds(0, 74, LARGURA, ALTURA - 74);
+        areaConteudo.setBounds(0, 104, LARGURA, ALTURA - 74);
         areaConteudo.setLayout(null);
         topoVermelho.add(areaConteudo);
         EstilizacaoRedonda.BotaoRedondo botaoNovoPedido =
@@ -261,8 +261,8 @@ public class TelaPedidos extends JFrame {
                         corPaletaVermelhoPressionado,
                         35
                 );
-        botaoNovoPedido.setBounds(300, 25, 260, 38);
-        botaoNovoPedido.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
+        botaoNovoPedido.setBounds(520, 25, 260, 38);
+        botaoNovoPedido.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         botaoNovoPedido.setForeground(corPaletaBege);
         areaConteudo.add(botaoNovoPedido);
         botaoNovoPedido.addActionListener(e -> {
@@ -272,14 +272,14 @@ public class TelaPedidos extends JFrame {
             dispose();
         });
         JLabel lblPreparo = new JLabel("Pedidos em Preparo");
-        lblPreparo.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblPreparo.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         lblPreparo.setForeground(corPaletaPreto);
         lblPreparo.setBounds(320, 90, 200, 22);
         areaConteudo.add(lblPreparo);
 
         JLabel lblProntos = new JLabel("Pedidos Prontos");
         lblProntos.setForeground(corPaletaPreto);
-        lblProntos.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        lblProntos.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         lblProntos.setBounds(830, 90, 200, 22);
         areaConteudo.add(lblProntos);
         JSeparator sep = new JSeparator(JSeparator.VERTICAL);
@@ -415,7 +415,7 @@ public class TelaPedidos extends JFrame {
         txtInfo.setBounds(20, 15, 260, 150);
         txtInfo.setForeground(corVermelho);
         txtInfo.setBackground(corBege);
-        txtInfo.setFont(new Font("Dialog", Font.PLAIN, 14));
+        txtInfo.setFont(FontsConstants.MONTSERRAT_REGULAR_14);
         txtInfo.setEditable(false);
         card.add(txtInfo);
 
@@ -437,7 +437,7 @@ public class TelaPedidos extends JFrame {
         txtItens.setBounds(10, 10, 240, 90);
         txtItens.setForeground(corBege);
         txtItens.setBackground(corVermelho);
-        txtItens.setFont(new Font("Dialog", Font.PLAIN, 13));
+        txtItens.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
         txtItens.setEditable(false);
         painelItens.add(txtItens);
 
@@ -451,7 +451,7 @@ public class TelaPedidos extends JFrame {
                 );
         botaoPronto.setBounds(70, 330, 160, 32);
         botaoPronto.setForeground(corBege);
-        botaoPronto.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        botaoPronto.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
         card.add(botaoPronto);
 
         botaoPronto.addActionListener(e -> {
@@ -503,7 +503,7 @@ public class TelaPedidos extends JFrame {
         txtInfo.setBounds(20, 15, 260, 150);
         txtInfo.setForeground(corVermelho);
         txtInfo.setBackground(corBege);
-        txtInfo.setFont(new Font("Dialog", Font.PLAIN, 14));
+        txtInfo.setFont(FontsConstants.MONTSERRAT_REGULAR_14);
         txtInfo.setEditable(false);
         card.add(txtInfo);
 
@@ -525,7 +525,7 @@ public class TelaPedidos extends JFrame {
         txtItens.setBounds(10, 10, 240, 90);
         txtItens.setForeground(corBege);
         txtItens.setBackground(corVermelho);
-        txtItens.setFont(new Font("Dialog", Font.PLAIN, 13));
+        txtItens.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
         txtItens.setEditable(false);
         painelItens.add(txtItens);
 
@@ -539,7 +539,7 @@ public class TelaPedidos extends JFrame {
                 );
         botaoPreparando.setBounds(20, 330, 140, 32);
         botaoPreparando.setForeground(corBege);
-        botaoPreparando.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        botaoPreparando.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
         card.add(botaoPreparando);
 
         EstilizacaoRedonda.BotaoRedondo botaoImprimir =
@@ -552,7 +552,7 @@ public class TelaPedidos extends JFrame {
                 );
         botaoImprimir.setBounds(170, 330, 110, 32);
         botaoImprimir.setForeground(corBege);
-        botaoImprimir.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        botaoImprimir.setFont(FontsConstants.MONTSERRAT_REGULAR_13);
         card.add(botaoImprimir);
         botaoImprimir.addActionListener(e -> {
             try {

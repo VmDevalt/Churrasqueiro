@@ -91,7 +91,7 @@ public class TelaRelatorios extends JFrame {
         contentPane.add(panel);
 
         JLabel vendasLabel = new JLabel("Vendas");
-        vendasLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        vendasLabel.setFont(FontsConstants.MONTSERRAT_BOLD_34);
         vendasLabel.setForeground(corPaletaPreto);
         vendasLabel.setBounds(145, 101, 173, 45);
         panel.add(vendasLabel);
@@ -104,12 +104,12 @@ public class TelaRelatorios extends JFrame {
 
         vendasComboBox = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
         vendasComboBox.setBounds(427, 122, 160, 30);
-        vendasComboBox.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
+        vendasComboBox.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
 
         panel.add(vendasComboBox);
 
         JLabel maisVendidosLabel = new JLabel("Mais Vendido");
-        maisVendidosLabel.setFont(new Font("SansSerif", Font.BOLD, 34));
+        maisVendidosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_34);
         maisVendidosLabel.setForeground(corPaletaPreto);
         maisVendidosLabel.setBounds(747, 101, 253, 45);
         panel.add(maisVendidosLabel);
@@ -121,13 +121,13 @@ public class TelaRelatorios extends JFrame {
         panel.add(itemMaisVendidoLabel);
 
         unidadesLabel = new JLabel("0 unidades");
-        unidadesLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        unidadesLabel.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         unidadesLabel.setBounds(916, 195, 200, 28);
         panel.add(unidadesLabel);
 
         maisVendidoComboBox =  new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 20);
         maisVendidoComboBox.setBounds(1076, 120, 160, 30);
-        maisVendidoComboBox.setFont(FontsConstants.MONTSERRAT_LIGHT_16);
+        maisVendidoComboBox.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
 
         panel.add(maisVendidoComboBox);
 
@@ -144,55 +144,55 @@ public class TelaRelatorios extends JFrame {
         maisVendidoComboBox.addActionListener(e -> atualizarRelatorios());
 
         JLabel tituloCaixaLabel = new JLabel("Caixa");
-        tituloCaixaLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        tituloCaixaLabel.setFont(FontsConstants.MONTSERRAT_BOLD_32);
         tituloCaixaLabel.setForeground(corPaletaPreto);
         tituloCaixaLabel.setBounds(190, 320, 200, 40);
         panel.add(tituloCaixaLabel);
 
         JLabel caixaHojeLabel = new JLabel("Caixa hoje:");
-        caixaHojeLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaHojeLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         caixaHojeLabel.setForeground(corPaletaPreto);
         caixaHojeLabel.setBounds(90, 370, 150, 25);
         panel.add(caixaHojeLabel);
 
         lblCaixaHojeValor = new JLabel("Nenhum caixa aberto");
-        lblCaixaHojeValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaHojeValor.setFont(FontsConstants.MONTSERRAT_BOLD_28);
         lblCaixaHojeValor.setForeground(corPaletaVermelho);
         lblCaixaHojeValor.setBounds(41, 400, 350, 40);
         panel.add(lblCaixaHojeValor);
 
         JLabel setaLabel = new JLabel("➜");
-        setaLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        setaLabel.setFont(FontsConstants.MONTSERRAT_BOLD_28);
         setaLabel.setForeground(corPaletaPreto);
         setaLabel.setBounds(350, 400, 40, 40);
         panel.add(setaLabel);
 
         JLabel caixaComecouLabel = new JLabel("Caixa começou:");
-        caixaComecouLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        caixaComecouLabel.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         caixaComecouLabel.setForeground(corPaletaPreto);
         caixaComecouLabel.setBounds(480, 370, 200, 25);
         panel.add(caixaComecouLabel);
 
         lblCaixaComecouValor = new JLabel("Nenhum caixa aberto");
-        lblCaixaComecouValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCaixaComecouValor.setFont(FontsConstants.MONTSERRAT_BOLD_28);
         lblCaixaComecouValor.setForeground(corPaletaVermelho);
         lblCaixaComecouValor.setBounds(427, 400, 350, 40);
         panel.add(lblCaixaComecouValor);
 
         JLabel metaTituloLabel = new JLabel("Meta de Faturamento");
-        metaTituloLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        metaTituloLabel.setFont(FontsConstants.MONTSERRAT_BOLD_32);
         metaTituloLabel.setForeground(corPaletaPreto);
-        metaTituloLabel.setBounds(780, 320, 350, 25);
+        metaTituloLabel.setBounds(780, 320, 370, 25);
         panel.add(metaTituloLabel);
 
         JLabel metaSubLabel = new JLabel("de hoje");
-        metaSubLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        metaSubLabel.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         metaSubLabel.setForeground(corPaletaPreto);
         metaSubLabel.setBounds(1030, 330, 100, 40);
         panel.add(metaSubLabel);
 
         lblMetaFaturamentoValor = new JLabel("Nenhum caixa aberto");
-        lblMetaFaturamentoValor.setFont(new Font("SansSerif", Font.BOLD, 32));
+        lblMetaFaturamentoValor.setFont(FontsConstants.MONTSERRAT_BOLD_32);
         lblMetaFaturamentoValor.setForeground(corPaletaVermelho);
         lblMetaFaturamentoValor.setBounds(839, 394, 400, 50);
         panel.add(lblMetaFaturamentoValor);
@@ -200,12 +200,12 @@ public class TelaRelatorios extends JFrame {
         JLabel relatoriosLabel = new JLabel("Relatórios");
         relatoriosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         relatoriosLabel.setForeground(corPaletaBege);
-        relatoriosLabel.setBounds(542, 34, 190, 38);
+        relatoriosLabel.setBounds(522, 34, 230, 38);
         contentPane.add(relatoriosLabel);
 
         JLabel logoLabel = new JLabel("");
         logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        logoLabel.setBounds(30, 10, 92, 82);
+        logoLabel.setBounds(30, 12, 92, 82);
         contentPane.add(logoLabel);
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =

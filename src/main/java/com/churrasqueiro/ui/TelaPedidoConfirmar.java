@@ -74,7 +74,7 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JPanel panelBranco = new JPanel();
         panelBranco.setBackground(corPaletaBege);
-        panelBranco.setBounds(0, 74, 1280, 609);
+        panelBranco.setBounds(0, 104, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
 
@@ -90,12 +90,12 @@ public class TelaPedidoConfirmar extends JFrame {
 
         final EstilizacaoRedonda.PainelRedondo panelResumoPedido =
                 new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaVermelho,null);
-        panelResumoPedido.setBounds(392, 109, 544, 342);
+        panelResumoPedido.setBounds(360, 109, 544, 342);
         panelBranco.add(panelResumoPedido);
         panelResumoPedido.setLayout(null);
 
         JTextArea textResumoPedido = new JTextArea();
-        textResumoPedido.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        textResumoPedido.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         textResumoPedido.setForeground(corPaletaBege);
         textResumoPedido.setBackground(corPaletaVermelho);
 
@@ -138,8 +138,8 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JLabel lblConfirmarPedido = new JLabel("Confirmar Pedido");
         lblConfirmarPedido.setForeground(Color.BLACK);
-        lblConfirmarPedido.setFont(FontsConstants.MONTSERRAT_BOLD_20);
-        lblConfirmarPedido.setBounds(555, 12, 220, 26);
+        lblConfirmarPedido.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        lblConfirmarPedido.setBounds(450, 30, 380, 35);
         panelBranco.add(lblConfirmarPedido);
 
         final EstilizacaoRedonda.BotaoRedondo botaoConfirmar =
@@ -229,7 +229,7 @@ public class TelaPedidoConfirmar extends JFrame {
 
         botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
-        botaoVoltar.setBounds(1131, 19, 104, 38);
+        botaoVoltar.setBounds(1131, 32, 104, 38);
         panelVermelho.add(botaoVoltar);
 
         botaoVoltar.addActionListener(e -> {
@@ -239,13 +239,13 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JLabel logoLabel = new JLabel("");
         logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        logoLabel.setBounds(30, 0, 92, 82);
+        logoLabel.setBounds(30, 14, 92, 82);
         panelVermelho.add(logoLabel);
 
         JLabel novoPedidoLabel = new JLabel("Novo Pedido");
         novoPedidoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         novoPedidoLabel.setForeground(corPaletaBege);
-        novoPedidoLabel.setBounds(485, 12, 261, 52);
+        novoPedidoLabel.setBounds(500, 25, 280, 52);
         panelVermelho.add(novoPedidoLabel);
     }
 }

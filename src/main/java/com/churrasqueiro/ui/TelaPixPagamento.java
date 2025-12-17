@@ -49,7 +49,7 @@ public class TelaPixPagamento extends JFrame {
         setContentPane(content);
 
         JLabel lblTitulo = new JLabel("Escaneie o QR Code para pagar", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitulo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblTitulo.setForeground(Color.BLACK);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         content.add(lblTitulo, BorderLayout.NORTH);

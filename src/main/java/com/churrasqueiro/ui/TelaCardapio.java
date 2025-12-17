@@ -103,7 +103,7 @@ public class TelaCardapio extends JFrame {
                         35
                 );
         botaoAvancar.setForeground(Color.WHITE);
-        botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 20));
+        botaoAvancar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         botaoAvancar.setBounds(1050, 550, 180, 40);
         panelBranco.add(botaoAvancar);
 
