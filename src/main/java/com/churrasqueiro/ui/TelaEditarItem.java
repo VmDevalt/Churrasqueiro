@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.business.CategoriaController;
 import com.churrasqueiro.business.ItemCardapioController;
@@ -28,6 +29,7 @@ import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaEditarItem extends JFrame {
 
@@ -48,16 +50,20 @@ public class TelaEditarItem extends JFrame {
     private final Map<String, Integer> listaCategorias = new HashMap<>();
 
     private final ItemCardapio itemEmEdicao;
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
+
 
     public TelaEditarItem(ItemCardapio item) {
         this.itemEmEdicao = item;
-
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteracao = new Color(35, 35, 35);
-        Color corPaletaCinza = new Color(140, 127, 127);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
@@ -72,15 +78,15 @@ public class TelaEditarItem extends JFrame {
         contentPaneVermelho.setLayout(null);
 
         JPanel panelClaro = new JPanel();
-        panelClaro.setBounds(0, 71, 1264, 663);
+        panelClaro.setBounds(0, 102, 1264, 663);
         contentPaneVermelho.add(panelClaro);
         panelClaro.setBackground(corPaletaBege);
         panelClaro.setLayout(null);
 
         JLabel labelEditarItem = new JLabel("Editar item");
-        labelEditarItem.setBounds(565, 24, 200, 26);
+        labelEditarItem.setBounds(505, 27, 340, 68);
         labelEditarItem.setForeground(corPaletaVermelho);
-        labelEditarItem.setFont(new Font("SansSerif", Font.BOLD, 25));
+        labelEditarItem.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         panelClaro.add(labelEditarItem);
 
         EstilizacaoRedonda.BotaoRedondo botaoSalvar =
@@ -91,10 +97,10 @@ public class TelaEditarItem extends JFrame {
                         corPaletaPreto,
                         35
                 );
-        botaoSalvar.setBounds(542, 474, 220, 38);
+        botaoSalvar.setBounds(542, 504, 220, 38);
         panelClaro.add(botaoSalvar);
-        botaoSalvar.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoSalvar.setForeground(Color.WHITE);
+        botaoSalvar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoSalvar.setForeground(corPaletaBege);
         botaoSalvar.setBackground(corPaletaPreto);
         botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -103,13 +109,10 @@ public class TelaEditarItem extends JFrame {
             }
         });
 
-        comboBoxGrupos = new JComboBox<>();
-        comboBoxGrupos.setBorder(new LineBorder(corPaletaVermelho, 1));
-        comboBoxGrupos.setForeground(corPaletaPreto);
-        comboBoxGrupos.setBackground(corPaletaBege);
-        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        comboBoxGrupos.setMaximumRowCount(4);
-        comboBoxGrupos.setBounds(100, 269, 486, 38);
+        comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
+        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_BOLD_13);
+        comboBoxGrupos.setMaximumRowCount(5);
+        comboBoxGrupos.setBounds(90, 309, 496, 38);
         panelClaro.add(comboBoxGrupos);
 
         campoNome = new EstilizacaoRedonda.CaixaTextoRedonda(
@@ -120,9 +123,9 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoNome.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoNome.setToolTipText("Nome do item");
-        campoNome.setBounds(90, 88, 1088, 38);
+        campoNome.setBounds(90, 128, 1088, 38);
         panelClaro.add(campoNome);
         campoNome.setColumns(10);
 
@@ -134,9 +137,9 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoDescricao.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoDescricao.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoDescricao.setToolTipText("Descrição do item");
-        campoDescricao.setBounds(90, 182, 1088, 38);
+        campoDescricao.setBounds(90, 222, 1088, 38);
         panelClaro.add(campoDescricao);
         campoDescricao.setColumns(10);
 
@@ -148,9 +151,9 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoPreco.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPreco.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoPreco.setToolTipText("Preço do item");
-        campoPreco.setBounds(90, 366, 496, 38);
+        campoPreco.setBounds(90, 406, 496, 38);
         panelClaro.add(campoPreco);
         campoPreco.setColumns(10);
         aplicarMascaraPreco(campoPreco);
@@ -163,9 +166,9 @@ public class TelaEditarItem extends JFrame {
                         corPaletaPreto,
                         35
                 );
-        botaoSelecionarFoto.setFont(new Font("SansSerif", Font.BOLD, 14));
+        botaoSelecionarFoto.setFont(FontsConstants.MONTSERRAT_BOLD_14);
         botaoSelecionarFoto.setForeground(Color.WHITE);
-        botaoSelecionarFoto.setBounds(1050, 269, 120, 38);
+        botaoSelecionarFoto.setBounds(1058, 309, 120, 38);
         panelClaro.add(botaoSelecionarFoto);
 
         campoFoto = new EstilizacaoRedonda.CaixaTextoRedonda(
@@ -176,9 +179,9 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoFoto.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoFoto.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoFoto.setToolTipText("Arquivo de imagem");
-        campoFoto.setBounds(658, 269, 520, 38);
+        campoFoto.setBounds(658, 309, 520, 38);
         panelClaro.add(campoFoto);
         campoFoto.setColumns(10);
         botaoSelecionarFoto.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +224,9 @@ public class TelaEditarItem extends JFrame {
                                 "Sucesso",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
@@ -228,6 +234,9 @@ public class TelaEditarItem extends JFrame {
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
+           			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                     }
                 }
             }
@@ -241,52 +250,58 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoPrecoVariavel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPrecoVariavel.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoPrecoVariavel.setToolTipText("Preço a partir de (opcional)");
-        campoPrecoVariavel.setBounds(658, 366, 520, 38);
+        campoPrecoVariavel.setBounds(658, 406, 520, 38);
         panelClaro.add(campoPrecoVariavel);
         campoPrecoVariavel.setColumns(10);
         aplicarMascaraPreco(campoPrecoVariavel);
 
         JLabel labelNome = new JLabel("NOME");
-        labelNome.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelNome.setBounds(114, 63, 100, 14);
+        labelNome.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelNome.setForeground(corPaletaPreto);
+        labelNome.setBounds(114, 103, 100, 14);
         panelClaro.add(labelNome);
 
         JLabel labelDescricao = new JLabel("DESCRIÇÃO");
-        labelDescricao.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelDescricao.setBounds(114, 154, 120, 14);
+        labelDescricao.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelDescricao.setForeground(corPaletaPreto);
+        labelDescricao.setBounds(114, 194, 120, 14);
         panelClaro.add(labelDescricao);
 
         JLabel labelGrupo = new JLabel("GRUPO");
-        labelGrupo.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelGrupo.setBounds(114, 242, 80, 14);
+        labelGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelGrupo.setForeground(corPaletaPreto);
+        labelGrupo.setBounds(114, 284, 80, 14);
         panelClaro.add(labelGrupo);
 
         JLabel labelFoto = new JLabel("FOTO");
-        labelFoto.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelFoto.setBounds(687, 244, 80, 14);
+        labelFoto.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelFoto.setForeground(corPaletaPreto);
+        labelFoto.setBounds(687, 284, 80, 14);
         panelClaro.add(labelFoto);
 
         JLabel labelPrecoVar = new JLabel("PREÇO \"A PARTIR DE:\"");
-        labelPrecoVar.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelPrecoVar.setBounds(687, 341, 220, 14);
+        labelPrecoVar.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelPrecoVar.setForeground(corPaletaPreto);
+        labelPrecoVar.setBounds(687, 381, 220, 14);
         panelClaro.add(labelPrecoVar);
 
         JLabel labelPreco = new JLabel("PREÇO");
-        labelPreco.setFont(new Font("SansSerif", Font.BOLD, 15));
-        labelPreco.setBounds(114, 341, 80, 14);
+        labelPreco.setFont(FontsConstants.MONTSERRAT_BOLD_15);
+        labelPreco.setForeground(corPaletaPreto);
+        labelPreco.setBounds(114, 381, 80, 14);
         panelClaro.add(labelPreco);
 
         JLabel logoLabel = new JLabel("");
-        logoLabel.setBounds(61, 0, 92, 82);
+        logoLabel.setBounds(30, 12, 92, 82);
         logoLabel.setIcon(new ImageIcon(TelaEditarItem.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
         contentPaneVermelho.add(logoLabel);
 
         JLabel labelItemTopo = new JLabel("Itens");
-        labelItemTopo.setFont(new Font("SansSerif", Font.BOLD, 25));
-        labelItemTopo.setForeground(Color.WHITE);
-        labelItemTopo.setBounds(607, 26, 80, 25);
+        labelItemTopo.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        labelItemTopo.setForeground(corPaletaBege);
+        labelItemTopo.setBounds(588, 34, 130, 38);
         contentPaneVermelho.add(labelItemTopo);
 
         EstilizacaoRedonda.BotaoRedondo botaoVoltar =
@@ -297,10 +312,10 @@ public class TelaEditarItem extends JFrame {
                         corPaletaPreto,
                         35
                 );
-        botaoVoltar.setBounds(1112, 22, 110, 38);
+        botaoVoltar.setBounds(1128, 32, 104, 38);
         contentPaneVermelho.add(botaoVoltar);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
-        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+        botaoVoltar.setForeground(corPaletaBege);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -363,6 +378,9 @@ public class TelaEditarItem extends JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 
@@ -446,21 +464,33 @@ public class TelaEditarItem extends JFrame {
 
         if (nome.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o nome do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (descricao.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a descrição do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (categoriaSelecionada == null || categoriaSelecionada.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selecione um grupo/categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (precoStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o preço do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
@@ -474,6 +504,9 @@ public class TelaEditarItem extends JFrame {
         Integer categoriaId = listaCategorias.get(categoriaSelecionada);
         if (categoriaId == null) {
             JOptionPane.showMessageDialog(this, "Categoria selecionada inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             return;
         }
 
@@ -493,6 +526,9 @@ public class TelaEditarItem extends JFrame {
                     "Sucesso",
                     JOptionPane.INFORMATION_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             int opcao = JOptionPane.showConfirmDialog(
                     this,
@@ -500,6 +536,9 @@ public class TelaEditarItem extends JFrame {
                     "Item atualizado",
                     JOptionPane.YES_NO_OPTION
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             if (opcao == JOptionPane.YES_OPTION) {
                 dispose();
@@ -514,6 +553,10 @@ public class TelaEditarItem extends JFrame {
                     "Erro de Validação",
                     JOptionPane.WARNING_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
+	         
         } catch (DatabaseException ex) {
             JOptionPane.showMessageDialog(
                     this,
@@ -521,6 +564,9 @@ public class TelaEditarItem extends JFrame {
                     "Erro de Banco",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 

@@ -7,18 +7,15 @@ import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.data.UsuarioDAO;
 import com.churrasqueiro.utils.FontsConstants;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Optional;
+import javax.swing.UIManager;
 public class TelaLogin extends JFrame {
 	
 	private static final LoginController loginController = new LoginController();
@@ -32,6 +29,14 @@ public class TelaLogin extends JFrame {
     private static EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
     private JButton botaoLogar;
     private boolean visualizacaoSenha = false;
+
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
 
 	public static Usuario getUsuarioLogado() {
 		return usuarioLogado;
@@ -52,6 +57,9 @@ public class TelaLogin extends JFrame {
 		
 		try {
 			Usuario usuarioAutenticado = loginController.autenticar(login, senha);
+            UIManager.put("OptionPane.background", corPaletaBege);
+            UIManager.put("Panel.background", corPaletaBege);
+            UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 			JOptionPane.showMessageDialog(this, "Login bem-sucedido! Bem-vindo, " + usuarioAutenticado.getLogin(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 			this.dispose();
 			TelaMenuPrincipal telaPrincipal = new TelaMenuPrincipal();
@@ -61,16 +69,25 @@ public class TelaLogin extends JFrame {
 		} catch (ControllerException ex) {
 			 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro de Login",
 			 JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             
         } catch (DatabaseException ex) {
             JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
             JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro inesperado", ex.getMessage(), 
             JOptionPane.ERROR_MESSAGE);
 			ex.printStackTrace();
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 		}
       }
 
@@ -88,13 +105,6 @@ public class TelaLogin extends JFrame {
 	}
 
 	public TelaLogin() {
-        Color corPaletaVermelho = new Color(179,13,36);
-        Color corPaletaBege = new Color(227,202,187);
-        Color corPaletaVermelhoInteracao = new Color(200,50,50);
-        Color corPaletaVermelhoPressionado = new Color(150,0,0);
-        Color corPaletaPreto = new Color(0,0,0);
-        Color corPaletaPretoInteração = new Color(35,35,35);
-        Color corPaletaCinza = new Color(140,127,127);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login - Churrasqueiro");
@@ -214,7 +224,7 @@ public class TelaLogin extends JFrame {
         botaoLogar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         panel.add(botaoLogar);
 
-        final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+        final EstilizacaoRedonda.BotaoRedondo botaoEsqueciSenha = new EstilizacaoRedonda.BotaoRedondo("Esqueceu a Senha?",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
         botaoEsqueciSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

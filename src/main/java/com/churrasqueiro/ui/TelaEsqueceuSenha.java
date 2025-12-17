@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
 
 public class TelaEsqueceuSenha extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -21,6 +22,14 @@ public class TelaEsqueceuSenha extends JFrame {
     private JButton botaoVoltar;
     private static final EsqueceuSenhaController EsqueceuSenhaController = new EsqueceuSenhaController();
     private static String token;
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
     
     public static String getToken() {
     	return token;
@@ -46,14 +55,23 @@ public class TelaEsqueceuSenha extends JFrame {
 	    } catch (ControllerException e) {
 			 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
 			 JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 	    } catch (DatabaseException e) {
             JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
             JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             e.printStackTrace();
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro inesperado.", 
             JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 			e.printStackTrace();
         }
     }

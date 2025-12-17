@@ -18,6 +18,7 @@ import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.service.PixPaymentResponse;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaPixPagamento extends JFrame {
 
@@ -48,7 +49,7 @@ public class TelaPixPagamento extends JFrame {
         setContentPane(content);
 
         JLabel lblTitulo = new JLabel("Escaneie o QR Code para pagar", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblTitulo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblTitulo.setForeground(Color.BLACK);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         content.add(lblTitulo, BorderLayout.NORTH);
@@ -66,7 +67,7 @@ public class TelaPixPagamento extends JFrame {
         txtCopiaCola.setWrapStyleWord(true);
         txtCopiaCola.setLineWrap(true);
         txtCopiaCola.setEditable(false);
-        txtCopiaCola.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        txtCopiaCola.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         txtCopiaCola.setBackground(corBege);
         txtCopiaCola.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         panelSul.add(txtCopiaCola);
@@ -87,7 +88,7 @@ public class TelaPixPagamento extends JFrame {
                         new Color(150,0,0),
                         35
                 );
-        btnCopiar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        btnCopiar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         btnCopiar.setForeground(Color.WHITE);
         btnCopiar.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -114,7 +115,7 @@ public class TelaPixPagamento extends JFrame {
                         new Color(150,0,0),
                         35
                 );
-        btnJaPagou.setFont(new Font("SansSerif", Font.BOLD, 18));
+        btnJaPagou.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         btnJaPagou.setForeground(Color.WHITE);
 
         EstilizacaoRedonda.BotaoRedondo btnCancelar =
@@ -125,7 +126,7 @@ public class TelaPixPagamento extends JFrame {
                         corPreto,
                         35
                 );
-        btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        btnCancelar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         btnCancelar.setForeground(Color.WHITE);
 
         panelBotoes.add(btnJaPagou);

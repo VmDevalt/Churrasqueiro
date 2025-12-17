@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -36,11 +37,6 @@ public class TelaDashboard extends JFrame {
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
 
-    private final Color corPaletaVermelho = new Color(179, 13, 36);
-    private final Color corPaletaBege = new Color(227, 202, 187);
-    private final Color corPaletaPreto = new Color(0, 0, 0);
-    private final Color corPaletaPretoInteracao = new Color(35, 35, 35);
-
     private JPanel contentPane;
     private JPanel panel;
     private JDateChooser dateInicio;
@@ -50,6 +46,16 @@ public class TelaDashboard extends JFrame {
     private ChartPanel chartPanelPagamento;
 
     private DashboardController controller;
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -83,7 +89,6 @@ public class TelaDashboard extends JFrame {
                 setIconImage(icon);
             } catch (java.io.IOException ignored) {}
         }
-
         JLabel logoLabel = new JLabel("");
         logoLabel.setBounds(20, 13, 92, 79);
         logoLabel.setIcon(new ImageIcon(TelaDashboard.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
@@ -110,6 +115,9 @@ public class TelaDashboard extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+        			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -125,7 +133,7 @@ public class TelaDashboard extends JFrame {
         });
 
         JLabel gestaoLabel = new JLabel("Gestão");
-        gestaoLabel.setBounds(570, 34, 208, 38);
+        gestaoLabel.setBounds(500, 34, 169, 38);
         gestaoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         gestaoLabel.setForeground(corPaletaBege);
         gestaoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -146,6 +154,9 @@ public class TelaDashboard extends JFrame {
                             "Aviso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+        			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
 
@@ -161,7 +172,7 @@ public class TelaDashboard extends JFrame {
         });
 
         JPanel dashboardPanel = new JPanel();
-        dashboardPanel.setBounds(840, 0, 426, 102);
+        dashboardPanel.setBounds(720, 0, 340, 102);
         dashboardPanel.setBackground(corPaletaBege);
         dashboardPanel.setLayout(null);
         contentPane.add(dashboardPanel);
@@ -169,7 +180,7 @@ public class TelaDashboard extends JFrame {
         JLabel dashbordLabel = new JLabel("Dashboard");
         dashbordLabel.setForeground(corPaletaPreto);
         dashbordLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
-        dashbordLabel.setBounds(100, 35, 240, 38);
+        dashbordLabel.setBounds(52, 36, 240, 38);
         dashboardPanel.add(dashbordLabel);
 
         panel = new JPanel();
@@ -177,19 +188,6 @@ public class TelaDashboard extends JFrame {
         panel.setBackground(corPaletaBege);
         panel.setLayout(null);
         contentPane.add(panel);
-
-        EstilizacaoRedonda.BotaoRedondo botaoVoltar =
-                new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
-        botaoVoltar.setBounds(1112, 513, 110, 38);
-        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
-        botaoVoltar.setForeground(corPaletaBege);
-        botaoVoltar.setBackground(corPaletaPreto);
-        botaoVoltar.addActionListener(e -> {
-            dispose();
-            TelaMenuPrincipal principal = new TelaMenuPrincipal();
-            principal.setVisible(true);
-        });
-        panel.add(botaoVoltar);
 
         controller = new DashboardController();
 
@@ -225,6 +223,19 @@ public class TelaDashboard extends JFrame {
         btnFiltrar.setBackground(corPaletaPreto);
         btnFiltrar.addActionListener(e -> aplicarFiltroDatas());
         panel.add(btnFiltrar);
+        
+                EstilizacaoRedonda.BotaoRedondo botaoVoltar =
+                        new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
+                botaoVoltar.setBounds(1115, 33, 120, 38);
+                contentPane.add(botaoVoltar);
+                botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
+                botaoVoltar.setForeground(corPaletaBege);
+                botaoVoltar.setBackground(corPaletaPreto);
+                botaoVoltar.addActionListener(e -> {
+                    dispose();
+                    TelaMenuPrincipal principal = new TelaMenuPrincipal();
+                    principal.setVisible(true);
+                });
 
         carregarGraficos(null, null);
     }
@@ -245,6 +256,9 @@ public class TelaDashboard extends JFrame {
                     "Período incompleto",
                     JOptionPane.WARNING_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             return;
         }
 
@@ -258,6 +272,9 @@ public class TelaDashboard extends JFrame {
                     "Período inválido",
                     JOptionPane.WARNING_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             return;
         }
 
@@ -316,6 +333,9 @@ public class TelaDashboard extends JFrame {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 

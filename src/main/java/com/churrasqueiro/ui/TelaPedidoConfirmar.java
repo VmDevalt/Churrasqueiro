@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import com.churrasqueiro.business.PedidoController;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaPedidoConfirmar extends JFrame {
 
@@ -54,6 +56,9 @@ public class TelaPedidoConfirmar extends JFrame {
         Color corPaletaVermelhoPressionado = new Color(150,0,0);
         Color corPaletaPreto = new Color(0,0,0);
         Color corPaletaPretoInteracao = new Color(35,35,35);
+        Color corPaletaCinza = new Color(140,127,127);
+        Color corPaletaBegeInteracao = new Color(245,225,210);
+        Color corPaletaBegePressionado = new Color(200,175,160);
 
         setTitle("Novo Pedido - Churrasqueira");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +74,7 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JPanel panelBranco = new JPanel();
         panelBranco.setBackground(corPaletaBege);
-        panelBranco.setBounds(0, 74, 1280, 609);
+        panelBranco.setBounds(0, 104, 1280, 609);
         panelVermelho.add(panelBranco);
         panelBranco.setLayout(null);
 
@@ -85,12 +90,12 @@ public class TelaPedidoConfirmar extends JFrame {
 
         final EstilizacaoRedonda.PainelRedondo panelResumoPedido =
                 new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaVermelho,null);
-        panelResumoPedido.setBounds(392, 109, 544, 342);
+        panelResumoPedido.setBounds(360, 109, 544, 342);
         panelBranco.add(panelResumoPedido);
         panelResumoPedido.setLayout(null);
 
         JTextArea textResumoPedido = new JTextArea();
-        textResumoPedido.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        textResumoPedido.setFont(FontsConstants.MONTSERRAT_BOLD_16);
         textResumoPedido.setForeground(corPaletaBege);
         textResumoPedido.setBackground(corPaletaVermelho);
 
@@ -133,15 +138,15 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JLabel lblConfirmarPedido = new JLabel("Confirmar Pedido");
         lblConfirmarPedido.setForeground(Color.BLACK);
-        lblConfirmarPedido.setFont(new Font("Dialog", Font.PLAIN, 22));
-        lblConfirmarPedido.setBounds(555, 12, 220, 26);
+        lblConfirmarPedido.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        lblConfirmarPedido.setBounds(450, 30, 380, 35);
         panelBranco.add(lblConfirmarPedido);
 
         final EstilizacaoRedonda.BotaoRedondo botaoConfirmar =
                 new EstilizacaoRedonda.BotaoRedondo("Confirmar",
                         corPaletaVermelho,corPaletaVermelhoInteracao,corPaletaVermelhoPressionado,35);
 
-        botaoConfirmar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoConfirmar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoConfirmar.setForeground(corPaletaBege);
         botaoConfirmar.setBounds(565, 509, 182, 38);
         panelBranco.add(botaoConfirmar);
@@ -169,6 +174,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Erro ao iniciar pagamento PIX: " + ex.getMessage(),
                             "Erro", JOptionPane.ERROR_MESSAGE);
                 }
+     			 UIManager.put("OptionPane.background", corPaletaBege);
+    	         UIManager.put("Panel.background", corPaletaBege);
+    	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 
             }
 
@@ -194,6 +202,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Sucesso",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+         			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
                     dispose();
                     new TelaPedidos().setVisible(true);
@@ -205,6 +216,9 @@ public class TelaPedidoConfirmar extends JFrame {
                             "Erro",
                             JOptionPane.ERROR_MESSAGE
                     );
+         			 UIManager.put("OptionPane.background", corPaletaBege);
+        	         UIManager.put("Panel.background", corPaletaBege);
+        	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                 }
             }
         });
@@ -213,9 +227,9 @@ public class TelaPedidoConfirmar extends JFrame {
                 new EstilizacaoRedonda.BotaoRedondo("Voltar",
                         corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
-        botaoVoltar.setBounds(1131, 19, 104, 38);
+        botaoVoltar.setBounds(1131, 32, 104, 38);
         panelVermelho.add(botaoVoltar);
 
         botaoVoltar.addActionListener(e -> {
@@ -225,13 +239,13 @@ public class TelaPedidoConfirmar extends JFrame {
 
         JLabel logoLabel = new JLabel("");
         logoLabel.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/assets/imagens/iconeJanelaPequena.png")));
-        logoLabel.setBounds(30, 0, 92, 82);
+        logoLabel.setBounds(30, 14, 92, 82);
         panelVermelho.add(logoLabel);
 
         JLabel novoPedidoLabel = new JLabel("Novo Pedido");
-        novoPedidoLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        novoPedidoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         novoPedidoLabel.setForeground(corPaletaBege);
-        novoPedidoLabel.setBounds(485, 12, 261, 52);
+        novoPedidoLabel.setBounds(500, 25, 280, 52);
         panelVermelho.add(novoPedidoLabel);
     }
 }

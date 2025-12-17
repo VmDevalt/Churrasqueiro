@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -48,6 +49,16 @@ public class TelaCriarItem extends JFrame {
     private final ItemCardapioController itemCardapioController = new ItemCardapioController();
     private final CategoriaController categoriaController = new CategoriaController();
     private Map<String, Integer> listaCategorias = new HashMap<>();
+    
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 
     public EstilizacaoRedonda.CaixaTextoRedonda getCampoNome() {
         return campoNome;
@@ -88,14 +99,6 @@ public class TelaCriarItem extends JFrame {
 
     public TelaCriarItem() {
 
-        Color corPaletaVermelho = new Color(179, 13, 36);
-        Color corPaletaBege = new Color(227, 202, 187);
-        Color corPaletaVermelhoInteracao = new Color(200, 50, 50);
-        Color corPaletaVermelhoPressionado = new Color(150, 0, 0);
-        Color corPaletaPreto = new Color(0, 0, 0);
-        Color corPaletaPretoInteração = new Color(35, 35, 35);
-        Color corPaletaCinza = new Color(140, 127, 127);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(LARGURA, ALTURA);
         setResizable(false);
@@ -120,7 +123,7 @@ public class TelaCriarItem extends JFrame {
         panelClaro.add(labelCriarItem);
 
         final EstilizacaoRedonda.BotaoRedondo botaoAdicionarItem =
-                new EstilizacaoRedonda.BotaoRedondo("Confirmar", corPaletaPreto, corPaletaPretoInteração, corPaletaPreto, 35);
+                new EstilizacaoRedonda.BotaoRedondo("Confirmar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
         botaoAdicionarItem.setText("Adicionar Item");
         botaoAdicionarItem.setBounds(516, 494, 230, 40);
         panelClaro.add(botaoAdicionarItem);
@@ -134,13 +137,10 @@ public class TelaCriarItem extends JFrame {
             }
         });
 
-        this.comboBoxGrupos = new JComboBox<>();
-        comboBoxGrupos.setBorder(new LineBorder(new Color(179, 13, 36), 1));
-        comboBoxGrupos.setForeground(corPaletaPreto);
-        comboBoxGrupos.setBackground(corPaletaBege);
-        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_BOLD_17);
-        comboBoxGrupos.setMaximumRowCount(2);
-        comboBoxGrupos.setBounds(100, 309, 486, 38);
+        this.comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
+        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
+        comboBoxGrupos.setMaximumRowCount(5);
+        comboBoxGrupos.setBounds(90, 309, 496, 38);
         panelClaro.add(comboBoxGrupos);
 
         carregarCategoriasNoComboBox();
@@ -223,6 +223,9 @@ public class TelaCriarItem extends JFrame {
                         ImageIcon novoIcone = new ImageIcon(destino.toFile().getAbsolutePath());
 
                         JOptionPane.showMessageDialog(null,"Imagem carregada, redimensionada para 82x82px e salva como PNG!","Sucesso",JOptionPane.INFORMATION_MESSAGE);
+              			 UIManager.put("OptionPane.background", corPaletaBege);
+            	         UIManager.put("Panel.background", corPaletaBege);
+            	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(
                                 null,
@@ -230,6 +233,9 @@ public class TelaCriarItem extends JFrame {
                                 "Erro",
                                 JOptionPane.ERROR_MESSAGE
                         );
+              			 UIManager.put("OptionPane.background", corPaletaBege);
+            	         UIManager.put("Panel.background", corPaletaBege);
+            	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
                     }
                 }
             }
@@ -291,7 +297,7 @@ public class TelaCriarItem extends JFrame {
         contentPaneVermelho.add(labelItem);
 
         final EstilizacaoRedonda.BotaoRedondo botaoSair =
-                new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteração, corPaletaPreto, 35);
+                new EstilizacaoRedonda.BotaoRedondo("Voltar", corPaletaPreto, corPaletaPretoInteracao, corPaletaPreto, 35);
         botaoSair.setBounds(1112, 34, 110, 38);
         contentPaneVermelho.add(botaoSair);
         botaoSair.setFont(FontsConstants.MONTSERRAT_BOLD_18);
@@ -349,6 +355,9 @@ public class TelaCriarItem extends JFrame {
                     "Erro ao carregar categorias do banco.",
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
+  			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
         }
     }
 
@@ -408,21 +417,33 @@ private void aplicarMascaraPreco(JTextField campo) {
 
         if (nome.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o nome do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+  			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (descricao.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a descrição do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (categoriaSelecionada == null || categoriaSelecionada.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selecione um grupo/categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
         if (precoStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o preço do item.", "Aviso", JOptionPane.WARNING_MESSAGE);
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
@@ -435,6 +456,9 @@ private void aplicarMascaraPreco(JTextField campo) {
         Integer categoriaId = listaCategorias.get(categoriaSelecionada);
         if (categoriaId == null) {
             JOptionPane.showMessageDialog(this, "Categoria selecionada inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
             return;
         }
 
@@ -454,6 +478,9 @@ private void aplicarMascaraPreco(JTextField campo) {
                     "Sucesso",
                     JOptionPane.INFORMATION_MESSAGE
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             int opcao = JOptionPane.showConfirmDialog(
                     this,
@@ -461,6 +488,9 @@ private void aplicarMascaraPreco(JTextField campo) {
                     "Item criado",
                     JOptionPane.YES_NO_OPTION
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
             if (opcao == JOptionPane.YES_OPTION) {
                 dispose();
@@ -477,6 +507,9 @@ private void aplicarMascaraPreco(JTextField campo) {
                     "Erro de Validação",
                     JOptionPane.WARNING_MESSAGE
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 
         } catch (DatabaseException ex) {
             JOptionPane.showMessageDialog(
@@ -485,6 +518,9 @@ private void aplicarMascaraPreco(JTextField campo) {
                     "Erro de Banco",
                     JOptionPane.ERROR_MESSAGE
             );
+ 			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
         }
     }
 }

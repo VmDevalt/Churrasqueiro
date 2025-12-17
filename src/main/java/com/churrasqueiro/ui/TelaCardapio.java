@@ -12,6 +12,7 @@ import com.churrasqueiro.business.ItemCardapioController;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaCardapio extends JFrame {
 
@@ -32,7 +33,6 @@ public class TelaCardapio extends JFrame {
     private final Color corPaletaPretoInteracao = new Color(35, 35, 35);
 
     public TelaCardapio(PedidoEmMontagem pedido) {
-
         this.pedido = pedido;
 
         setTitle("Cardápio - Churrasqueiro");
@@ -56,7 +56,7 @@ public class TelaCardapio extends JFrame {
                         35
                 );
         botaoVoltar.setBounds(1125, 19, 110, 38);
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         panelVermelho.add(botaoVoltar);
         botaoVoltar.addActionListener(e -> {
@@ -71,7 +71,7 @@ public class TelaCardapio extends JFrame {
         panelVermelho.add(logo);
 
         JLabel titulo = new JLabel("Cardápio");
-        titulo.setFont(new Font("SansSerif", Font.BOLD, 36));
+        titulo.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         titulo.setForeground(corPaletaBege);
         titulo.setBounds(530, 12, 400, 52);
         panelVermelho.add(titulo);
@@ -103,7 +103,7 @@ public class TelaCardapio extends JFrame {
                         35
                 );
         botaoAvancar.setForeground(Color.WHITE);
-        botaoAvancar.setFont(new Font("SansSerif", Font.BOLD, 20));
+        botaoAvancar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         botaoAvancar.setBounds(1050, 550, 180, 40);
         panelBranco.add(botaoAvancar);
 
@@ -191,7 +191,7 @@ public class TelaCardapio extends JFrame {
         p.add(nome);
 
         JTextArea desc = new JTextArea(item.getDescricao());
-        desc.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        desc.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         desc.setForeground(corPaletaBege);
         desc.setBackground(corPaletaVermelho);
         desc.setWrapStyleWord(true);
@@ -216,7 +216,7 @@ public class TelaCardapio extends JFrame {
                         25
                 );
         botaoAdicionar.setBounds(165, 148, 130, 32);
-        botaoAdicionar.setFont(new Font("SansSerif", Font.BOLD, 14));
+        botaoAdicionar.setFont(FontsConstants.MONTSERRAT_BOLD_14);
         botaoAdicionar.setForeground(Color.WHITE);
         p.add(botaoAdicionar);
 

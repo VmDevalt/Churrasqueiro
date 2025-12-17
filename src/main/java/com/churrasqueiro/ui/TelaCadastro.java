@@ -1,7 +1,6 @@
 package com.churrasqueiro.ui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,12 +8,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.UIManager;
+
 import com.churrasqueiro.business.CadastroUsuarioController;
 import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
@@ -34,6 +36,16 @@ public class TelaCadastro extends JFrame {
 	private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
 	private JComboBox<String> cBoxTipoUsuario;
 	private JButton botaoCriarConta;
+	
+    Color corPaletaVermelho = new Color(179,13,36);
+    Color corPaletaBege = new Color(227,202,187);
+    Color corPaletaVermelhoInteracao = new Color(200,50,50);
+    Color corPaletaVermelhoPressionado = new Color(150,0,0);
+    Color corPaletaPreto = new Color(0,0,0);
+    Color corPaletaPretoInteracao = new Color(35,35,35);
+    Color corPaletaCinza = new Color(140,127,127);
+    Color corPaletaBegeInteracao = new Color(245,225,210);
+    Color corPaletaBegePressionado = new Color(200,175,160);
 	
 	public String getLogin() {
 		return campoLogin.getText().trim();
@@ -71,17 +83,29 @@ public class TelaCadastro extends JFrame {
 			JOptionPane.showMessageDialog(this,
 					"Cadastro realizado com sucesso! Tipo: " + novoUsuario.getTipo(),
 					"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaPreto);
 			limparCampos();
 		} catch(ControllerException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Login",
 			JOptionPane.WARNING_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 		} catch(DatabaseException e) {
 			JOptionPane.showMessageDialog(this, "Erro de comunicação com o banco de dados.", "Erro Fatal", 
             JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
             e.printStackTrace();
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(this, "Erro inesperado", e.getMessage(), 
             JOptionPane.ERROR_MESSAGE);
+			 UIManager.put("OptionPane.background", corPaletaBege);
+	         UIManager.put("Panel.background", corPaletaBege);
+	         UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
 			e.printStackTrace();
 		}
 	}
@@ -99,20 +123,8 @@ public class TelaCadastro extends JFrame {
 		});
 	}
 
-	
-	/**
-	 * 
-	 */
 	public TelaCadastro() {
-		
-		 Color corPaletaVermelho = new Color(179,13,36);
-	     Color corPaletaBege = new Color(227,202,187);
-	     Color corPaletaVermelhoInteracao = new Color(200,50,50);
-	     Color corPaletaVermelhoPressionado = new Color(150,0,0);
-	     Color corPaletaPreto = new Color(0,0,0);
-	     Color corPaletaPretoInteração = new Color(35,35,35);
-	     Color corPaletaCinza = new Color(140,127,127);
-		
+
 		setTitle("Cadastro - Churrasqueiro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -133,7 +145,7 @@ public class TelaCadastro extends JFrame {
 		panelVermelho.add(panelBranco);
 		panelBranco.setLayout(null);
 		
-		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
+		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		botaoVoltar.setForeground(corPaletaVermelho);
 		botaoVoltar.setBackground(new Color(0, 0, 0));
@@ -207,8 +219,7 @@ public class TelaCadastro extends JFrame {
 	    panelBranco.add(labelConfirmarSenha);
 
         cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_BOLD_13);
-		cBoxTipoUsuario.setMaximumRowCount(2);
+        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
 		cBoxTipoUsuario.setBounds(444, 140, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
 		
