@@ -101,7 +101,7 @@ public class TelaNovoPedido extends JFrame {
         cBoxMesas = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"01", "02", "03"}, corPaletaBege, corPaletaVermelho, 2, 20);
         cBoxMesas.setFont(new Font("SansSerif", Font.PLAIN, 17));
         cBoxMesas.setMaximumRowCount(5);
-        cBoxMesas.setBounds(500, 99, 56, 23);
+        cBoxMesas.setBounds(483, 100, 56, 23);
         panelBranco.add(cBoxMesas);
         if(pedido.getNumeroMesa() != null) {
         	cBoxMesas.setSelectedItem(pedido.getNumeroMesa());
@@ -110,7 +110,7 @@ public class TelaNovoPedido extends JFrame {
         cBoxFormaPagamento = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"Dinheiro", "Cartão de crédito", "Cartão de débito", "Pix"}, corPaletaBege, corPaletaVermelho, 2, 20);
         cBoxFormaPagamento.setFont(new Font("SansSerif", Font.PLAIN, 17));
         cBoxFormaPagamento.setMaximumRowCount(5);
-        cBoxFormaPagamento.setBounds(643, 340, 210, 23);
+        cBoxFormaPagamento.setBounds(650, 341, 210, 23);
         panelBranco.add(cBoxFormaPagamento);
 
         if(pedido.getFormaPagamento() != null) {
@@ -131,7 +131,7 @@ public class TelaNovoPedido extends JFrame {
 
         this.campoNome = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o nome",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoNome.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        campoNome.setBounds(699, 93, 360, 38);
+        campoNome.setBounds(702, 94, 360, 38);
         campoNome.setColumns(10);
         panelBranco.add(campoNome);
         if(pedido.getNomeCliente() != null ) {
@@ -147,7 +147,7 @@ public class TelaNovoPedido extends JFrame {
 
         this.campoAcrescimo = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Acréssimo",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoAcrescimo.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        campoAcrescimo.setBounds(520, 207, 360, 38);
+        campoAcrescimo.setBounds(530, 198, 360, 38);
         campoAcrescimo.setColumns(10);
         panelBranco.add(campoAcrescimo);
         if(pedido.getAcrescimo() != 0 ) {
@@ -163,7 +163,7 @@ public class TelaNovoPedido extends JFrame {
 
         this.campoDesconto = new EstilizacaoRedonda.CaixaTextoRedonda("Digite o Desconto",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoDesconto.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        campoDesconto.setBounds(520, 275, 360, 38);
+        campoDesconto.setBounds(519, 266, 360, 38);
         campoDesconto.setColumns(10);
         panelBranco.add(campoDesconto);
         if(pedido.getDesconto() != 0 ) {
@@ -185,7 +185,7 @@ public class TelaNovoPedido extends JFrame {
 
         this.campoObservacoes = new EstilizacaoRedonda.CaixaTextoRedonda("Digite as Observações",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
         campoObservacoes.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        campoObservacoes.setBounds(535, 418, 360, 38);
+        campoObservacoes.setBounds(550, 409, 360, 38);
         campoObservacoes.setColumns(10);
         panelBranco.add(campoObservacoes);
         if(pedido.getObservacoes() != null ) {
