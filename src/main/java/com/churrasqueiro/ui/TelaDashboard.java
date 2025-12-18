@@ -184,7 +184,7 @@ public class TelaDashboard extends JFrame {
         dashboardPanel.add(dashbordLabel);
 
         panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
+        panel.setBounds(0, 102, 1280, 609);
         panel.setBackground(corPaletaBege);
         panel.setLayout(null);
         contentPane.add(panel);

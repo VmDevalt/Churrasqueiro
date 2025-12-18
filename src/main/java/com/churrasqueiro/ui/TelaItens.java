@@ -298,8 +298,8 @@ public class TelaItens extends JFrame {
             }
         }
 
-        panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
+        panel = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
+        panel.setBounds(-25, 102, 1291, 663);
         panel.setBackground(corPaletaBege);
         panel.setLayout(null);
         contentPane.add(panel);
@@ -428,7 +428,7 @@ public class TelaItens extends JFrame {
         );
         campoPesquisa.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoPesquisa.setToolTipText("Digite seu texto");
-        campoPesquisa.setBounds(80, 80, 1135, 38);
+        campoPesquisa.setBounds(105, 80, 1135, 38);
         panel.add(campoPesquisa);
 
         campoPesquisa.getDocument().addDocumentListener(new DocumentListener() {

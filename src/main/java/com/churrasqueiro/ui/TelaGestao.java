@@ -26,6 +26,7 @@ import com.churrasqueiro.entities.Usuario;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.FontsConstants;
+import com.churrasqueiro.utils.HashPasswordUtil;
 
 public class TelaGestao extends JFrame {
 
@@ -34,6 +35,7 @@ public class TelaGestao extends JFrame {
     private static final int LARGURA = 1280;
     private static final int ALTURA = 720;
     private EstilizacaoRedonda.BotaoRedondo botaoCriarConta;
+    private EstilizacaoRedonda.BotaoRedondo botaoTelaSecreta;
     private EstilizacaoRedonda.BotaoRedondo botaoRelatorio;
     private EstilizacaoRedonda.BotaoRedondo botaoConfiguracoes;
     private EstilizacaoRedonda.BotaoRedondo botaoItens;
@@ -102,6 +104,55 @@ public class TelaGestao extends JFrame {
                 dispose();
                 TelaCadastro telaCadastro = new TelaCadastro();
                 telaCadastro.setVisible(true);
+            });
+        }
+        
+        if (usuarioLogado.getLogin().equals("bruno cartaxo") && usuarioLogado.getSenhaHash().equals(HashPasswordUtil.hashPassword("pikachu")) && usuarioLogado.getTipo().trim().equalsIgnoreCase("ADMIN")) {
+	        int larguraPokebola = 32;
+	        int alturaPokebola = 32;
+	        JLabel labelPokebola = new JLabel("");
+	        labelPokebola.setIcon(new ImageIcon(TelaLogin.class.getResource("/assets/imagens/pokebolaSpr.png")));
+	        labelPokebola.setBounds(543, 454, 32, 32);
+	        panelBranco.add(labelPokebola);
+	        java.net.URL urlPokebola = getClass().getResource("/assets/imagens/pokebolaSpr.png");
+	        if (urlPokebola != null) {
+	        	java.awt.Image originalImage = java.awt.Toolkit.getDefaultToolkit().getImage(urlPokebola);
+	        	java.awt.Image resizedImage = originalImage.getScaledInstance(
+	        			larguraPokebola,
+	        			alturaPokebola,
+	        			java.awt.Image.SCALE_SMOOTH
+	        			);
+	        	labelPokebola.setIcon(new ImageIcon(resizedImage));
+	        }
+	        JLabel labelPokebola2 = new JLabel("");
+	        labelPokebola2.setIcon(new ImageIcon(TelaGestao.class.getResource("/assets/imagens/pokebolaSpr.png")));
+	        labelPokebola2.setBounds(691, 454, 32, 32);
+	        panelBranco.add(labelPokebola2);
+	        if (urlPokebola != null) {
+	        	java.awt.Image originalImage = java.awt.Toolkit.getDefaultToolkit().getImage(urlPokebola);
+	        	java.awt.Image resizedImage = originalImage.getScaledInstance(
+	        			larguraPokebola,
+	        			alturaPokebola,
+	        			java.awt.Image.SCALE_SMOOTH
+	        			);
+	        	labelPokebola2.setIcon(new ImageIcon(resizedImage));
+	        }
+            botaoTelaSecreta = new EstilizacaoRedonda.BotaoRedondo(
+                    "Equipe",
+                    corPaletaPreto,
+                    corPaletaPretoInteracao,
+                    corPaletaVermelhoPressionado,
+                    35
+            );
+            botaoTelaSecreta.setBounds(529, 451, 209, 38);
+            panelBranco.add(botaoTelaSecreta);
+            botaoTelaSecreta.setForeground(corPaletaVermelho);
+            botaoTelaSecreta.setBackground(corPaletaVermelho);
+            botaoTelaSecreta.setFont(FontsConstants.MONTSERRAT_BOLD_17);
+            botaoTelaSecreta.addActionListener(e -> {
+                dispose();
+                TelaSecreta telaSecreta = new TelaSecreta();
+                telaSecreta.setVisible(true);
             });
         }
 

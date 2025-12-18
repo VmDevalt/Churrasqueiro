@@ -84,8 +84,8 @@ public class TelaRelatorios extends JFrame {
             }
         }
 
-        JPanel panel = new JPanel();
-        panel.setBounds(0, 102, 1266, 581);
+        JPanel panel = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
+        panel.setBounds(-25, 102, 1291, 581);
         panel.setBackground(corPaletaBege);
         panel.setLayout(null);
         contentPane.add(panel);
