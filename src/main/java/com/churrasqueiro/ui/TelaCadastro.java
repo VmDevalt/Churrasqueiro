@@ -131,6 +131,16 @@ public class TelaCadastro extends JFrame {
 		setSize(LARGURA, ALTURA);
 	    setResizable(false);
 	    setLocationRelativeTo(null);
+	    
+	    java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
 	        
 	    panelVermelho = new JPanel();
         panelVermelho.setBackground(new Color(179, 13, 36));

@@ -41,6 +41,17 @@ public class TelaCardapio extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
 
+        java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+
+        
         JPanel panelVermelho = new JPanel();
         panelVermelho.setBackground(corPaletaVermelho);
         panelVermelho.setLayout(null);
@@ -227,4 +238,4 @@ public class TelaCardapio extends JFrame {
 
         return p;
     }
-}
+   }
