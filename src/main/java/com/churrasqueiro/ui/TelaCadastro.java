@@ -134,6 +134,15 @@ public class TelaCadastro extends JFrame {
 	    setResizable(false);
 	    setLocationRelativeTo(null);
 	    
+	    java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
 	        
 	    panelVermelho = new JPanel();
         panelVermelho.setBackground(new Color(179, 13, 36));
@@ -269,7 +278,7 @@ public class TelaCadastro extends JFrame {
 	    panelBranco.add(labelConfirmarSenha);
 
         cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxTipoUsuario.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
 		cBoxTipoUsuario.setBounds(444, 140, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
 		

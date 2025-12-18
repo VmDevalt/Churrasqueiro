@@ -50,4 +50,9 @@ public class CategoriaController {
         }
         return categoriaOpt.get();
     }
+
+    public void atualizar(Categoria categoria) throws ControllerException, DatabaseException {
+        validarCategoria(categoria);
+        categoriaDAO.atualizar(categoria);
+    }
 }

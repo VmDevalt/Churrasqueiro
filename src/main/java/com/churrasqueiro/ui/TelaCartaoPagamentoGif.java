@@ -8,6 +8,7 @@ import com.churrasqueiro.business.PedidoController;
 import com.churrasqueiro.entities.PedidoEmMontagem;
 import com.churrasqueiro.exceptions.ControllerException;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaCartaoPagamentoGif extends JFrame {
 
@@ -85,7 +86,7 @@ public class TelaCartaoPagamentoGif extends JFrame {
         }
 
         lblStatus = new JLabel("Processando pagamento...");
-        lblStatus.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblStatus.setFont(FontsConstants.MONTSERRAT_BOLD_20);
         lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
         lblStatus.setBounds(40, 310, 440, 40);
         content.add(lblStatus);

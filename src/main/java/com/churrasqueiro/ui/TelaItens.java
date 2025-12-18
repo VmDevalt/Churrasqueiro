@@ -34,6 +34,7 @@ import com.churrasqueiro.business.ItemCardapioController;
 import com.churrasqueiro.entities.Categoria;
 import com.churrasqueiro.entities.ItemCardapio;
 import com.churrasqueiro.exceptions.DatabaseException;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaItens extends JFrame {
 
@@ -243,7 +244,7 @@ public class TelaItens extends JFrame {
     JLabel precoLabel = new JLabel("R$" + String.format("%.2f", item.getPreco()).replace('.', ','));
     precoLabel.setBounds(190, 80, 150, 26);
     precoLabel.setForeground(corPaletaBege);
-    precoLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+    precoLabel.setFont(FontsConstants.MONTSERRAT_BOLD_24);
     panelCard.add(precoLabel);
 
     EstilizacaoRedonda.BotaoRedondo botaoEditar =
@@ -254,7 +255,7 @@ public class TelaItens extends JFrame {
                     corPaletaPreto,
                     25
             );
-    botaoEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
+    botaoEditar.setFont(FontsConstants.MONTSERRAT_BOLD_14);
     botaoEditar.setForeground(Color.WHITE);
     botaoEditar.setBounds(190, 145, 120, 26);
     panelCard.add(botaoEditar);
@@ -311,7 +312,7 @@ public class TelaItens extends JFrame {
                         corPaletaPreto,
                         35
                 );
-        botaoVoltar.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoVoltar.setForeground(Color.WHITE);
         botaoVoltar.setBackground(corPaletaPreto);
         botaoVoltar.setBounds(1132, 34, 104, 38);
@@ -325,7 +326,7 @@ public class TelaItens extends JFrame {
         });
 
         JLabel relatoriosLabel = new JLabel("Itens");
-        relatoriosLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        relatoriosLabel.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         relatoriosLabel.setForeground(corPaletaBege);
         relatoriosLabel.setBounds(570, 34, 200, 38);
         contentPane.add(relatoriosLabel);
@@ -349,7 +350,7 @@ public class TelaItens extends JFrame {
                         35
                 );
         botaoCriarItem.setBounds(80, 20, 151, 38);
-        botaoCriarItem.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoCriarItem.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoCriarItem.setForeground(Color.WHITE);
         panel.add(botaoCriarItem);
         botaoCriarItem.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +370,7 @@ public class TelaItens extends JFrame {
                         35
                 );
         botaoCriarGrupo.setBounds(256, 20, 151, 38);
-        botaoCriarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoCriarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoCriarGrupo.setForeground(Color.WHITE);
         panel.add(botaoCriarGrupo);
         botaoCriarGrupo.addActionListener(new java.awt.event.ActionListener() {
@@ -381,28 +382,41 @@ public class TelaItens extends JFrame {
         });
         
         final EstilizacaoRedonda.BotaoRedondo botaoEditarGrupo = new EstilizacaoRedonda.BotaoRedondo("Editar Grupo",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
-        botaoEditarGrupo.setBounds(435, 20, 151, 38);
-        botaoEditarGrupo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoEditarGrupo.setBounds(435, 20, 171, 38);
+        botaoEditarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoEditarGrupo.setForeground(Color.WHITE);
         panel.add(botaoEditarGrupo);
-        botaoEditarGrupo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UIManager.put("OptionPane.background", corPaletaBege);
-		        UIManager.put("Panel.background", corPaletaBege);
-		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
-		        String[] itensGrupos = { "Hamburgueres", "Bebidas", "Acompanhamentos" };
-		        JComboBox<String> cBoxItensGrupo = new JComboBox<>(itensGrupos);
-		        Object[] opcoes = { "Avançar", "Cancelar" };
-		        int escolha = JOptionPane.showOptionDialog(
-		            TelaItens.this,"Selecione qual Grupo deseja editar", "Editar Grupo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
-		        if (escolha == 0) { 
-		            dispose();
-		            TelaEditarGrupo telaEditarGrupo = new TelaEditarGrupo();
-		            telaEditarGrupo.setVisible(true);
-		        }
-		    }
-		});
-       
+        botaoEditarGrupo.addActionListener(e -> {
+    try {
+        List<Categoria> categorias = categoriaController.listarTodas();
+
+        if (categorias.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum grupo cadastrado.");
+            return;
+        }
+
+        JComboBox<Categoria> combo = new JComboBox<>(
+            categorias.toArray(new Categoria[0])
+        );
+
+        int opcao = JOptionPane.showConfirmDialog(
+            this,
+            combo,
+            "Selecione o grupo",
+            JOptionPane.OK_CANCEL_OPTION
+        );
+
+        if (opcao == JOptionPane.OK_OPTION) {
+            Categoria selecionada = (Categoria) combo.getSelectedItem();
+            dispose();
+            new TelaEditarGrupo(selecionada).setVisible(true);
+        }
+
+    } catch (DatabaseException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar grupos.");
+    }
+});
+   
 
         this.campoPesquisa = new EstilizacaoRedonda.CaixaTextoRedonda(
                 "Digite...",
@@ -412,7 +426,7 @@ public class TelaItens extends JFrame {
                 2,
                 35
         );
-        campoPesquisa.setFont(new Font("Calibri", Font.PLAIN, 14));
+        campoPesquisa.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoPesquisa.setToolTipText("Digite seu texto");
         campoPesquisa.setBounds(80, 80, 1135, 38);
         panel.add(campoPesquisa);
