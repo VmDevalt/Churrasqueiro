@@ -8,9 +8,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.churrasqueiro.business.CategoriaController;
+import com.churrasqueiro.entities.Categoria;
+import com.churrasqueiro.exceptions.ControllerException;
+import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaEditarGrupo extends JFrame {
@@ -21,6 +26,7 @@ public class TelaEditarGrupo extends JFrame {
     private static final int ALTURA = 720;
     private EstilizacaoRedonda.CaixaTextoRedonda campoNomeGrupo;
     private EstilizacaoRedonda.CaixaTextoRedonda campoDescricaoGrupo;
+	private Categoria categoria;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -34,7 +40,14 @@ public class TelaEditarGrupo extends JFrame {
 			}
 		});
 	}
-	
+
+	public TelaEditarGrupo() {
+	}
+
+	private void carregarDados() {
+		campoNomeGrupo.setText(categoria.getNome());
+		campoDescricaoGrupo.setText(categoria.getDescricao());
+	}
 	
     Color corPaletaBege = new Color(227,202,187);
     Color corPaletaVermelho = new Color(179,13,36);
@@ -45,7 +58,8 @@ public class TelaEditarGrupo extends JFrame {
     Color corPaletaPretoInteração = new Color(35,35,35);
     Color corPaletaCinza = new Color(140,127,127);
 
-	public TelaEditarGrupo() {
+	public TelaEditarGrupo(Categoria categoria) {
+		this.categoria = categoria;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(LARGURA, ALTURA);
 		setTitle("Editar Grupo - Churrasqueiro");
@@ -121,7 +135,24 @@ public class TelaEditarGrupo extends JFrame {
 		botaoAtualizarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_20);
 		botaoAtualizarGrupo.setForeground(corPaletaBege);
 		botaoAtualizarGrupo.setBackground(new Color(0, 0, 0));
+		botaoAtualizarGrupo.addActionListener(e -> {
+    try {
+        categoria.setNome(campoNomeGrupo.getText().trim());
+        categoria.setDescricao(campoDescricaoGrupo.getText().trim());
+
+        CategoriaController controller = new CategoriaController();
+        controller.atualizar(categoria);
+
+        JOptionPane.showMessageDialog(this, "Grupo atualizado com sucesso.");
+        dispose();
+        new TelaItens().setVisible(true);
+
+    } catch (ControllerException | DatabaseException ex) {
+        JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+	});
 		
+		carregarDados();	
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteração,corPaletaPreto,35);
 		botaoVoltar.setBounds(1128, 32, 104, 38);

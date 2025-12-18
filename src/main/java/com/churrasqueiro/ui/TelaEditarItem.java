@@ -108,7 +108,7 @@ public class TelaEditarItem extends JFrame {
         });
 
         comboBoxGrupos = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{}, corPaletaBege, corPaletaVermelho, 2, 35);
-        comboBoxGrupos.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        comboBoxGrupos.setFont(FontsConstants.MONTSERRAT_BOLD_13);
         comboBoxGrupos.setMaximumRowCount(5);
         comboBoxGrupos.setBounds(115, 309, 496, 38);
         panelClaro.add(comboBoxGrupos);
@@ -134,7 +134,7 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoDescricao.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoDescricao.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoDescricao.setToolTipText("Descrição do item");
         campoDescricao.setBounds(115, 222, 1088, 38);
         panelClaro.add(campoDescricao);
@@ -148,7 +148,7 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoPreco.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoPreco.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoPreco.setToolTipText("Preço do item");
         campoPreco.setBounds(115, 406, 496, 38);
         panelClaro.add(campoPreco);
@@ -176,7 +176,7 @@ public class TelaEditarItem extends JFrame {
                 2,
                 35
         );
-        campoFoto.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        campoFoto.setFont(FontsConstants.MONTSERRAT_LIGHT_13);
         campoFoto.setToolTipText("Arquivo de imagem");
         campoFoto.setBounds(683, 309, 520, 38);
         panelClaro.add(campoFoto);

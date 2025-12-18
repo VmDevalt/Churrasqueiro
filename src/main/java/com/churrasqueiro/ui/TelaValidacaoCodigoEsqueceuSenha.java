@@ -102,6 +102,16 @@ public class TelaValidacaoCodigoEsqueceuSenha extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         
+        java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
+        
         panelVermelho = new JPanel();
         panelVermelho.setBackground(corPaletaVermelho);
         panelVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));

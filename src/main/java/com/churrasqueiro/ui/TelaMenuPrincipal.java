@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import com.churrasqueiro.business.CaixaController;
 import com.churrasqueiro.exceptions.DatabaseException;
 import com.churrasqueiro.entities.Usuario;
+import com.churrasqueiro.utils.FontsConstants;
 
 public class TelaMenuPrincipal extends JFrame {
 
@@ -78,7 +79,7 @@ public class TelaMenuPrincipal extends JFrame {
             );
 
         botaoPedidos.setForeground(corPaletaBege);
-        botaoPedidos.setFont(new Font("SansSerif", Font.BOLD, 45));
+        botaoPedidos.setFont(FontsConstants.MONTSERRAT_BOLD_40);
         botaoPedidos.setBounds(73, 269, 288, 335);
         contentPane.add(botaoPedidos);
 
@@ -120,7 +121,7 @@ public class TelaMenuPrincipal extends JFrame {
 	                    corPaletaVermelho, corPaletaVermelhoInteracao,
 	                    corPaletaVermelhoPressionado, 35);
 	        botaoDashboard.setForeground(corPaletaBege);
-	        botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
+	        botaoDashboard.setFont(FontsConstants.MONTSERRAT_BOLD_40);
 	        botaoDashboard.setBounds(885, 269, 288, 335);
 	        contentPane.add(botaoDashboard);
 	        botaoDashboard.addActionListener(e -> {
@@ -133,7 +134,7 @@ public class TelaMenuPrincipal extends JFrame {
 	                    corPaletaVermelho, corPaletaVermelhoInteracao,
 	                    corPaletaVermelhoPressionado, 35);
 	        botaoGestao.setForeground(corPaletaBege);
-	        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
+	        botaoGestao.setFont(FontsConstants.MONTSERRAT_BOLD_40);
 	        botaoGestao.setBounds(482, 269, 288, 335);
 	        contentPane.add(botaoGestao);
 	        botaoGestao.addActionListener(e -> {
@@ -146,7 +147,7 @@ public class TelaMenuPrincipal extends JFrame {
 		            		corPaletaCinza, new Color(172, 164, 164),
 		            		corPaletaVermelhoPressionado, 35);
 		        botaoDashboard.setForeground(corPaletaBege);
-		        botaoDashboard.setFont(new Font("SansSerif", Font.BOLD, 45));
+		        botaoDashboard.setFont(FontsConstants.MONTSERRAT_BOLD_40);
 		        botaoDashboard.setBounds(885, 269, 288, 335);
 		        contentPane.add(botaoDashboard);
 		        botaoDashboard.addActionListener(e -> {
@@ -158,7 +159,7 @@ public class TelaMenuPrincipal extends JFrame {
 		            		corPaletaCinza, new Color(172, 164, 164),
 		            		corPaletaVermelhoPressionado, 35);
 		        botaoGestao.setForeground(corPaletaBege);
-		        botaoGestao.setFont(new Font("SansSerif", Font.BOLD, 45));
+		        botaoGestao.setFont(FontsConstants.MONTSERRAT_BOLD_40);
 		        botaoGestao.setBounds(482, 269, 288, 335);
 		        contentPane.add(botaoGestao);
 		        botaoGestao.addActionListener(e -> {
@@ -171,7 +172,7 @@ public class TelaMenuPrincipal extends JFrame {
                 "Sair", corPaletaPreto, new Color(50, 50, 50), corPaletaPreto, 35
             );
         botaoSair.setForeground(corPaletaVermelho);
-        botaoSair.setFont(new Font("SansSerif", Font.BOLD, 18));
+        botaoSair.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoSair.setBounds(1133, 39, 83, 38);
         contentPane.add(botaoSair);
 
@@ -194,12 +195,13 @@ public class TelaMenuPrincipal extends JFrame {
         });
 
         JLabel labelEscolha = new JLabel("Escolha uma opção");
-        labelEscolha.setFont(new Font("SansSerif", Font.BOLD, 40));
+        labelEscolha.setFont(FontsConstants.MONTSERRAT_BOLD_40);
+        labelEscolha.setForeground(corPaletaPreto);
         labelEscolha.setBounds(437, 178, 523, 58);
         contentPane.add(labelEscolha);
 
         JLabel labelLogo = new JLabel("");
-        labelLogo.setBounds(576, 22, 265, 165);
+        labelLogo.setBounds(590, 22, 265, 165);
         contentPane.add(labelLogo);
 
         ImageIcon iconLogo = null;

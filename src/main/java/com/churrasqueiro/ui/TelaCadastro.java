@@ -32,10 +32,12 @@ public class TelaCadastro extends JFrame {
 	private static final CadastroUsuarioController CadastroController = new CadastroUsuarioController();
 	private EstilizacaoRedonda.CaixaTextoRedonda campoLogin;
 	private EstilizacaoRedonda.CaixaSenhaRedonda campoSenha;
-	private EstilizacaoRedonda.CaixaSenhaRedonda CampoConfirmarSenha;
+	private EstilizacaoRedonda.CaixaSenhaRedonda campoConfirmarSenha;
 	private EstilizacaoRedonda.CaixaTextoRedonda campoEmail;
 	private JComboBox<String> cBoxTipoUsuario;
 	private JButton botaoCriarConta;
+	private boolean visualizacaoSenha = false;
+	private boolean visualizacaoConfirmacaoSenha = false;
 	
     Color corPaletaVermelho = new Color(179,13,36);
     Color corPaletaBege = new Color(227,202,187);
@@ -67,7 +69,7 @@ public class TelaCadastro extends JFrame {
 	}
 	
 	public String getSenhaConfirmada() {
-		String senhaConfirmada = new String(CampoConfirmarSenha.getPassword());
+		String senhaConfirmada = new String(campoConfirmarSenha.getPassword());
 		return senhaConfirmada;
 	}
 	
@@ -140,12 +142,23 @@ public class TelaCadastro extends JFrame {
 		setSize(LARGURA, ALTURA);
 	    setResizable(false);
 	    setLocationRelativeTo(null);
+	    
+	    java.net.URL url = getClass().getResource("/assets/imagens/iconeJanela.png");
+        if (url != null) {
+            try {
+                java.awt.Image icon = javax.imageio.ImageIO.read(url);
+                setIconImage(icon);
+            } catch (java.io.IOException e) {
+                System.err.println("Falha de I/O ao ler a imagem: " + e.getMessage());
+            }
+        }
 	        
 	    panelVermelho = new JPanel();
         panelVermelho.setBackground(new Color(179, 13, 36));
 		panelVermelho.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelVermelho);
 		panelVermelho.setLayout(null);
+		
 
         final EstilizacaoRedonda.PainelRedondo panelBranco = new EstilizacaoRedonda.PainelRedondo(null,60,4,corPaletaBege,null);
         panelBranco.setFocusable(true);
@@ -153,6 +166,52 @@ public class TelaCadastro extends JFrame {
 		panelBranco.setBounds(90, 85, 1098, 505);
 		panelVermelho.add(panelBranco);
 		panelBranco.setLayout(null);
+		
+		JButton botaoRevelarSenha = new JButton("");
+		botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+		botaoRevelarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(visualizacaoSenha == false) {
+					campoSenha.setEchoChar((char)0);
+					visualizacaoSenha = true;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoSenha.setEchoChar('•');
+					visualizacaoSenha = false;
+					botaoRevelarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
+			}
+		});
+		botaoRevelarSenha.setBounds(467, 332, 58, 38);
+		panelBranco.add(botaoRevelarSenha);
+		botaoRevelarSenha.setBorder(null);
+		botaoRevelarSenha.setContentAreaFilled(false);
+		botaoRevelarSenha.setFocusPainted(false);
+		botaoRevelarSenha.setOpaque(false);
+		
+		JButton botaoRevelarConfirmarSenha = new JButton("");
+		botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+		botaoRevelarConfirmarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(visualizacaoConfirmacaoSenha == false) {
+					campoConfirmarSenha.setEchoChar((char)0);
+					visualizacaoConfirmacaoSenha = true;
+					botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olho.png")));
+				} else {
+					campoConfirmarSenha.setEchoChar('•');
+					visualizacaoConfirmacaoSenha = false;
+					botaoRevelarConfirmarSenha.setIcon(new ImageIcon(getClass().getResource("/assets/imagens/olhoClos.png")));
+					
+				};
+			}
+		});
+		botaoRevelarConfirmarSenha.setBounds(996, 332, 58, 38);
+		panelBranco.add(botaoRevelarConfirmarSenha);
+		botaoRevelarConfirmarSenha.setBorder(null);
+		botaoRevelarConfirmarSenha.setContentAreaFilled(false);
+		botaoRevelarConfirmarSenha.setFocusPainted(false);
+		botaoRevelarConfirmarSenha.setOpaque(false);
 		
 		final EstilizacaoRedonda.BotaoRedondo botaoVoltar = new EstilizacaoRedonda.BotaoRedondo("Voltar",corPaletaPreto,corPaletaPretoInteracao,corPaletaPreto,35);
 		botaoVoltar.setFont(FontsConstants.MONTSERRAT_BOLD_20);
@@ -189,12 +248,12 @@ public class TelaCadastro extends JFrame {
 		campoSenha.setBounds(45, 332, 480, 38);
 		panelBranco.add(campoSenha);
 		
-		this.CampoConfirmarSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Confirme sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
-		CampoConfirmarSenha.setBounds(575, 332, 480, 38);
-		CampoConfirmarSenha.setToolTipText("Digite seu texto");
-		CampoConfirmarSenha.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
-		CampoConfirmarSenha.setColumns(10);
-		panelBranco.add(CampoConfirmarSenha);
+		this.campoConfirmarSenha = new EstilizacaoRedonda.CaixaSenhaRedonda("Confirme sua senha...",corPaletaVermelho,corPaletaBege,corPaletaCinza,2,35);
+		campoConfirmarSenha.setBounds(575, 332, 480, 38);
+		campoConfirmarSenha.setToolTipText("Digite seu texto");
+		campoConfirmarSenha.setFont(FontsConstants.MONTSERRAT_LIGHT_10);
+		campoConfirmarSenha.setColumns(10);
+		panelBranco.add(campoConfirmarSenha);
 		
 		JLabel labelCadastro = new JLabel("Cadastro de Usuário");
 		labelCadastro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,7 +287,7 @@ public class TelaCadastro extends JFrame {
 	    panelBranco.add(labelConfirmarSenha);
 
         cBoxTipoUsuario = new EstilizacaoRedonda.ComboBoxRedondo<>(new String[]{"ADMIN", "ATENDENTE"}, corPaletaBege, corPaletaVermelho, 2, 20);
-        cBoxTipoUsuario.setFont(new Font("SansSerif", Font.PLAIN, 17));
+        cBoxTipoUsuario.setFont(FontsConstants.MONTSERRAT_REGULAR_15);
 		cBoxTipoUsuario.setBounds(444, 140, 202, 23);
 		panelBranco.add(cBoxTipoUsuario);
 		
@@ -261,7 +320,7 @@ public class TelaCadastro extends JFrame {
 	private void limparCampos() {
 		campoLogin.setText("");
 		campoSenha.setText("");
-		CampoConfirmarSenha.setText("");
+		campoConfirmarSenha.setText("");
 		campoEmail.setText("");
 	}
 
