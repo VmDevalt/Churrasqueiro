@@ -11,11 +11,10 @@ import java.util.Properties;
 import java.util.Optional;
 
 public class PasswordRedefinerEmail {
-	private static Dotenv dotenv = Dotenv.load();
-	private static String remetente = dotenv.get("EMAIL");
-	private static String enderecoHost = dotenv.get("EMAIL_HOST_ADDRESS");
-	private static String nomeUsuario = dotenv.get("EMAIL");
-	private static String senhaUsuario = dotenv.get("EMAIL_PASSWORD");
+	private static String remetente = AppConfig.get("EMAIL");
+	private static String senhaUsuario = AppConfig.get("EMAIL_PASSWORD");
+	private static String enderecoHost = AppConfig.get("EMAIL_HOST_ADDRESS");
+	private static String nomeUsuario = AppConfig.get("EMAIL_NAME");
 
 	public static void enviarEmail(String token, String destinatario) throws DatabaseException {		
 		Properties props = new Properties();
