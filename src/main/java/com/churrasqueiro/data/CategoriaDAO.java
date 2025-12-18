@@ -114,4 +114,23 @@ public class CategoriaDAO {
         }
         return Optional.empty();
     }
+
+    public void atualizar(Categoria categoria) throws DatabaseException {
+    String sql = "UPDATE categorias_cardapio SET nome = ?, descricao = ? WHERE id = ?";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, categoria.getNome());
+        ps.setString(2, categoria.getDescricao());
+        ps.setInt(3, categoria.getId());
+
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao atualizar categoria: " + e.getMessage());
+        throw new DatabaseException("Falha ao atualizar categoria no banco de dados.");
+    }
+}
+
 }

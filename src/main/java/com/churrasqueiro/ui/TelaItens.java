@@ -386,24 +386,37 @@ public class TelaItens extends JFrame {
         botaoEditarGrupo.setFont(FontsConstants.MONTSERRAT_BOLD_18);
         botaoEditarGrupo.setForeground(Color.WHITE);
         panel.add(botaoEditarGrupo);
-        botaoEditarGrupo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UIManager.put("OptionPane.background", corPaletaBege);
-		        UIManager.put("Panel.background", corPaletaBege);
-		        UIManager.put("OptionPane.messageForeground", corPaletaVermelho);
-		        String[] itensGrupos = { "Hamburgueres", "Bebidas", "Acompanhamentos" };
-		        JComboBox<String> cBoxItensGrupo = new JComboBox<>(itensGrupos);
-		        Object[] opcoes = { "Avançar", "Cancelar" };
-		        int escolha = JOptionPane.showOptionDialog(
-		            TelaItens.this,"Selecione qual Grupo deseja editar", "Editar Grupo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
-		        if (escolha == 0) { 
-		            dispose();
-		            TelaEditarGrupo telaEditarGrupo = new TelaEditarGrupo();
-		            telaEditarGrupo.setVisible(true);
-		        }
-		    }
-		});
-       
+        botaoEditarGrupo.addActionListener(e -> {
+    try {
+        List<Categoria> categorias = categoriaController.listarTodas();
+
+        if (categorias.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum grupo cadastrado.");
+            return;
+        }
+
+        JComboBox<Categoria> combo = new JComboBox<>(
+            categorias.toArray(new Categoria[0])
+        );
+
+        int opcao = JOptionPane.showConfirmDialog(
+            this,
+            combo,
+            "Selecione o grupo",
+            JOptionPane.OK_CANCEL_OPTION
+        );
+
+        if (opcao == JOptionPane.OK_OPTION) {
+            Categoria selecionada = (Categoria) combo.getSelectedItem();
+            dispose();
+            new TelaEditarGrupo(selecionada).setVisible(true);
+        }
+
+    } catch (DatabaseException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar grupos.");
+    }
+});
+   
 
         this.campoPesquisa = new EstilizacaoRedonda.CaixaTextoRedonda(
                 "Digite...",
