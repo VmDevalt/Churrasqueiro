@@ -52,7 +52,6 @@ public class PasswordRedefinerEmail {
             	message.setContent(html, "text/html; charset=UTF-8");
 
             Transport.send(message);
-            System.out.println("[DEBUG]: E-mail enviado com sucesso!");
 
         } catch (MessagingException e) {
         	System.err.println("Erro no envio do E-mail: " + e.getMessage());
