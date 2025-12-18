@@ -142,7 +142,7 @@ public class TelaPixPagamento extends JFrame {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Pagamento confirmado (simulado) e pedido salvo com sucesso!",
+                        "Pagamento confirmado!",
                         "Sucesso",
                         JOptionPane.INFORMATION_MESSAGE
                 );
